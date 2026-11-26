@@ -445,6 +445,7 @@ footer a{color:var(--gold)}
 <footer class="band" style="padding-top:0"><div class="wrap">
 <div><b style="color:var(--gold);font-family:'Noto Sans Ethiopic'">ባላገር</b> Balager · balagerhub.com · Addis Ababa</div>
 <div><a href="mailto:hello@balagerhub.com">hello@balagerhub.com</a></div>
+<div id="visits" hidden></div>
 <div>Not a government service · Information, not legal or financial advice · We never hold your money</div>
 </div></footer>
 
@@ -598,6 +599,10 @@ slog.addEventListener("click",e=>{const a=e.target.closest("[data-go]");if(a){if
 $("sform").addEventListener("submit",e=>{e.preventDefault();const v=$("sin").value.trim();if(!v)return;$("sin").value="";say(esc(v),null,true);setTimeout(()=>answer(v),250)});
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&sp.classList.contains("open"))openS(false)});
 
+/* ---------- visit counter ---------- */
+const COUNTER_URL=""; // set to the Cloudflare Worker address, e.g. https://balager-counter.NAME.workers.dev
+if(COUNTER_URL){let first=true;try{first=!sessionStorage.getItem("bv");sessionStorage.setItem("bv","1")}catch(e){}
+fetch(COUNTER_URL+(first?"/hit":"/"),{cache:"no-store"}).then(r=>r.ok?r.json():Promise.reject()).then(j=>{if(j&&j.visits>0){const v=$("visits");v.textContent=j.visits.toLocaleString("en-US")+" visits since launch";v.hidden=false}}).catch(()=>{})}
 /* ---------- waiting list ---------- */
 $("wl").addEventListener("submit",e=>{e.preventDefault();const em=$("wlem").value.trim();
 const body=`Please add me to the waiting list for a Balager site verification visit.\n\nMy email: ${em}\nProperty location (area, city): \nWhat I want checked (progress, title, floors, other): \n`;
