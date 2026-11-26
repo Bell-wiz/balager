@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Balager Diaspora Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Noto+Sans+Ethiopic:wght@500;800&display=swap" rel="stylesheet">
+<style>
+/* VOICE everyday-trustworthy: a neighbour who checks the facts for you
+   IDEA a netela shawl: white cotton ground with a woven tibeb border carrying the colour
+   PICTURE the live "send money home" ranking card in the hero, framed by a tibeb band
+   COLOUR white / deep night ground; tibeb green #1d6b47 dominant, gold #e3a52b support, red #c7372f accent
+   TYPE Noto Sans Ethiopic 800 for Amharic, Manrope for Latin
+   LAYOUT nav; hero title left + ranking card right (stacks on phone); bands: money, property, moving home, about, footer */
+:root{color-scheme:light dark;--bg:light-dark(#ffffff,#0f1512);--ink:light-dark(#15201a,#eef3ef);--mute:light-dark(#56645b,#a8b5ad);--line:light-dark(#e3e8e4,#26322b);--soft:light-dark(#f3f7f4,#16201a);--g:#1d6b47;--gl:light-dark(#1d6b47,#5fc28f);--y:#e3a52b;--r:#c7372f;--card:light-dark(#ffffff,#141d18)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-padding-top:72px;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Manrope,system-ui,sans-serif;overflow-x:clip}
+a{color:var(--gl)}
+.am{font-family:"Noto Sans Ethiopic",Manrope,sans-serif}
+h1,h2,h3{line-height:1.08;letter-spacing:-.02em;margin:0;text-wrap:balance}
+h1{font-size:clamp(40px,7vw,76px);font-weight:800}
+h2{font-size:clamp(28px,3.6vw,40px);font-weight:800;margin-bottom:10px}
+h3{font-size:18px;font-weight:800;margin-bottom:6px}
+.wrap{max-width:1240px;margin:0 auto}
+.band{padding:clamp(36px,5vw,72px) max(5vw,16px)}
+.lede{color:var(--mute);max-width:62ch;margin:10px 0 0;font-size:17px}
+.tibeb{height:18px;width:100%;display:block}
+nav{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;gap:20px;padding:10px max(5vw,16px);flex-wrap:wrap}
+.logo{display:flex;align-items:baseline;gap:8px;text-decoration:none;color:var(--ink);font-weight:800;font-size:22px;margin-right:auto}
+.logo small{font:500 13px Manrope;color:var(--mute)}
+nav .links{display:flex;gap:4px;flex-wrap:wrap}
+nav .links a{color:var(--ink);text-decoration:none;font-weight:500;padding:10px 12px;border-radius:8px;min-height:44px;display:inline-flex;align-items:center}
+nav .links a:hover{background:var(--soft)}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 20px;border-radius:10px;background:var(--g);color:#fff;font:700 15px Manrope;text-decoration:none;border:0;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.btn:focus-visible,input:focus,select:focus,nav a:focus-visible{outline:3px solid var(--y);outline-offset:2px}
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:clamp(24px,4vw,56px);align-items:center}
+.name{font-size:clamp(64px,11vw,128px);line-height:1;font-weight:800;color:var(--g)}
+:root[data-theme=dark] .name{color:var(--gl)}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]) .name{color:var(--gl)}}
+.meaning{font-size:20px;margin:8px 0 18px}
+.meaning b{color:var(--r)}
+.cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+.pledge{display:flex;gap:18px;flex-wrap:wrap;margin-top:26px;color:var(--mute);font-size:14px}
+.pledge span::before{content:"";display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--y);margin-right:7px;vertical-align:1px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:0 1px 0 var(--line);overflow:hidden}
+.card .in{padding:clamp(16px,2.4vw,26px)}
+.send{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.send label{font-weight:700}
+input,select{font:16px Manrope;color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;min-height:46px}
+#amt{width:8.5em}
+.rank{list-style:none;margin:0;padding:0}
+.rank li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;padding:11px 0;border-top:1px solid var(--line)}
+.rank .who{font-weight:700}
+.rank .how{color:var(--mute);font-size:13px;grid-column:1}
+.rank .got{font-weight:800;font-size:18px;text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;grid-row:1/3;grid-column:2;align-self:center}
+.rank .bar{grid-column:1/-1;height:6px;border-radius:3px;background:var(--soft);overflow:hidden}
+.rank .bar i{display:block;height:100%;background:var(--g)}
+.rank li.top .bar i{background:var(--y)}
+.rank li.na .got{color:var(--mute);font-weight:500;font-size:14px}
+.small{font-size:13px;color:var(--mute)}
+.tag{display:inline-block;font-size:13px;font-weight:700;border-radius:20px;padding:2px 10px;background:color-mix(in srgb,var(--y) 25%,transparent)}
+.alt{background:var(--soft)}
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;margin-top:24px}
+.scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+th{font-size:13px;color:var(--mute);font-weight:500;text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
+td{padding:10px;border-bottom:1px solid var(--line)}
+td.n,th.n{text-align:right;white-space:nowrap}
+.sc td{height:52px;font-weight:800}
+.sc td.s{text-align:center;color:#13201a;border:3px solid var(--card);border-radius:8px}
+.sc td.na{background:var(--soft);color:var(--mute);font-weight:500}
+.sc .nm{font-weight:700}
+.sc .nm small{display:block;font-weight:500;color:var(--mute)}
+.legend{display:flex;gap:6px;align-items:center;font-size:13px;color:var(--mute);margin-top:12px;flex-wrap:wrap}
+.legend i{width:22px;height:12px;border-radius:3px;display:inline-block}
+.offer{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:24px;align-items:center;margin-top:28px;background:var(--g);color:#fff;border-radius:16px;padding:clamp(20px,3vw,36px)}
+.offer h3{font-size:clamp(22px,2.6vw,30px)}
+.offer p{margin:6px 0;color:#e5f2ea}
+.offer .price{font-size:clamp(36px,5vw,52px);font-weight:800;color:var(--y);line-height:1}
+.offer form{display:flex;gap:8px;flex-wrap:wrap}
+.offer input{flex:1 1 200px;background:#fff;color:#15201a;border-color:transparent}
+.offer .btn{background:var(--y);color:#15201a}
+#okmsg{font-size:14px;margin-top:8px;min-height:1.5em}
+.check{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px;list-style:none;padding:0;margin:20px 0 0}
+.check li{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--g);border-radius:10px;padding:14px 16px}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:24px}
+.cards article{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+.cards article p{margin:4px 0 0;color:var(--mute)}
+.cards .warn{border-color:var(--r)}
+.cards .warn h3{color:var(--r)}
+.about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px;align-items:start}
+.word{font-size:clamp(44px,6vw,72px);font-weight:800;line-height:1.1}
+.word small{display:block;font:500 16px Manrope;color:var(--mute);margin-top:6px}
+.rules{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.rules li{padding:14px 16px;border-radius:10px;background:var(--card);border:1px solid var(--line)}
+footer{background:#0f1512;color:#cfdad3}
+footer .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px}
+footer a{color:#ffd27a}
+footer h3{color:#fff}
+@media(max-width:860px){.hero,.grid2,.offer,.about{grid-template-columns:minmax(0,1fr)}.cards{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+@media(max-width:600px){.cards{grid-template-columns:minmax(0,1fr)}nav .links a{padding:8px}table{font-size:14px}th,td{padding:7px 5px}.sc td{height:46px}.sc .nm small{display:none}}
+@media(prefers-reduced-motion:no-preference){.rank .bar i{transition:width .5s ease}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<pattern id="tb" width="36" height="18" patternUnits="userSpaceOnUse">
+<rect width="36" height="18" fill="#1d6b47"/><rect y="0" width="36" height="2" fill="#e3a52b"/><rect y="16" width="36" height="2" fill="#e3a52b"/>
+<path d="M0 9 L9 4 L18 9 L9 14Z" fill="#e3a52b"/><path d="M18 9 L27 4 L36 9 L27 14Z" fill="#c7372f"/><path d="M6 9 L9 7.3 L12 9 L9 10.7Z" fill="#fff"/><path d="M24 9 L27 7.3 L30 9 L27 10.7Z" fill="#fff"/>
+</pattern></defs></svg>
+
+<nav aria-label="Main"><div class="wrap">
+<a class="logo am" href="#top">ባላገር <small>Balager</small></a>
+<div class="links"><a href="#money">Money</a><a href="#property">Property</a><a href="#moving">Moving home</a><a href="#about">About</a></div>
+</div></nav>
+
+<svg class="tibeb" aria-hidden="true"><rect width="100%" height="18" fill="url(#tb)"/></svg>
+
+<header class="band" id="top"><div class="wrap hero">
+<div>
+<div class="name am">ባላገር</div>
+<p class="meaning am"><b>ባለ ሀገር</b> · the one the country belongs to</p>
+<h1 style="font-size:clamp(28px,3.4vw,40px)">Independent help for Ethiopians abroad with money, property and moving home</h1>
+<p class="lede">Daily exchange and remittance rates, scorecards on real estate developers, and plain guides to the rules. No one can pay us to change a score.</p>
+<div class="cta"><a class="btn" href="#property">Check a developer</a><a class="btn ghost" href="#money">Compare today's rates</a></div>
+<div class="pledge"><span>Every claim sourced</span><span>Scores never for sale</span><span>Developers get a right of reply</span></div>
+</div>
+<div class="card" aria-label="Send money home comparison">
+<svg class="tibeb" aria-hidden="true"><rect width="100%" height="18" fill="url(#tb)"/></svg>
+<div class="in">
+<div class="send"><label for="amt">Send</label><input id="amt" inputmode="decimal" value="500" aria-label="Amount in US dollars"><span>US dollars home. Who gives the most birr?</span></div>
+<ol class="rank" id="rank"></ol>
+<p class="small" style="margin:10px 0 0">Bureau rate from the Addis Forex Board, 26 Nov. App rates are snapshots from comparison sites (Taptap and Xe July 2026; Remitly undated) until we collect their quotes daily.</p>
+</div></div>
+</div></header>
+
+<section class="band alt" id="money"><div class="wrap">
+<h2>Money</h2>
+<p class="lede">Bureau cash rates and remittance apps side by side, measured against the National Bank's auction rate.</p>
+<div class="grid2">
+<div class="card"><div class="in">
+<h3>Forex bureau cash rates, USD, <span data-date>26 Nov</span></h3>
+<div class="scroll"><table><thead><tr><th>Bureau</th><th class="n">Buys</th><th class="n">Sells</th><th class="n">vs NBE</th></tr></thead><tbody id="fx"></tbody></table></div>
+<p class="small">From the <a href="https://forex.mabellesystems.com">Addis Forex Board</a>, read from each bureau's own site on the morning of 26 Nov 2026. Bureaus pay about 14% more than the NBE rate for cash dollars. Some selling rates exclude a 0.5–2% fee. A dated tag means the bureau hasn't updated since then.</p>
+<p class="small" style="border-left:3px solid var(--y);padding-left:10px"><b>Visiting?</b> Change cash dollars at any licensed bureau. If you stay more than 90 days, foreign cash you still hold must go into a non-resident foreign-currency account within 90 days of your entry stamp. People living in Ethiopia have 30 days to convert.</p>
+</div></div>
+<div class="card"><div class="in">
+<h3>Remittance apps (NBE-licensed only)</h3>
+<div class="scroll"><table><thead><tr><th>App</th><th>Arrives in</th><th class="n">Rate</th></tr></thead><tbody>
+<tr><td>CBE Connect</td><td>CBE and other banks</td><td class="n small">Asking CBE</td></tr>
+<tr><td>telebirr Remit</td><td>telebirr wallet</td><td class="n small">Asking Ethio telecom</td></tr>
+<tr><td>Taptap Send</td><td>Bank, wallet</td><td class="n">174.00</td></tr>
+<tr><td>Remitly</td><td>Bank, telebirr</td><td class="n">181.00 + $5</td></tr>
+<tr><td>Xe</td><td>Bank</td><td class="n">153.20</td></tr>
+<tr><td>Cash at a bureau, 26 Nov</td><td>Best of 8 bureaus</td><td class="n">183.08</td></tr><tr><td>NBE indicative, 26 Nov</td><td>Benchmark</td><td class="n">160.79</td></tr>
+</tbody></table></div>
+<p class="small">CBE Connect and telebirr Remit take card payments but don't publish their rates yet. We've asked them to.</p>
+</div></div>
+</div>
+</div></section>
+
+<section class="band" id="property"><div class="wrap">
+<h2>Property: know your developer before you pay</h2>
+<p class="lede">Each Addis developer is scored on homes actually handed over, its dispute record and its financial strength, with every score linked to a court record or published report.</p>
+<div class="card" style="margin-top:22px"><div class="in">
+<div class="scroll"><table class="sc"><thead><tr><th>Developer</th><th style="text-align:center">Delivered</th><th style="text-align:center">Disputes</th><th style="text-align:center">Finances</th><th class="n">Score</th></tr></thead><tbody id="sc"></tbody></table></div>
+<div class="legend"><span>1 Storm</span><i style="background:#e8452c"></i><i style="background:#f0954a"></i><i style="background:#f7e463"></i><i style="background:#9ad6a0"></i><i style="background:#4fc1c6"></i><span>5 Clear</span><i style="background:var(--soft);border:1px solid var(--line)"></i><span>Not enough data</span></div>
+<p class="small">Provisional scores from a desk review on 23 Nov 2026. "No dispute found" is capped at 4 until court registries are checked. <a href="https://claude.ai/artifact/NYrjU5G5o8ptmKHSN3XcoM">See the evidence behind each score</a>.</p>
+</div></div>
+
+<div class="offer">
+<div><h3>Someone you trust at the site</h3><p>A vetted engineer visits your building or plot, photographs it, checks progress against your contract and sends you a dated report.</p><p class="price">from $100</p></div>
+<div><form id="wait"><label for="em" class="small" style="color:#e5f2ea;flex-basis:100%">Join the waiting list for the first visits</label><input id="em" type="email" placeholder="you@example.com" autocomplete="email" required><button class="btn" type="submit">Join</button></form><div id="okmsg" role="status"></div></div>
+</div>
+
+<h3 style="margin-top:36px">Before you pay a deposit</h3>
+<ul class="check">
+<li><b>Developer licence.</b> Every developer needs a qualification licence (Proclamation 1357/2024).</li>
+<li><b>Escrow only.</b> Your money goes into escrow and is released stage by stage once each is verified.</li>
+<li><b>The 80% rule.</b> A unit can't be transferred before 80% completion unless you both agree.</li>
+<li><b>Title and permit.</b> See the land deed and building permit for the actual plot.</li>
+<li><b>Repricing clauses.</b> Look for any wording that lets the developer raise the price for input costs.</li>
+</ul>
+</div></section>
+
+<section class="band alt" id="moving"><div class="wrap">
+<h2>Moving home, partly or fully</h2>
+<p class="lede">The rules as of November 2026. Each guide shows the date it was last checked.</p>
+<div class="cards">
+<article><h3>Yellow Card</h3><p>Live and work without a visa, residence permit or work permit. Invest as a domestic investor and own property.</p></article>
+<article><h3>Household goods</h3><p>Personal effects used for 12+ months come in duty-free with proof of a year or more abroad. Vehicles are excluded.</p></article>
+<article class="warn"><h3>Bringing a car</h3><p>Petrol and diesel car imports have been banned since January 2024, and the returnee route is closed. Fully built EVs pay 15% duty.</p></article>
+<article><h3>Starting a business</h3><p>Duty-free capital goods for approved projects. Diaspora traders can import under the new Franco Valuta rules.</p></article>
+<article><h3>Buying a home</h3><p>Diaspora home loans of up to 80% are on offer, and the scorecard above shows who delivers.</p></article>
+<article><h3>Banking and cash</h3><p>Open a non-resident foreign-currency account. Staying past 90 days? Deposit your foreign cash there within 90 days of arrival. Once you live here, you have 30 days to convert.</p></article>
+</div>
+<p class="small" style="margin-top:14px">Tax on foreign pensions and salaries is still being reviewed with a tax adviser and will be published once checked.</p>
+</div></section>
+
+<section class="band" id="about"><div class="wrap about">
+<div>
+<div class="word am">ባላገር<small>Everyone writes it ባላገር. It comes from ባለ ሀገር: the one the country belongs to.</small></div>
+<p class="lede">Wherever you live now, you still have a stake at home. Balager is the place to check the facts before you send money, buy a home or move back.</p>
+</div>
+<div><h3>How we stay independent</h3>
+<ul class="rules">
+<li>Scores and rankings can't be bought. A developer can pay for a profile or a right of reply, and it never changes a number.</li>
+<li>Every score links to its source: a court record, a published report or a dated site visit.</li>
+<li>Rates show the time they were collected and who supplied them.</li>
+<li>We earn from site visits, premium alerts and clearly labelled referral links.</li>
+</ul></div>
+</div></section>
+
+<svg class="tibeb" aria-hidden="true"><rect width="100%" height="18" fill="url(#tb)"/></svg>
+<footer class="band"><div class="wrap">
+<div><div class="logo am" style="color:#fff">ባላገር <small style="color:#cfdad3">balagerhub.com</small></div><p>Addis Ababa, Ethiopia</p></div>
+<div><h3>Sections</h3><p><a href="#money">Money</a> · <a href="#property">Property</a> · <a href="#moving">Moving home</a> · <a href="#about">About</a></p></div>
+<div><h3>Contact</h3><p>hello@balagerhub.com</p><p class="small" style="color:#a8b5ad">Information only, not financial or legal advice. Sample figures are marked.</p></div>
+</div></footer>
+
+<script>
+{
+const apps=[
+{n:"Remitly",h:"Bank or telebirr · undated snapshot",rate:181,fee:5},
+{n:"Taptap Send",h:"Bank or wallet · no fee · July 2026",rate:174,fee:0},
+{n:"Xe",h:"Bank · no fee · July 2026",rate:153.2,fee:0},
+{n:"Cash at Rooha Forex Bureau",h:"Only when you're in Ethiopia · today's best bureau, 26 Nov",rate:183.08,fee:0},
+{n:"CBE Connect",h:"Card payment · rate not published yet",rate:null},
+{n:"telebirr Remit",h:"Card payment · rate not published yet",rate:null}
+];
+let NBE=160.79;
+const $=id=>document.getElementById(id);
+const fmt=v=>"Br "+Math.round(v).toLocaleString("en-US");
+const draw=()=>{const a=parseFloat(String($("amt").value).replace(/[^0-9.]/g,""))||0;
+const got=apps.map(x=>({...x,v:x.rate==null?null:Math.max(0,(a-x.fee)*x.rate)}));
+const live=got.filter(x=>x.v!=null).sort((p,q)=>q.v-p.v),none=got.filter(x=>x.v==null);
+const max=Math.max(1,...live.map(x=>x.v),a*NBE);
+$("rank").innerHTML=live.map((x,i)=>`<li class="${i===0&&a>0?"top":""}"><span class="who">${x.n}</span><span class="got">${a?fmt(x.v):"—"}</span><span class="how">${x.h}</span><span class="bar"><i style="width:${(x.v/max*100).toFixed(1)}%"></i></span></li>`).join("")
++`<li><span class="who">NBE benchmark</span><span class="got">${a?fmt(a*NBE):"—"}</span><span class="how">NBE indicative rate, 26 Nov 2026</span><span class="bar"><i style="width:${(a*NBE/max*100).toFixed(1)}%;background:var(--mute)"></i></span></li>`
++none.map(x=>`<li class="na"><span class="who">${x.n}</span><span class="got">Asking for rate</span><span class="how">${x.h}</span></li>`).join("")};
+$("amt").addEventListener("input",draw);draw();
+
+let fx=[["Rooha",183.08,186.74,""],["Ammann",183.00,186.66,""],["Ethio",183.00,186.29,""],["Global",183.00,186.66,""],["Walia",183.00,186.66,""],["Taypay",183.00,186.66,""],["DBH",182.34,185.99,""],["Haron",182.00,185.64,"23 Nov"]];
+const drawFx=()=>{$("fx").innerHTML=fx.map(([n,b,s,st])=>{const d=b-NBE;return `<tr><td>${n}${st?` <span class="tag">${st}</span>`:""}${d<0?' <span class="tag" style="background:color-mix(in srgb,var(--r) 22%,transparent)">Doubtful</span>':""}</td><td class="n">${b.toFixed(2)}</td><td class="n">${s.toFixed(2)}</td><td class="n" style="color:${d<0?"var(--r)":"var(--gl)"}">${d>=0?"+":""}${d.toFixed(2)}</td></tr>`}).join("")+`<tr><td>NBE indicative</td><td class="n">${NBE.toFixed(2)}</td><td class="n">—</td><td class="n">—</td></tr>`;};drawFx();
+const NAMES={ammann:"Ammann",ayotan:"Ayotan",dbh:"DBH",ethio:"Ethio",fourx:"Four X",global:"Global",grace:"Grace General",haron:"Haron",robust:"Robust",rooha:"Rooha",sheba:"Sheba",sibrat:"Sibrat",taypay:"Taypay",walia:"Walia",yoga:"Yoga"};
+fetch("https://forex.mabellesystems.com/rates.json",{cache:"no-store"}).then(r=>r.ok?r.json():Promise.reject()).then(j=>{const day=j.days&&j.days[0];if(!day||!day.nbe||!day.quotes)return;
+const dt=new Date(day.date+"T00:00:00");const dlabel=dt.toLocaleDateString("en-GB",{day:"numeric",month:"short"});
+NBE=day.nbe.USD;
+fx=Object.entries(day.quotes).map(([k,q])=>{const u=q.rates&&q.rates.USD;if(!u)return null;const up=(q.updatedAt||"").slice(0,10);const stale=up&&up<day.date?new Date(up+"T00:00:00").toLocaleDateString("en-GB",{day:"numeric",month:"short"}):"";return [NAMES[k]||k,u.buy,u.sell,stale]}).filter(Boolean).sort((a,b)=>b[1]-a[1]);
+if(!fx.length)return;
+const best=fx.find(f=>!f[3])||fx[0];const app=apps.find(a=>a.n.startsWith("Cash at"));if(app){app.n="Cash at "+best[0]+" Forex Bureau";app.rate=best[1];app.h="Only when you're in Ethiopia · today's best bureau, "+dlabel}
+document.querySelectorAll("[data-date]").forEach(e=>e.textContent=dlabel);
+drawFx();draw()}).catch(()=>{});
+
+const C=["","#e8452c","#f0954a","#f7e463","#9ad6a0","#4fc1c6"];
+const D=[["Sunshine Construction","Since 1984",4,4,5],["Noah Real Estate","10+ years",5,2,4],["Aman Properties","5 years",2,4,3],["Tsehay Real Estate","Since 2011",3,2,3],["Flintstone Homes","Since 2008",3,1,3],["Ayat Real Estate","Since 1997",5,1,1],["Gift Real Estate","Since 2005",null,4,null],["Temer Properties","Since 2010 EC",null,4,null],["Jenboro Real Estate","",2,4,null]];
+const cell=v=>v==null?'<td class="na" style="text-align:center">?</td>':`<td class="s" style="background:${C[v]}">${v}</td>`;
+$("sc").innerHTML=D.map(([n,y,...v])=>{const k=v.filter(x=>x!=null),s=k.reduce((a,b)=>a+b,0)/k.length;return {n,y,v,s,c:k.length}}).sort((a,b)=>b.s-a.s||b.c-a.c).map(r=>`<tr><td class="nm">${r.n}<small>${r.y}</small></td>${r.v.map(cell).join("")}<td class="n">${r.s.toFixed(1)}<span class="small"> · ${r.c}/3</span></td></tr>`).join("");
+
+$("wait").addEventListener("submit",e=>{e.preventDefault();const v=$("em").value.trim();$("okmsg").textContent=v?"Thanks. This preview doesn't send yet, so nothing was saved; the live site will.":""});
+}
+</script>
+</body>
+</html>
