@@ -3,267 +3,484 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Balager Diaspora Hub</title>
+<title>ባላገር Balager · Home, handled from anywhere</title>
+<meta name="description" content="Independent help for Ethiopians abroad with money, property and paperwork at home: live forex and remittance rates, developer scorecards, site visits and plain-language guides.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Noto+Sans+Ethiopic:wght@500;800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@500;600;700&family=Instrument+Serif:ital@1&family=Noto+Sans+Ethiopic:wght@500;700&display=swap" rel="stylesheet">
 <style>
-/* VOICE everyday-trustworthy: a neighbour who checks the facts for you
-   IDEA a netela shawl: white cotton ground with a woven tibeb border carrying the colour
-   PICTURE the live "send money home" ranking card in the hero, framed by a tibeb band
-   COLOUR white / deep night ground; tibeb green #1d6b47 dominant, gold #e3a52b support, red #c7372f accent
-   TYPE Noto Sans Ethiopic 800 for Amharic, Manrope for Latin
-   LAYOUT nav; hero title left + ranking card right (stacks on phone); bands: money, property, moving home, about, footer */
-:root{color-scheme:light dark;--bg:light-dark(#ffffff,#0f1512);--ink:light-dark(#15201a,#eef3ef);--mute:light-dark(#56645b,#a8b5ad);--line:light-dark(#e3e8e4,#26322b);--soft:light-dark(#f3f7f4,#16201a);--g:#1d6b47;--gl:light-dark(#1d6b47,#5fc28f);--y:#e3a52b;--r:#c7372f;--card:light-dark(#ffffff,#141d18)}
-:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+/* VOICE everyday-trustworthy; Hiwot's design, rebranded as Balager
+   IDEA dusk over the highlands with a jebena: home, handled from far away; tibeb woven border as the brand mark
+   PICTURE her night scene in the hero, carrying the live "send $500" card
+   COLOUR night #090c0a bands, light #f6f5f0 reading bands, gold #f5c542, green #1f9d6b, rose #e0557a for the site visit
+   TYPE Sora headings, Inter text, Instrument Serif italic accents, Noto Sans Ethiopic
+   LAYOUT nav; hero; ticker; problem; roadmap tabs; money; verify; rules; pricing; rounds; name; CTA; footer. Phone: stacked, menu button */
+:root{--night:#090c0a;--night2:#111612;--nline:rgba(255,255,255,.09);--nink:#f2f1ec;--nmute:#b9c0b8;--bg:#f6f5f0;--card:#ffffff;--ink:#141814;--mute:#566057;--line:#e2e1da;--gold:#f5c542;--goldd:#a77a00;--green:#1f9d6b;--rose:#e0557a;--red:#c7372f}
 *{box-sizing:border-box;min-width:0}
-html{scroll-padding-top:72px;scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Manrope,system-ui,sans-serif;overflow-x:clip}
-a{color:var(--gl)}
-.am{font-family:"Noto Sans Ethiopic",Manrope,sans-serif}
-h1,h2,h3{line-height:1.08;letter-spacing:-.02em;margin:0;text-wrap:balance}
-h1{font-size:clamp(40px,7vw,76px);font-weight:800}
-h2{font-size:clamp(28px,3.6vw,40px);font-weight:800;margin-bottom:10px}
-h3{font-size:18px;font-weight:800;margin-bottom:6px}
-.wrap{max-width:1240px;margin:0 auto}
-.band{padding:clamp(36px,5vw,72px) max(5vw,16px)}
-.lede{color:var(--mute);max-width:62ch;margin:10px 0 0;font-size:17px}
-.tibeb{height:18px;width:100%;display:block}
-nav{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-nav .wrap{display:flex;align-items:center;gap:20px;padding:10px max(5vw,16px);flex-wrap:wrap}
-.logo{display:flex;align-items:baseline;gap:8px;text-decoration:none;color:var(--ink);font-weight:800;font-size:22px;margin-right:auto}
-.logo small{font:500 13px Manrope;color:var(--mute)}
-nav .links{display:flex;gap:4px;flex-wrap:wrap}
-nav .links a{color:var(--ink);text-decoration:none;font-weight:500;padding:10px 12px;border-radius:8px;min-height:44px;display:inline-flex;align-items:center}
-nav .links a:hover{background:var(--soft)}
-.btn{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 20px;border-radius:10px;background:var(--g);color:#fff;font:700 15px Manrope;text-decoration:none;border:0;cursor:pointer}
-.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
-.btn:focus-visible,input:focus,select:focus,nav a:focus-visible{outline:3px solid var(--y);outline-offset:2px}
-.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:clamp(24px,4vw,56px);align-items:center}
-.name{font-size:clamp(64px,11vw,128px);line-height:1;font-weight:800;color:var(--g)}
-:root[data-theme=dark] .name{color:var(--gl)}
-@media (prefers-color-scheme:dark){:root:not([data-theme=light]) .name{color:var(--gl)}}
-.meaning{font-size:20px;margin:8px 0 18px}
-.meaning b{color:var(--r)}
-.cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
-.pledge{display:flex;gap:18px;flex-wrap:wrap;margin-top:26px;color:var(--mute);font-size:14px}
-.pledge span::before{content:"";display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--y);margin-right:7px;vertical-align:1px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:0 1px 0 var(--line);overflow:hidden}
-.card .in{padding:clamp(16px,2.4vw,26px)}
-.send{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
-.send label{font-weight:700}
-input,select{font:16px Manrope;color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;min-height:46px}
-#amt{width:8.5em}
-.rank{list-style:none;margin:0;padding:0}
-.rank li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;padding:11px 0;border-top:1px solid var(--line)}
-.rank .who{font-weight:700}
-.rank .how{color:var(--mute);font-size:13px;grid-column:1}
-.rank .got{font-weight:800;font-size:18px;text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;grid-row:1/3;grid-column:2;align-self:center}
-.rank .bar{grid-column:1/-1;height:6px;border-radius:3px;background:var(--soft);overflow:hidden}
-.rank .bar i{display:block;height:100%;background:var(--g)}
-.rank li.top .bar i{background:var(--y)}
-.rank li.na .got{color:var(--mute);font-weight:500;font-size:14px}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,"Noto Sans Ethiopic",system-ui,sans-serif;overflow-x:clip}
+h1,h2,h3{font-family:Sora,Inter,sans-serif;letter-spacing:-.02em;line-height:1.08;margin:0;text-wrap:balance}
+h1{font-size:clamp(42px,6.4vw,76px);font-weight:700}
+h2{font-size:clamp(30px,4vw,46px);font-weight:700}
+h3{font-size:18px;font-weight:600}
+em.s{font-family:"Instrument Serif",serif;font-style:italic;font-weight:400;color:var(--goldd)}
+.dark em.s{color:var(--gold)}
+.am{font-family:"Noto Sans Ethiopic",Inter,sans-serif}
+a{color:inherit}
+.wrap{max-width:1200px;margin:0 auto}
+.band{padding:clamp(56px,8vw,110px) max(5vw,18px)}
+.dark{background:var(--night);color:var(--nink)}
+.eyebrow{font-size:13px;font-weight:600;color:var(--goldd);margin-bottom:14px}
+.dark .eyebrow{color:var(--gold)}
+.lede{font-size:18px;color:var(--mute);max-width:60ch;margin:16px 0 0}
+.dark .lede,.hero .lede{color:var(--nmute)}
 .small{font-size:13px;color:var(--mute)}
-.tag{display:inline-block;font-size:13px;font-weight:700;border-radius:20px;padding:2px 10px;background:color-mix(in srgb,var(--y) 25%,transparent)}
-.alt{background:var(--soft)}
-.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;margin-top:24px}
-.scroll{overflow-x:auto}
+.dark .small{color:var(--nmute)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 22px;border-radius:999px;font:600 15px Sora,Inter,sans-serif;text-decoration:none;border:1.5px solid transparent;cursor:pointer;background:var(--gold);color:#141814}
+.btn.ghost{background:transparent;color:inherit;border-color:currentColor;opacity:.9}
+.btn.rose{background:var(--rose);color:#fff}
+.btn:focus-visible,a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.tibeb{display:block;width:100%;height:14px}
+/* nav */
+header.top{position:sticky;top:0;z-index:20;background:rgba(9,12,10,.92);backdrop-filter:blur(10px);color:var(--nink);border-bottom:1px solid var(--nline)}
+.navin{display:flex;align-items:center;gap:16px;padding:10px max(5vw,18px);max-width:1290px;margin:0 auto}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;margin-right:auto}
+.brand b{font:700 24px "Noto Sans Ethiopic",sans-serif;color:var(--gold)}
+.brand span{font:600 15px Sora,sans-serif}
+.menu{display:flex;gap:2px}
+.menu a{text-decoration:none;font-size:15px;padding:10px 12px;border-radius:999px;color:var(--nmute)}
+.menu a:hover{color:var(--nink);background:rgba(255,255,255,.06)}
+.navcta{min-height:42px;padding:0 18px;font-size:14px}
+#mbtn{display:none;background:none;border:1px solid var(--nline);color:var(--nink);border-radius:12px;width:46px;height:44px;cursor:pointer}
+#mbtn span,#mbtn span::before,#mbtn span::after{display:block;width:18px;height:2px;background:currentColor;margin:auto;position:relative;content:""}
+#mbtn span::before{position:absolute;top:-6px}#mbtn span::after{position:absolute;top:6px}
+@media(max-width:860px){#mbtn{display:block}.navcta{display:none}.menu{display:none;position:absolute;left:0;right:0;top:100%;flex-direction:column;background:var(--night);padding:8px max(5vw,18px) 18px;border-bottom:1px solid var(--nline)}.menu.open{display:flex}.menu a{padding:14px 10px;border-radius:10px;font-size:17px}}
+/* hero */
+.hero{position:relative;overflow:hidden;background:var(--night);color:var(--nink)}
+.hero .scene{position:absolute;inset:0;width:100%;height:100%}
+.hero .in{position:relative;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(28px,5vw,64px);align-items:center;padding:clamp(48px,7vw,96px) max(5vw,18px) clamp(56px,7vw,100px);max-width:1290px;margin:0 auto}
+.pill{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--nmute);border:1px solid var(--nline);background:rgba(9,12,10,.6);border-radius:999px;padding:6px 14px;margin-bottom:22px}
+.pill i{width:8px;height:8px;border-radius:50%;background:#34d399;box-shadow:0 0 0 4px rgba(52,211,153,.18)}
+.meaning{font-size:17px;color:var(--nmute);margin:18px 0 0}
+.meaning b{font:700 20px "Noto Sans Ethiopic",sans-serif;color:var(--gold);margin-right:6px}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+.ticks{display:flex;gap:10px 22px;flex-wrap:wrap;margin-top:26px;font-size:14px;color:var(--nmute)}
+.ticks span::before{content:"✦ ";color:var(--gold)}
+.glass{background:rgba(17,22,18,.86);border:1px solid var(--nline);border-radius:20px;padding:20px 22px;backdrop-filter:blur(6px)}
+.glass+.glass{margin-top:14px}
+.ghead{display:flex;justify-content:space-between;font-size:12px;color:var(--nmute);margin-bottom:6px}
+.hrow{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:10px 0;border-top:1px solid var(--nline)}
+.hrow:first-of-type{border-top:0}
+.hrow b{font-weight:600}.hrow small{color:var(--nmute);font-size:12px;margin-left:6px}
+.hrow strong{font:600 20px Sora,sans-serif;white-space:nowrap;font-variant-numeric:tabular-nums}
+.hrow.best strong{color:#34d399}
+.dev{display:flex;gap:16px;align-items:center}
+.dev svg{flex:none}
+.dev .k{font-size:12px;color:var(--nmute)}.dev .t{font:600 16px Sora,sans-serif}.dev .g{font-size:13px;color:#34d399}
+/* ticker */
+.ticker{background:var(--night2);color:var(--nmute);border-block:1px solid var(--nline);overflow:hidden;white-space:nowrap;font-size:14px}
+.ticker .tr{display:inline-flex;gap:44px;padding:13px 0;animation:tick 48s linear infinite}
+.ticker b{color:var(--nink);font-weight:600;margin-right:6px}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.ticker .tr{animation:none;flex-wrap:wrap;white-space:normal;padding-inline:18px}html{scroll-behavior:auto}}
+/* problem */
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:40px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px}
+.stat .n{font:700 clamp(32px,3.6vw,42px) Sora,sans-serif;letter-spacing:-.03em}
+.stat p{margin:8px 0 10px}
+.stat .src{font-size:12px;color:var(--mute)}
+/* roadmap */
+.tabs{display:flex;gap:6px;flex-wrap:wrap;background:#ecebe4;border-radius:999px;padding:5px;width:max-content;max-width:100%;margin-top:26px}
+.tabs button{border:0;background:none;font:600 14px Sora,sans-serif;color:var(--mute);padding:10px 18px;border-radius:999px;cursor:pointer;min-height:42px}
+.tabs button[aria-selected=true]{background:var(--gold);color:#141814}
+.road{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,2fr);gap:20px;margin-top:22px;align-items:start}
+.tasks{display:grid;gap:10px}
+.tasks button{display:flex;justify-content:space-between;align-items:center;gap:10px;text-align:left;background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:14px 16px;cursor:pointer;font:inherit;color:inherit;min-height:56px}
+.tasks button b{display:block;font:600 15px Sora,sans-serif}
+.tasks button small{color:var(--mute)}
+.tasks button[aria-selected=true]{border-color:var(--gold);background:#fffbea}
+.badge{font-size:12px;font-weight:600;border-radius:999px;padding:3px 10px;background:#efeee7;white-space:nowrap}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:clamp(18px,3vw,30px)}
+.panel h3{font-size:24px}
+.panel h3 small{font:500 15px "Noto Sans Ethiopic",sans-serif;color:var(--mute);margin-left:8px}
+.facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:18px 0}
+.facts div{background:#f6f5f0;border-radius:12px;padding:10px 12px}
+.facts span{display:block;font-size:12px;color:var(--mute)}
+.facts b{font-size:14px;font-weight:600}
+.checks{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+.checks label{display:flex;gap:12px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:12px 14px;cursor:pointer}
+.checks input{width:20px;height:20px;accent-color:var(--green);flex:none}
+.checks input:checked+span{text-decoration:line-through;color:var(--mute)}
+.ready{float:right;font-size:13px;color:var(--green);font-weight:600}
+.watch{margin-top:16px;border:1px solid #f0c4cf;background:#fff4f6;border-radius:14px;padding:14px 16px}
+.watch b{font-size:13px;color:var(--rose)}
+.watch p{margin:4px 0 0}
+/* money */
+.mhead{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap}
+.amts{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.amts button{border:1px solid var(--nline);background:transparent;color:var(--nink);border-radius:999px;padding:0 18px;min-height:44px;font:600 14px Sora,sans-serif;cursor:pointer}
+.amts button[aria-pressed=true]{background:var(--gold);color:#141814;border-color:var(--gold)}
+.amts input{width:7.5em;min-height:44px;border-radius:999px;border:1px solid var(--nline);background:var(--night2);color:var(--nink);padding:0 16px;font:16px Inter}
+.tbl{background:var(--night2);border:1px solid var(--nline);border-radius:20px;margin-top:26px;overflow-x:auto}
 table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
-th{font-size:13px;color:var(--mute);font-weight:500;text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
-td{padding:10px;border-bottom:1px solid var(--line)}
-td.n,th.n{text-align:right;white-space:nowrap}
-.sc td{height:52px;font-weight:800}
-.sc td.s{text-align:center;color:#13201a;border:3px solid var(--card);border-radius:8px}
-.sc td.na{background:var(--soft);color:var(--mute);font-weight:500}
-.sc .nm{font-weight:700}
-.sc .nm small{display:block;font-weight:500;color:var(--mute)}
-.legend{display:flex;gap:6px;align-items:center;font-size:13px;color:var(--mute);margin-top:12px;flex-wrap:wrap}
-.legend i{width:22px;height:12px;border-radius:3px;display:inline-block}
-.offer{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:24px;align-items:center;margin-top:28px;background:var(--g);color:#fff;border-radius:16px;padding:clamp(20px,3vw,36px)}
-.offer h3{font-size:clamp(22px,2.6vw,30px)}
-.offer p{margin:6px 0;color:#e5f2ea}
-.offer .price{font-size:clamp(36px,5vw,52px);font-weight:800;color:var(--y);line-height:1}
-.offer form{display:flex;gap:8px;flex-wrap:wrap}
-.offer input{flex:1 1 200px;background:#fff;color:#15201a;border-color:transparent}
-.offer .btn{background:var(--y);color:#15201a}
-#okmsg{font-size:14px;margin-top:8px;min-height:1.5em}
-.check{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px;list-style:none;padding:0;margin:20px 0 0}
-.check li{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--g);border-radius:10px;padding:14px 16px}
-.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:24px}
-.cards article{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
-.cards article p{margin:4px 0 0;color:var(--mute)}
-.cards .warn{border-color:var(--r)}
-.cards .warn h3{color:var(--r)}
-.about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px;align-items:start}
-.word{font-size:clamp(44px,6vw,72px);font-weight:800;line-height:1.1}
-.word small{display:block;font:500 16px Manrope;color:var(--mute);margin-top:6px}
-.rules{list-style:none;padding:0;margin:0;display:grid;gap:10px}
-.rules li{padding:14px 16px;border-radius:10px;background:var(--card);border:1px solid var(--line)}
-footer{background:#0f1512;color:#cfdad3}
-footer .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px}
-footer a{color:#ffd27a}
-footer h3{color:#fff}
-@media(max-width:860px){.hero,.grid2,.offer,.about{grid-template-columns:minmax(0,1fr)}.cards{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
-@media(max-width:600px){.cards{grid-template-columns:minmax(0,1fr)}nav .links a{padding:8px}table{font-size:14px}th,td{padding:7px 5px}.sc td{height:46px}.sc .nm small{display:none}}
-@media(prefers-reduced-motion:no-preference){.rank .bar i{transition:width .5s ease}}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+th{font-size:12px;font-weight:500;color:var(--nmute);text-align:left;padding:14px 18px;border-bottom:1px solid var(--nline)}
+td{padding:14px 18px;border-bottom:1px solid var(--nline)}
+td small{color:var(--nmute);margin-left:6px;font-size:12px}
+.r{text-align:right;white-space:nowrap}
+tr.best td{background:rgba(52,211,153,.07)}
+tr.best .got{color:#34d399}
+.got{font:600 16px Sora,sans-serif}
+.soon{color:var(--nmute);font-size:14px}
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;margin-top:20px}
+.note{border-left:3px solid var(--gold);padding:4px 0 4px 14px;margin-top:14px;color:var(--nmute);font-size:14px}
+/* verify */
+.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:36px}
+.vcard{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:24px;display:flex;flex-direction:column}
+.vcard .k{font-size:12px;font-weight:600;color:var(--mute)}
+.vcard.visit{background:#2a1118;color:#fff;border-color:#55253a}
+.vcard.visit .k{color:#ffb3c6}
+.price{font:700 54px Sora,sans-serif;letter-spacing:-.03em;margin:8px 0 2px}
+.ticklist{list-style:none;padding:0;margin:14px 0 20px;display:grid;gap:8px}
+.ticklist li::before{content:"✓  ";color:#34d399;font-weight:700}
+.sc{width:100%;margin-top:12px;border-collapse:separate;border-spacing:3px}
+.sc td{padding:6px 8px;border:0;font-size:14px}
+.sc td.c{width:34px;text-align:center;font-weight:700;border-radius:6px;color:#141814}
+.sc td.na{background:#efeee7;color:var(--mute);font-weight:500}
+.sc td.v{text-align:right;font-weight:600;white-space:nowrap}
+.levels{list-style:none;padding:0;margin:12px 0 0;counter-reset:l;display:grid;gap:4px}
+.levels li{counter-increment:l;display:flex;gap:12px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line)}
+.levels li::before{content:counter(l);width:28px;height:28px;flex:none;border-radius:50%;border:1.5px solid var(--green);color:var(--green);display:grid;place-items:center;font-size:13px;font-weight:600}
+.wl{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto}
+.wl input{flex:1 1 180px;min-height:48px;border-radius:999px;border:0;padding:0 16px;font:16px Inter}
+#wlmsg{font-size:13px;margin-top:8px;min-height:1.4em;color:#ffd9e3}
+/* rules */
+.rules{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:32px}
+.rule{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px}
+.rule::before{content:"";display:block;width:28px;height:3px;background:var(--gold);margin-bottom:14px;border-radius:2px}
+.rule.warn::before{background:var(--red)}
+.rule p{margin:8px 0 10px;color:var(--mute)}
+/* pricing */
+.plans{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:34px}
+.plan{border:1px solid var(--nline);border-radius:20px;padding:24px;background:var(--night2)}
+.plan.prem{border-color:rgba(245,197,66,.5);background:linear-gradient(180deg,rgba(245,197,66,.12),var(--night2) 60%)}
+.plan.vis{border-color:rgba(224,85,122,.5);background:linear-gradient(180deg,rgba(224,85,122,.13),var(--night2) 60%)}
+.plan .k{font-size:12px;font-weight:600;color:var(--nmute)}
+.plan.prem .k{color:var(--gold)}.plan.vis .k{color:#ff9bb3}
+.plan .p{font:700 40px Sora,sans-serif;margin:10px 0 0}
+.plan ul{list-style:none;padding:0;margin:16px 0 0;display:grid;gap:8px;font-size:14px;color:var(--nmute)}
+.plan li::before{content:"✓  ";color:#34d399}
+/* rounds */
+.rounds{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid var(--nline);border-radius:20px;overflow:hidden;margin-top:30px}
+.round{padding:26px;border-left:1px solid var(--nline)}
+.round:first-child{border-left:0;background:rgba(245,197,66,.07)}
+.round .am{font-size:28px;font-weight:700;color:var(--gold)}
+.round h3{margin:6px 0 8px}
+.round p{margin:0;color:var(--nmute);font-size:14px}
+.round .now{font-size:12px;font-weight:600;color:#34d399}
+/* name */
+.name{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:center}
+.word{font:700 clamp(64px,10vw,120px)/1 "Noto Sans Ethiopic",sans-serif;color:var(--goldd)}
+.word small{display:block;font:500 18px Inter,sans-serif;color:var(--mute);margin-top:14px}
+.word small b{font-family:"Noto Sans Ethiopic";color:var(--ink)}
+/* final */
+.final{text-align:center;border:1px solid rgba(245,197,66,.35);border-radius:26px;padding:clamp(36px,6vw,70px) 20px;background:radial-gradient(ellipse at 50% 0%,rgba(245,197,66,.16),transparent 70%)}
+.final .cta{justify-content:center}
+footer{background:var(--night);color:var(--nmute);font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px 30px;flex-wrap:wrap;padding-top:26px;border-top:1px solid var(--nline)}
+footer a{color:var(--gold)}
+@media(max-width:960px){.hero .in{grid-template-columns:minmax(0,1fr)}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.road{grid-template-columns:minmax(0,1fr)}.tasks{grid-template-columns:repeat(2,minmax(0,1fr))}.three,.rules{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.plans{grid-template-columns:repeat(2,minmax(0,1fr))}.split,.name{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:600px){.stats,.tasks,.three,.rules,.plans,.rounds{grid-template-columns:minmax(0,1fr)}.round{border-left:0;border-top:1px solid var(--nline)}.round:first-child{border-top:0}.facts{grid-template-columns:repeat(2,minmax(0,1fr))}.tabs{border-radius:16px;width:auto}th,td{padding:11px 10px}td small{display:block;margin:2px 0 0}.mhide{display:none}h1{font-size:44px}}
+@media(prefers-reduced-motion:no-preference){.steam,.steam2,.steam3{animation:rise 4s ease-in-out infinite}.steam2{animation-delay:1.2s}.steam3{animation-delay:2.4s}@keyframes rise{0%,100%{opacity:.2;transform:translateY(4px)}50%{opacity:.8;transform:translateY(-4px)}}}
 </style>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
-<pattern id="tb" width="36" height="18" patternUnits="userSpaceOnUse">
-<rect width="36" height="18" fill="#1d6b47"/><rect y="0" width="36" height="2" fill="#e3a52b"/><rect y="16" width="36" height="2" fill="#e3a52b"/>
-<path d="M0 9 L9 4 L18 9 L9 14Z" fill="#e3a52b"/><path d="M18 9 L27 4 L36 9 L27 14Z" fill="#c7372f"/><path d="M6 9 L9 7.3 L12 9 L9 10.7Z" fill="#fff"/><path d="M24 9 L27 7.3 L30 9 L27 10.7Z" fill="#fff"/>
-</pattern></defs></svg>
+<pattern id="tb" width="36" height="14" patternUnits="userSpaceOnUse"><rect width="36" height="14" fill="#123d2b"/><rect width="36" height="1.5" fill="#f5c542"/><rect y="12.5" width="36" height="1.5" fill="#f5c542"/><path d="M0 7 L9 3 L18 7 L9 11Z" fill="#f5c542"/><path d="M18 7 L27 3 L36 7 L27 11Z" fill="#c7372f"/><path d="M6.5 7 L9 5.8 L11.5 7 L9 8.2Z" fill="#fff"/><path d="M24.5 7 L27 5.8 L29.5 7 L27 8.2Z" fill="#fff"/></pattern></defs></svg>
 
-<nav aria-label="Main"><div class="wrap">
-<a class="logo am" href="#top">ባላገር <small>Balager</small></a>
-<div class="links"><a href="#money">Money</a><a href="#property">Property</a><a href="#moving">Moving home</a><a href="#about">About</a></div>
-</div></nav>
-
-<svg class="tibeb" aria-hidden="true"><rect width="100%" height="18" fill="url(#tb)"/></svg>
-
-<header class="band" id="top"><div class="wrap hero">
-<div>
-<div class="name am">ባላገር</div>
-<p class="meaning am"><b>ባለ ሀገር</b> · the one the country belongs to</p>
-<h1 style="font-size:clamp(28px,3.4vw,40px)">Independent help for Ethiopians abroad with money, property and moving home</h1>
-<p class="lede">Daily exchange and remittance rates, scorecards on real estate developers, and plain guides to the rules. No one can pay us to change a score.</p>
-<div class="cta"><a class="btn" href="#property">Check a developer</a><a class="btn ghost" href="#money">Compare today's rates</a></div>
-<div class="pledge"><span>Every claim sourced</span><span>Scores never for sale</span><span>Developers get a right of reply</span></div>
+<header class="top">
+<div class="navin">
+<a class="brand" href="#top" aria-label="Balager home"><b>ባላገር</b><span>Balager</span></a>
+<nav class="menu" id="menu" aria-label="Main"><a href="#roadmap">Services</a><a href="#money">Rates</a><a href="#verify">Verify</a><a href="#moving">Moving home</a><a href="#pricing">Pricing</a></nav>
+<a class="btn navcta" href="#roadmap">Get started</a>
+<button id="mbtn" aria-label="Open menu" aria-expanded="false" aria-controls="menu"><span></span></button>
 </div>
-<div class="card" aria-label="Send money home comparison">
-<svg class="tibeb" aria-hidden="true"><rect width="100%" height="18" fill="url(#tb)"/></svg>
+<svg class="tibeb" aria-hidden="true"><rect width="100%" height="14" fill="url(#tb)"/></svg>
+</header>
+
+<section class="hero" id="top">
+<svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice" aria-hidden="true" class="scene">
+    <defs>
+      <linearGradient id="sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#090C0A"></stop><stop offset="0.55" stop-color="#14140F"></stop><stop offset="0.78" stop-color="#3A2614"></stop><stop offset="1" stop-color="#090C0A"></stop></linearGradient>
+      <radialGradient id="dawn" cx="0.68" cy="0.62" r="0.45"><stop offset="0" stop-color="#F5A742" stop-opacity="0.55"></stop><stop offset="0.5" stop-color="#C2602A" stop-opacity="0.18"></stop><stop offset="1" stop-color="#C2602A" stop-opacity="0"></stop></radialGradient>
+      <linearGradient id="m1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2A2A24"></stop><stop offset="1" stop-color="#121310"></stop></linearGradient>
+      <linearGradient id="m2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1A1C17"></stop><stop offset="1" stop-color="#0C0E0C"></stop></linearGradient>
+      <linearGradient id="fade" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#090C0A" stop-opacity="0.92"></stop><stop offset="0.5" stop-color="#090C0A" stop-opacity="0.35"></stop><stop offset="1" stop-color="#090C0A" stop-opacity="0.1"></stop></linearGradient>
+    </defs>
+    <rect width="1600" height="900" fill="url(#sk)"></rect>
+    <rect width="1600" height="900" fill="url(#dawn)"></rect>
+    <g fill="#fff"><circle cx="220" cy="90" r="1.2" opacity="0.6"></circle><circle cx="540" cy="60" r="1" opacity="0.5"></circle><circle cx="880" cy="120" r="1.4" opacity="0.7"></circle><circle cx="1180" cy="70" r="1" opacity="0.5"></circle><circle cx="1420" cy="150" r="1.3" opacity="0.6"></circle><circle cx="1010" cy="40" r="0.9" opacity="0.4"></circle><circle cx="1320" cy="230" r="1" opacity="0.4"></circle></g>
+    <path d="M0 560 L140 500 L230 515 L300 430 L420 430 L470 455 L560 400 L700 400 L760 440 L860 470 L960 380 L1120 380 L1180 420 L1270 445 L1350 390 L1460 390 L1520 430 L1600 420 L1600 900 L0 900 Z" fill="url(#m1)"></path>
+    <path d="M300 430 L420 430 M560 400 L700 400 M960 380 L1120 380 M1350 390 L1460 390" stroke="#F5C542" stroke-opacity="0.35" stroke-width="1.5"></path>
+    <path d="M0 640 L180 590 L340 610 L520 560 L700 600 L880 560 L1060 610 L1240 575 L1420 615 L1600 590 L1600 900 L0 900 Z" fill="url(#m2)"></path>
+    <path d="M0 640 L180 590 L340 610 L520 560 L700 600 L880 560 L1060 610 L1240 575 L1420 615 L1600 590" fill="none" stroke="#F5A742" stroke-opacity="0.18" stroke-width="1.2"></path>
+    <g fill="#0B0D0B">
+      <rect x="830" y="636" width="40" height="26"></rect><path d="M822 638 L850 604 L878 638 Z"></path>
+      <rect x="892" y="644" width="30" height="20"></rect><path d="M886 646 L907 620 L928 646 Z"></path>
+      <rect x="960" y="640" width="44" height="28"></rect><path d="M952 642 L982 604 L1012 642 Z"></path>
+      <rect x="1040" y="648" width="28" height="18"></rect><path d="M1034 650 L1054 626 L1074 650 Z"></path>
+      <path d="M760 668 L760 628 M760 632 L742 612 M760 636 L782 610" stroke="#0B0D0B" stroke-width="4"></path><ellipse cx="762" cy="606" rx="44" ry="9"></ellipse>
+    </g>
+    <g fill="#F5C542"><rect x="846" y="648" width="6" height="8" opacity="0.9"></rect><rect x="976" y="652" width="7" height="9" opacity="0.8"></rect><rect x="903" y="652" width="5" height="7" opacity="0.6"></rect></g>
+    <path d="M0 720 Q800 680 1600 715 L1600 900 L0 900 Z" fill="#090C0A"></path>
+    <g transform="translate(1210 560)">
+      <ellipse cx="80" cy="262" rx="230" ry="16" fill="#C2602A" opacity="0.18"></ellipse>
+      <path class="steam" d="M70 70 C60 50 84 36 72 14" stroke="#F2F1EC" stroke-opacity="0.5" stroke-width="2.5" fill="none" stroke-linecap="round"></path>
+      <path class="steam2" d="M88 74 C80 56 100 44 92 22" stroke="#F2F1EC" stroke-opacity="0.45" stroke-width="2" fill="none" stroke-linecap="round"></path>
+      <path class="steam3" d="M80 72 C92 54 70 42 82 18" stroke="#F2F1EC" stroke-opacity="0.4" stroke-width="2" fill="none" stroke-linecap="round"></path>
+      <path d="M68 140 L68 92 Q80 82 92 92 L92 140 Z" fill="#050605"></path>
+      <circle cx="80" cy="196" r="66" fill="#050605"></circle>
+      <path d="M18 180 Q-12 156 -22 124" stroke="#050605" stroke-width="12" fill="none" stroke-linecap="round"></path>
+      <path d="M136 162 Q174 186 144 232" stroke="#050605" stroke-width="10" fill="none"></path>
+      <path d="M22 200 Q80 226 138 200" stroke="#F5C542" stroke-opacity="0.7" stroke-width="2" fill="none"></path>
+      <path d="M68 92 Q80 82 92 92" stroke="#F5C542" stroke-opacity="0.6" stroke-width="1.5" fill="none"></path>
+      <ellipse cx="80" cy="262" rx="70" ry="7" fill="#F5762A" opacity="0.5"></ellipse>
+      <g fill="#050605" stroke="#F5C542" stroke-opacity="0.45" stroke-width="1.2"><path d="M180 228 L206 228 L202 252 L184 252 Z"></path><path d="M214 228 L240 228 L236 252 L218 252 Z"></path><path d="M248 228 L274 228 L270 252 L252 252 Z"></path></g>
+      <rect x="170" y="252" width="116" height="8" rx="2" fill="#1A120C"></rect>
+    </g>
+    <rect width="1600" height="900" fill="url(#fade)"></rect>
+  </svg>
 <div class="in">
-<div class="send"><label for="amt">Send</label><input id="amt" inputmode="decimal" value="500" aria-label="Amount in US dollars"><span>US dollars home. Who gives the most birr?</span></div>
-<ol class="rank" id="rank"></ol>
-<p class="small" style="margin:10px 0 0">Bureau rate from the Addis Forex Board, 26 Nov. App rates are snapshots from comparison sites (Taptap and Xe July 2026; Remitly undated) until we collect their quotes daily.</p>
-</div></div>
-</div></header>
-
-<section class="band alt" id="money"><div class="wrap">
-<h2>Money</h2>
-<p class="lede">Bureau cash rates and remittance apps side by side, measured against the National Bank's auction rate.</p>
-<div class="grid2">
-<div class="card"><div class="in">
-<h3>Forex bureau cash rates, USD, <span data-date>26 Nov</span></h3>
-<div class="scroll"><table><thead><tr><th>Bureau</th><th class="n">Buys</th><th class="n">Sells</th><th class="n">vs NBE</th></tr></thead><tbody id="fx"></tbody></table></div>
-<p class="small">From the <a href="https://forex.mabellesystems.com">Addis Forex Board</a>, read from each bureau's own site on the morning of 26 Nov 2026. Bureaus pay about 14% more than the NBE rate for cash dollars. Some selling rates exclude a 0.5–2% fee. A dated tag means the bureau hasn't updated since then.</p>
-<p class="small" style="border-left:3px solid var(--y);padding-left:10px"><b>Visiting?</b> Change cash dollars at any licensed bureau. If you stay more than 90 days, foreign cash you still hold must go into a non-resident foreign-currency account within 90 days of your entry stamp. People living in Ethiopia have 30 days to convert.</p>
-</div></div>
-<div class="card"><div class="in">
-<h3>Remittance apps (NBE-licensed only)</h3>
-<div class="scroll"><table><thead><tr><th>App</th><th>Arrives in</th><th class="n">Rate</th></tr></thead><tbody>
-<tr><td>CBE Connect</td><td>CBE and other banks</td><td class="n small">Asking CBE</td></tr>
-<tr><td>telebirr Remit</td><td>telebirr wallet</td><td class="n small">Asking Ethio telecom</td></tr>
-<tr><td>Taptap Send</td><td>Bank, wallet</td><td class="n">174.00</td></tr>
-<tr><td>Remitly</td><td>Bank, telebirr</td><td class="n">181.00 + $5</td></tr>
-<tr><td>Xe</td><td>Bank</td><td class="n">153.20</td></tr>
-<tr><td>Cash at a bureau, 26 Nov</td><td>Best of 8 bureaus</td><td class="n">183.08</td></tr><tr><td>NBE indicative, 26 Nov</td><td>Benchmark</td><td class="n">160.79</td></tr>
-</tbody></table></div>
-<p class="small">CBE Connect and telebirr Remit take card payments but don't publish their rates yet. We've asked them to.</p>
-</div></div>
-</div>
-</div></section>
-
-<section class="band" id="property"><div class="wrap">
-<h2>Property: know your developer before you pay</h2>
-<p class="lede">Each Addis developer is scored on homes actually handed over, its dispute record and its financial strength, with every score linked to a court record or published report.</p>
-<div class="card" style="margin-top:22px"><div class="in">
-<div class="scroll"><table class="sc"><thead><tr><th>Developer</th><th style="text-align:center">Delivered</th><th style="text-align:center">Disputes</th><th style="text-align:center">Finances</th><th class="n">Score</th></tr></thead><tbody id="sc"></tbody></table></div>
-<div class="legend"><span>1 Storm</span><i style="background:#e8452c"></i><i style="background:#f0954a"></i><i style="background:#f7e463"></i><i style="background:#9ad6a0"></i><i style="background:#4fc1c6"></i><span>5 Clear</span><i style="background:var(--soft);border:1px solid var(--line)"></i><span>Not enough data</span></div>
-<p class="small">Provisional scores from a desk review on 23 Nov 2026. "No dispute found" is capped at 4 until court registries are checked. <a href="https://claude.ai/artifact/NYrjU5G5o8ptmKHSN3XcoM">See the evidence behind each score</a>.</p>
-</div></div>
-
-<div class="offer">
-<div><h3>Someone you trust at the site</h3><p>A vetted engineer visits your building or plot, photographs it, checks progress against your contract and sends you a dated report.</p><p class="price">from $100</p></div>
-<div><form id="wait"><label for="em" class="small" style="color:#e5f2ea;flex-basis:100%">Join the waiting list for the first visits</label><input id="em" type="email" placeholder="you@example.com" autocomplete="email" required><button class="btn" type="submit">Join</button></form><div id="okmsg" role="status"></div></div>
-</div>
-
-<h3 style="margin-top:36px">Before you pay a deposit</h3>
-<ul class="check">
-<li><b>Developer licence.</b> Every developer needs a qualification licence (Proclamation 1357/2024).</li>
-<li><b>Escrow only.</b> Your money goes into escrow and is released stage by stage once each is verified.</li>
-<li><b>The 80% rule.</b> A unit can't be transferred before 80% completion unless you both agree.</li>
-<li><b>Title and permit.</b> See the land deed and building permit for the actual plot.</li>
-<li><b>Repricing clauses.</b> Look for any wording that lets the developer raise the price for input costs.</li>
-</ul>
-</div></section>
-
-<section class="band alt" id="moving"><div class="wrap">
-<h2>Moving home, partly or fully</h2>
-<p class="lede">The rules as of November 2026. Each guide shows the date it was last checked.</p>
-<div class="cards">
-<article><h3>Yellow Card</h3><p>Live and work without a visa, residence permit or work permit. Invest as a domestic investor and own property.</p></article>
-<article><h3>Household goods</h3><p>Personal effects used for 12+ months come in duty-free with proof of a year or more abroad. Vehicles are excluded.</p></article>
-<article class="warn"><h3>Bringing a car</h3><p>Petrol and diesel car imports have been banned since January 2024, and the returnee route is closed. Fully built EVs pay 15% duty.</p></article>
-<article><h3>Starting a business</h3><p>Duty-free capital goods for approved projects. Diaspora traders can import under the new Franco Valuta rules.</p></article>
-<article><h3>Buying a home</h3><p>Diaspora home loans of up to 80% are on offer, and the scorecard above shows who delivers.</p></article>
-<article><h3>Banking and cash</h3><p>Open a non-resident foreign-currency account. Staying past 90 days? Deposit your foreign cash there within 90 days of arrival. Once you live here, you have 30 days to convert.</p></article>
-</div>
-<p class="small" style="margin-top:14px">Tax on foreign pensions and salaries is still being reviewed with a tax adviser and will be published once checked.</p>
-</div></section>
-
-<section class="band" id="about"><div class="wrap about">
 <div>
-<div class="word am">ባላገር<small>Everyone writes it ባላገር. It comes from ባለ ሀገር: the one the country belongs to.</small></div>
-<p class="lede">Wherever you live now, you still have a stake at home. Balager is the place to check the facts before you send money, buy a home or move back.</p>
+<div class="pill"><i></i><span id="pilltxt">Best bureau today: Rooha 183.08 birr per dollar · NBE 160.79</span></div>
+<h1>Home, <em class="s">handled</em><br>from anywhere.</h1>
+<p class="lede" style="font-size:19px">Independent help with money, property and paperwork in Ethiopia, for Ethiopians abroad. Know the process. Verify the provider. Protect the payment.</p>
+<p class="meaning"><b>ባላገር</b>from ባለ ሀገር: the one the country belongs to.</p>
+<div class="cta"><a class="btn" href="#roadmap">What do you need to do? →</a><a class="btn ghost" href="#verify">Book a site visit</a></div>
+<div class="ticks"><span>Scores are never for sale</span><span>NBE-licensed channels only</span><span>Every check dated and signed</span></div>
 </div>
-<div><h3>How we stay independent</h3>
-<ul class="rules">
-<li>Scores and rankings can't be bought. A developer can pay for a profile or a right of reply, and it never changes a number.</li>
-<li>Every score links to its source: a court record, a published report or a dated site visit.</li>
-<li>Rates show the time they were collected and who supplied them.</li>
-<li>We earn from site visits, premium alerts and clearly labelled referral links.</li>
-</ul></div>
+<div>
+<div class="glass" aria-label="Birr received for 500 dollars">
+<div class="ghead"><span>YOU SEND $500</span><span>BIRR RECEIVED</span></div>
+<div id="herorows"></div>
+<div class="small" style="margin-top:8px">Bureau rate live from the Addis Forex Board. App rates are dated snapshots.</div>
+</div>
+<div class="glass dev">
+<svg width="64" height="64" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="42" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="10"/><circle cx="50" cy="50" r="42" fill="none" stroke="#f5c542" stroke-width="10" stroke-linecap="round" stroke-dasharray="264" stroke-dashoffset="74" transform="rotate(-90 50 50)"/><text x="50" y="58" text-anchor="middle" font-family="Sora" font-weight="700" font-size="26" fill="#f2f1ec">72</text></svg>
+<div><div class="k">EXAMPLE REPORT</div><div class="t">Site visit · Bole, Addis</div><div class="g">GPS ✓ 24 photos ✓ Signed ✓</div></div>
+</div>
+</div>
+</div>
+</section>
+
+<div class="ticker" aria-label="Today's rates"><div class="tr" id="tick"></div></div>
+
+<section class="band" id="problem"><div class="wrap">
+<div class="eyebrow">The problem</div>
+<h2>“How can I know this is <em class="s">real</em> when I’m not in Ethiopia?”</h2>
+<p class="lede">The diaspora sends billions home, but every big step (an ID, a house, a power of attorney, an inheritance) still depends on information you can’t check and people you can’t see.</p>
+<div class="stats">
+<div class="stat"><div class="n" style="color:var(--goldd)">$8.2bn</div><p>sent home by the diaspora in 2025/26, up from $7.1bn</p><div class="src">Ethiopian Diaspora Service, Sep 2026</div></div>
+<div class="stat"><div class="n" style="color:var(--rose)">2,703</div><p>housing units one developer sold, mostly to diaspora buyers, before work stalled</p><div class="src">The Reporter, Access Real Estate</div></div>
+<div class="stat"><div class="n">6–8%</div><p>average cost of sending money from the US and UK</p><div class="src">World Bank Remittance Prices</div></div>
+<div class="stat"><div class="n">16.2%</div><p>parallel-market premium at the end of September 2026, pulling money into risky channels</p><div class="src">Capital Ethiopia, Nov 2026</div></div>
+</div>
 </div></section>
 
-<svg class="tibeb" aria-hidden="true"><rect width="100%" height="18" fill="url(#tb)"/></svg>
-<footer class="band"><div class="wrap">
-<div><div class="logo am" style="color:#fff">ባላገር <small style="color:#cfdad3">balagerhub.com</small></div><p>Addis Ababa, Ethiopia</p></div>
-<div><h3>Sections</h3><p><a href="#money">Money</a> · <a href="#property">Property</a> · <a href="#moving">Moving home</a> · <a href="#about">About</a></p></div>
-<div><h3>Contact</h3><p>hello@balagerhub.com</p><p class="small" style="color:#a8b5ad">Information only, not financial or legal advice. Sample figures are marked.</p></div>
+<section class="band" id="roadmap" style="background:#efeee8"><div class="wrap">
+<div class="eyebrow">Your coming-home roadmap</div>
+<h2>What do you need <em class="s">to do?</em></h2>
+<p class="lede">Pick a goal and get the documents, the office, the official route and the common mistakes. Tick things off as you go.</p>
+<div class="tabs" role="tablist" id="tabs"></div>
+<div class="road"><div class="tasks" role="tablist" id="tasks"></div><div class="panel" id="panel" role="tabpanel"></div></div>
+</div></section>
+
+<section class="band dark" id="money"><div class="wrap">
+<div class="mhead">
+<div><div class="eyebrow">Money · free, updated daily</div>
+<h2>How many birr <em class="s">actually</em> arrive?</h2>
+<p class="lede">Licensed channels only, ranked by birr received after fees.</p></div>
+<div class="amts" id="amts"><button>$200</button><button aria-pressed="true">$500</button><button>$1,000</button><button>$5,000</button><input id="amt" inputmode="decimal" aria-label="Other amount in US dollars" placeholder="Other $"></div>
+</div>
+<div class="tbl"><table><thead><tr><th>Channel</th><th class="mhide">Arrives in</th><th>Rate · fee</th><th class="r">Recipient gets</th></tr></thead><tbody id="mtable"></tbody></table></div>
+<div class="split">
+<div class="tbl" style="margin-top:0"><table><thead><tr><th>Forex bureau, cash USD <span id="bdate"></span></th><th class="r">Buys</th><th class="r">Sells</th></tr></thead><tbody id="btable"></tbody></table></div>
+<div>
+<h3 style="margin-top:6px">Visiting? Change cash at a bureau</h3>
+<p class="lede" style="font-size:16px">Licensed bureaus pay about <b id="prem" style="color:var(--gold)">14%</b> more than the NBE rate for cash dollars, close to the parallel market but legal and with a receipt.</p>
+<p class="note">Staying more than 90 days? Foreign cash you still hold must go into a non-resident foreign-currency account within 90 days of your entry stamp. People living in Ethiopia have 30 days to convert.</p>
+<p class="note">Some bureau selling rates exclude a 0.5–2% service fee. CBE Connect and telebirr Remit take card payments but don’t publish their rates yet. We’ve asked them to.</p>
+<p class="small">Bureau rates from the <a href="https://forex.mabellesystems.com" style="color:var(--gold)">Addis Forex Board</a>, read from each bureau’s own site every morning.</p>
+</div>
+</div>
+</div></section>
+
+<section class="band" id="verify"><div class="wrap">
+<div class="eyebrow">Property · where trust is earned</div>
+<h2>We show what was checked, <em class="s">by whom,</em> and when.</h2>
+<div class="three">
+<div class="vcard">
+<div class="k">DEVELOPER SCORECARD · FREE</div>
+<h3 style="margin:8px 0 4px">Built from evidence, not ads</h3>
+<p class="small" style="margin:0">Homes handed over, court record and finances, scored 1–5 from court records and published reports. Developers get a right of reply, never a better score.</p>
+<table class="sc"><tbody id="sc"></tbody></table>
+<p class="small" style="margin:10px 0 0">Desk review, 23 Nov 2026. Grey = not enough data. “No dispute found” is capped at 4 until court registries are checked.</p>
+</div>
+<div class="vcard visit">
+<div class="k">SITE VERIFICATION VISIT</div>
+<div class="price">~$100</div>
+<div style="color:#ffd9e3">$50–150 depending on location and scope</div>
+<ul class="ticklist"><li>GPS and time-stamped photos and video</li><li>Standard checklist, findings, limits</li><li>Inspector’s identity on a signed report</li><li>Delivered within 72 hours</li></ul>
+<form class="wl" id="wl"><input id="wlem" type="email" required placeholder="you@example.com" aria-label="Your email"><button class="btn rose" type="submit">Join the waiting list</button></form>
+<div id="wlmsg" role="status"></div>
+</div>
+<div class="vcard">
+<div class="k">SEVEN LEVELS · NEVER JUST “VERIFIED”</div>
+<ol class="levels"><li>Identity verified</li><li>Company verified</li><li>Documents reviewed</li><li>Land-office check</li><li>Physical inspection</li><li>Independent legal review</li><li>Payment protected</li></ol>
+<p class="small" style="margin:12px 0 0">Every badge says which levels were done, by whom and on what date.</p>
+</div>
+</div>
+</div></section>
+
+<section class="band" id="moving" style="background:#efeee8"><div class="wrap">
+<div class="eyebrow">Moving home · partly or fully</div>
+<h2>The rules, <em class="s">in plain words</em></h2>
+<p class="lede">As of November 2026. Confirm with a lawyer or tax adviser before acting.</p>
+<div class="rules">
+<div class="rule"><h3>Yellow Card</h3><p>Live and work with no visa, residence or work permit. Invest as a domestic investor and own property.</p><div class="small">Proclamation 270/2002</div></div>
+<div class="rule"><h3>Household goods, duty-free</h3><p>Personal effects used for 12+ months. Needs proof of a year or more abroad (passport stamps or an embassy letter). Vehicles are excluded.</p><div class="small">Directive 923/2014</div></div>
+<div class="rule warn"><h3>Bringing a car</h3><p>Petrol and diesel imports have been banned since January 2024, and the returnee route was closed. Electric vehicles only: 15% duty if fully built.</p><div class="small">Rules as of Nov 2026</div></div>
+<div class="rule"><h3>Starting a business</h3><p>Duty-free capital goods for approved projects. Diaspora traders can import under the Franco Valuta rules.</p><div class="small">FVD/01/2026</div></div>
+<div class="rule"><h3>Buying a home</h3><p>Yellow Card holders can own property. Foreign nationals can’t borrow locally. Diaspora home loans of up to 80% are on offer (Wegagen with Gift).</p><div class="small">Proclamation 1388/2025</div></div>
+<div class="rule"><h3>Banking and cash</h3><p>Open a non-resident foreign-currency account. Staying past 90 days? Deposit foreign cash there within 90 days of arrival.</p><div class="small"><a href="#money">See today’s rates</a></div></div>
+</div>
+<p class="small" style="margin-top:16px">Still being checked with a tax adviser: income tax on foreign pensions and salaries.</p>
+</div></section>
+
+<section class="band dark" id="pricing"><div class="wrap">
+<div class="eyebrow">Pricing · scores are never for sale</div>
+<h2>Free to check. <em class="s">Pay</em> when someone goes.</h2>
+<div class="plans">
+<div class="plan"><div class="k">FREE</div><div class="p">$0</div><div class="small">forever</div><ul><li>Forex board and daily rates</li><li>Remittance comparison</li><li>Checklists and scam check</li><li>Developer scorecard</li></ul></div>
+<div class="plan prem"><div class="k">PREMIUM</div><div class="p">$5</div><div class="small">per month</div><ul><li>Rate and deadline alerts</li><li>Full evidence files</li><li>Project tracker with monthly photos</li></ul></div>
+<div class="plan vis"><div class="k">SITE VISIT</div><div class="p">~$100</div><div class="small">$50–150 per visit</div><ul><li>Independent inspector</li><li>GPS photos and video</li><li>Signed report in 72 hours</li></ul></div>
+<div class="plan"><div class="k">FOR DEVELOPERS</div><div class="p">$500</div><div class="small">per year</div><ul><li>Profile and right of reply</li><li>Never changes your score</li><li>Labelled clearly</li></ul></div>
+</div>
+<div class="eyebrow" style="margin-top:70px">Three rounds, like a coffee ceremony</div>
+<div class="rounds">
+<div class="round"><div class="am">አቦል</div><h3>Abol · Money and trust</h3><div class="now">Now</div><p>Forex board, daily rates, remittance comparison, developer scorecard, paid site visits, ID and power-of-attorney guides.</p></div>
+<div class="round"><div class="am">ቶና</div><h3>Tona · Property and paperwork</h3><p>Project tracker, title deed check, agreement review, vetted directory, foreign-currency accounts, premium, document vault.</p></div>
+<div class="round"><div class="am">በረካ</div><h3>Bereka · End to end</h3><p>Bank-held milestone payments, escrow progress reports, Enkuan Stay link, diaspora bonds and stock guides.</p></div>
+</div>
+</div></section>
+
+<section class="band" id="name"><div class="wrap name">
+<div class="word">ባላገር<small>Everyone writes it ባላገር. It comes from <b>ባለ ሀገር</b>: the one the country belongs to.</small></div>
+<div><h2 style="font-size:clamp(26px,3vw,34px)">Wherever you live, you still have a stake at home.</h2>
+<p class="lede">Balager is where you check the facts before you send money, buy a home or move back. We never hold your money, and no developer can pay for a better score.</p></div>
+</div></section>
+
+<section class="band dark" style="padding-top:20px"><div class="wrap final">
+<h2>Come home with <em class="s">confidence.</em></h2>
+<p class="lede" style="margin-inline:auto">Daily rates and scam alerts are free. The first site visits open soon.</p>
+<div class="cta"><a class="btn" href="#verify">Join the waiting list</a><a class="btn ghost" href="#roadmap">Start my checklist</a></div>
+</div></section>
+
+<footer class="band" style="padding-top:0"><div class="wrap">
+<div><b style="color:var(--gold);font-family:'Noto Sans Ethiopic'">ባላገር</b> Balager · balagerhub.com · Addis Ababa</div>
+<div>Not a government service · Information, not legal or financial advice · We never hold your money</div>
 </div></footer>
 
 <script>
 {
-const apps=[
-{n:"Remitly",h:"Bank or telebirr · undated snapshot",rate:181,fee:5},
-{n:"Taptap Send",h:"Bank or wallet · no fee · July 2026",rate:174,fee:0},
-{n:"Xe",h:"Bank · no fee · July 2026",rate:153.2,fee:0},
-{n:"Cash at Rooha Forex Bureau",h:"Only when you're in Ethiopia · today's best bureau, 26 Nov",rate:183.08,fee:0},
-{n:"CBE Connect",h:"Card payment · rate not published yet",rate:null},
-{n:"telebirr Remit",h:"Card payment · rate not published yet",rate:null}
-];
-let NBE=160.79;
 const $=id=>document.getElementById(id);
-const fmt=v=>"Br "+Math.round(v).toLocaleString("en-US");
-const draw=()=>{const a=parseFloat(String($("amt").value).replace(/[^0-9.]/g,""))||0;
-const got=apps.map(x=>({...x,v:x.rate==null?null:Math.max(0,(a-x.fee)*x.rate)}));
-const live=got.filter(x=>x.v!=null).sort((p,q)=>q.v-p.v),none=got.filter(x=>x.v==null);
-const max=Math.max(1,...live.map(x=>x.v),a*NBE);
-$("rank").innerHTML=live.map((x,i)=>`<li class="${i===0&&a>0?"top":""}"><span class="who">${x.n}</span><span class="got">${a?fmt(x.v):"—"}</span><span class="how">${x.h}</span><span class="bar"><i style="width:${(x.v/max*100).toFixed(1)}%"></i></span></li>`).join("")
-+`<li><span class="who">NBE benchmark</span><span class="got">${a?fmt(a*NBE):"—"}</span><span class="how">NBE indicative rate, 26 Nov 2026</span><span class="bar"><i style="width:${(a*NBE/max*100).toFixed(1)}%;background:var(--mute)"></i></span></li>`
-+none.map(x=>`<li class="na"><span class="who">${x.n}</span><span class="got">Asking for rate</span><span class="how">${x.h}</span></li>`).join("")};
-$("amt").addEventListener("input",draw);draw();
+/* ---------- menu ---------- */
+const mb=$("mbtn"),menu=$("menu");
+mb.addEventListener("click",()=>{const o=menu.classList.toggle("open");mb.setAttribute("aria-expanded",String(o))});
+menu.addEventListener("click",e=>{if(e.target.tagName==="A"){menu.classList.remove("open");mb.setAttribute("aria-expanded","false")}});
 
-let fx=[["Rooha",183.08,186.74,""],["Ammann",183.00,186.66,""],["Ethio",183.00,186.29,""],["Global",183.00,186.66,""],["Walia",183.00,186.66,""],["Taypay",183.00,186.66,""],["DBH",182.34,185.99,""],["Haron",182.00,185.64,"23 Nov"]];
-const drawFx=()=>{$("fx").innerHTML=fx.map(([n,b,s,st])=>{const d=b-NBE;return `<tr><td>${n}${st?` <span class="tag">${st}</span>`:""}${d<0?' <span class="tag" style="background:color-mix(in srgb,var(--r) 22%,transparent)">Doubtful</span>':""}</td><td class="n">${b.toFixed(2)}</td><td class="n">${s.toFixed(2)}</td><td class="n" style="color:${d<0?"var(--r)":"var(--gl)"}">${d>=0?"+":""}${d.toFixed(2)}</td></tr>`}).join("")+`<tr><td>NBE indicative</td><td class="n">${NBE.toFixed(2)}</td><td class="n">—</td><td class="n">—</td></tr>`;};drawFx();
+/* ---------- rates ---------- */
 const NAMES={ammann:"Ammann",ayotan:"Ayotan",dbh:"DBH",ethio:"Ethio",fourx:"Four X",global:"Global",grace:"Grace General",haron:"Haron",robust:"Robust",rooha:"Rooha",sheba:"Sheba",sibrat:"Sibrat",taypay:"Taypay",walia:"Walia",yoga:"Yoga"};
-fetch("https://forex.mabellesystems.com/rates.json",{cache:"no-store"}).then(r=>r.ok?r.json():Promise.reject()).then(j=>{const day=j.days&&j.days[0];if(!day||!day.nbe||!day.quotes)return;
-const dt=new Date(day.date+"T00:00:00");const dlabel=dt.toLocaleDateString("en-GB",{day:"numeric",month:"short"});
-NBE=day.nbe.USD;
-fx=Object.entries(day.quotes).map(([k,q])=>{const u=q.rates&&q.rates.USD;if(!u)return null;const up=(q.updatedAt||"").slice(0,10);const stale=up&&up<day.date?new Date(up+"T00:00:00").toLocaleDateString("en-GB",{day:"numeric",month:"short"}):"";return [NAMES[k]||k,u.buy,u.sell,stale]}).filter(Boolean).sort((a,b)=>b[1]-a[1]);
-if(!fx.length)return;
-const best=fx.find(f=>!f[3])||fx[0];const app=apps.find(a=>a.n.startsWith("Cash at"));if(app){app.n="Cash at "+best[0]+" Forex Bureau";app.rate=best[1];app.h="Only when you're in Ethiopia · today's best bureau, "+dlabel}
-document.querySelectorAll("[data-date]").forEach(e=>e.textContent=dlabel);
-drawFx();draw()}).catch(()=>{});
+let R={date:"2026-11-26",nbe:160.79,bureaus:[["Rooha",183.08,186.74,""],["Ammann",183,186.66,""],["Ethio",183,186.29,""],["Global",183,186.66,""],["Walia",183,186.66,""],["Taypay",183,186.66,""],["DBH",182.34,185.99,""],["Haron",182,185.64,"23 Nov"]]};
+const apps=[
+{n:"Remitly",k:"International app",to:"Bank, telebirr",rate:181,fee:5,note:"181.00 + $5 fee (undated)"},
+{n:"Taptap Send",k:"International app",to:"Bank, mobile wallet",rate:174,fee:0,note:"174.00, no fee (Jul 2026)"},
+{n:"Xe",k:"International app",to:"Bank",rate:153.2,fee:0,note:"153.20, no fee (Jul 2026)"},
+{n:"CBE Connect",k:"CBE with StarPay",to:"Banks, USD wallet",rate:null,note:"In-app quote"},
+{n:"CBE EthioDirect",k:"CBE",to:"Bank, CBE Birr",rate:null,note:"In-app quote"},
+{n:"telebirr Remit",k:"Ethio Telecom",to:"telebirr wallet",rate:null,note:"In-app quote"},
+{n:"Awash / Abyssinia Remit",k:"Ethiopian banks",to:"Bank account",rate:null,note:"Collecting"},
+{n:"WorldRemit, Western Union",k:"International",to:"Bank, wallet, cash",rate:null,note:"Collecting"}];
+let amt=500;
+const day=d=>new Date(d+"T12:00:00").toLocaleDateString("en-GB",{day:"numeric",month:"short"});
+const br=v=>"ETB "+Math.round(v).toLocaleString("en-US");
+const best=()=>R.bureaus.find(b=>!b[3])||R.bureaus[0];
+function rows(){
+const b=best();
+const live=apps.filter(a=>a.rate!=null).map(a=>({...a,v:Math.max(0,(amt-a.fee)*a.rate)}));
+live.push({n:"Cash at "+b[0]+" bureau",k:"Only when you’re in Ethiopia",to:"Cash in hand",note:b[1].toFixed(2)+", "+day(R.date),v:amt*b[1],cash:1});
+live.sort((x,y)=>y.v-x.v);return {live,b}}
+function drawMoney(){
+const {live,b}=rows();
+$("mtable").innerHTML=live.map((a,i)=>`<tr class="${i===0?"best":""}"><td><b>${a.n}</b><small>${a.k}</small></td><td class="mhide">${a.to}</td><td>${a.note}</td><td class="r got">${amt?br(a.v):"—"}</td></tr>`).join("")
++apps.filter(a=>a.rate==null).map(a=>`<tr><td><b>${a.n}</b><small>${a.k}</small></td><td class="mhide">${a.to}</td><td>${a.note}</td><td class="r soon">Live soon</td></tr>`).join("")
++`<tr><td><b>NBE benchmark</b><small>Indicative rate</small></td><td class="mhide">—</td><td>${R.nbe.toFixed(2)} (${day(R.date)})</td><td class="r got">${amt?br(amt*R.nbe):"—"}</td></tr>`;
+$("herorows").innerHTML=apps.filter(a=>a.rate!=null).map(a=>({n:a.n,s:a.fee?"+$"+a.fee+" fee":"no fee",v:(500-a.fee)*a.rate})).concat([{n:b[0]+" bureau",s:"cash, in Ethiopia",v:500*b[1]}]).sort((x,y)=>y.v-x.v).slice(0,4).map((a,i)=>`<div class="hrow ${i===0?"best":""}"><span><b>${a.n}</b><small>${a.s}</small></span><strong>${Math.round(a.v).toLocaleString("en-US")}</strong></div>`).join("");
+}
+function drawBureaus(){
+$("btable").innerHTML=R.bureaus.map(([n,bu,se,st])=>`<tr><td><b>${n}</b>${st?`<small>last update ${st}</small>`:""}</td><td class="r">${bu.toFixed(2)}</td><td class="r">${se.toFixed(2)}</td></tr>`).join("")+`<tr><td><b>NBE indicative</b></td><td class="r">${R.nbe.toFixed(2)}</td><td class="r">—</td></tr>`;
+$("bdate").textContent="· "+day(R.date);
+const b=best();$("prem").textContent=Math.round((b[1]/R.nbe-1)*100)+"%";
+$("pilltxt").textContent=`Best bureau today: ${b[0]} ${b[1].toFixed(2)} birr per dollar · NBE ${R.nbe.toFixed(2)} · ${day(R.date)}`;
+const items=R.bureaus.slice(0,5).map(x=>`<span><b>${x[0]}</b>${x[1].toFixed(2)} buys</span>`).concat([`<span><b>NBE</b>${R.nbe.toFixed(2)} · ${day(R.date)}</span>`,`<span><b>Remitly</b>181.00 + $5</span>`,`<span><b>Taptap Send</b>174.00 · no fee</span>`,`<span><b>Remittances 2025/26</b>$8.2bn</span>`,`<span><b>Site visits</b>from ~$100</span>`]).join("");
+$("tick").innerHTML=items+items;
+}
+document.querySelectorAll("#amts button").forEach(bt=>bt.addEventListener("click",()=>{document.querySelectorAll("#amts button").forEach(x=>x.setAttribute("aria-pressed","false"));bt.setAttribute("aria-pressed","true");amt=parseFloat(bt.textContent.replace(/[^0-9.]/g,""));$("amt").value="";drawMoney()}));
+$("amt").addEventListener("input",e=>{const v=parseFloat(e.target.value.replace(/[^0-9.]/g,""));document.querySelectorAll("#amts button").forEach(x=>x.setAttribute("aria-pressed","false"));amt=v>0?v:0;drawMoney()});
+drawBureaus();drawMoney();
+fetch("https://forex.mabellesystems.com/rates.json",{cache:"no-store"}).then(r=>r.ok?r.json():Promise.reject()).then(j=>{
+const d=j.days&&j.days[0];if(!d||!d.nbe||!d.nbe.USD||!d.quotes)return;
+const bs=Object.entries(d.quotes).map(([k,q])=>{const u=q.rates&&q.rates.USD;if(!u)return null;const up=(q.updatedAt||"").slice(0,10);return [NAMES[k]||k,u.buy,u.sell,up&&up<d.date?day(up):""]}).filter(Boolean).sort((a,b)=>(a[3]?1:0)-(b[3]?1:0)||b[1]-a[1]);
+if(!bs.length)return;R={date:d.date,nbe:d.nbe.USD,bureaus:bs};drawBureaus();drawMoney()}).catch(()=>{});
 
+/* ---------- scorecard ---------- */
 const C=["","#e8452c","#f0954a","#f7e463","#9ad6a0","#4fc1c6"];
-const D=[["Sunshine Construction","Since 1984",4,4,5],["Noah Real Estate","10+ years",5,2,4],["Aman Properties","5 years",2,4,3],["Tsehay Real Estate","Since 2011",3,2,3],["Flintstone Homes","Since 2008",3,1,3],["Ayat Real Estate","Since 1997",5,1,1],["Gift Real Estate","Since 2005",null,4,null],["Temer Properties","Since 2010 EC",null,4,null],["Jenboro Real Estate","",2,4,null]];
-const cell=v=>v==null?'<td class="na" style="text-align:center">?</td>':`<td class="s" style="background:${C[v]}">${v}</td>`;
-$("sc").innerHTML=D.map(([n,y,...v])=>{const k=v.filter(x=>x!=null),s=k.reduce((a,b)=>a+b,0)/k.length;return {n,y,v,s,c:k.length}}).sort((a,b)=>b.s-a.s||b.c-a.c).map(r=>`<tr><td class="nm">${r.n}<small>${r.y}</small></td>${r.v.map(cell).join("")}<td class="n">${r.s.toFixed(1)}<span class="small"> · ${r.c}/3</span></td></tr>`).join("");
+const D=[["Sunshine",4,4,5],["Noah",5,2,4],["Aman",2,4,3],["Tsehay",3,2,3],["Flintstone",3,1,3],["Ayat",5,1,1],["Gift",null,4,null],["Temer",null,4,null],["Jenboro",2,4,null]];
+const cell=v=>v==null?'<td class="c na">?</td>':`<td class="c" style="background:${C[v]}">${v}</td>`;
+$("sc").innerHTML='<tr><td class="small">Developer</td><td class="small c" style="background:none">Del.</td><td class="small c" style="background:none">Disp.</td><td class="small c" style="background:none">Fin.</td><td class="small v">Score</td></tr>'+D.map(([n,...v])=>{const k=v.filter(x=>x!=null);return {n,v,s:k.reduce((a,b)=>a+b,0)/k.length,c:k.length}}).sort((a,b)=>b.c-a.c||b.s-a.s).map(r=>`<tr><td>${r.n}</td>${r.v.map(cell).join("")}<td class="v">${r.s.toFixed(1)}</td></tr>`).join("");
 
-$("wait").addEventListener("submit",e=>{e.preventDefault();const v=$("em").value.trim();$("okmsg").textContent=v?"Thanks. This preview doesn't send yet, so nothing was saved; the live site will.":""});
+/* ---------- roadmap ---------- */
+const T={
+Property:[
+{t:"Developer scorecard",a:"የገንቢ ደረጃ",b:"Free",i:"Check a developer’s record before you sign: homes handed over, court cases and finances.",f:[["Developers scored","9 in Addis"],["Sources","Courts and press"],["Updated","23 Nov 2026"],["Right of reply","Yes"]],c:["Find the developer in the scorecard","Read the evidence behind each score","Ask for the developer’s licence number","Visit a building they have finished"],w:["A low dispute score means buyers have gone to court.","“No dispute found” is not a clean bill of health."]},
+{t:"Site verification visit",a:"የሳይት ምርመራ",b:"~$100",i:"An independent engineer visits your plot or building and reports within 72 hours.",f:[["Price","$50–150"],["Delivery","72 hours"],["Evidence","GPS photos, video"],["Report","Signed, dated"]],c:["Send the address and your contract","Choose what to check: progress, title, floors","Receive the dated report","Share it with family or your lawyer"],w:["Never trust a “verified” badge without a date and a name."]},
+{t:"Buy a home",a:"ቤት መግዛት",b:"Checklist",i:"Land stays state-owned: you buy the lease right and the building. Check the developer, the title and the money route first.",f:[["Licence","Developer licence required"],["Pre-sale money","Closed / escrow account"],["Handover","From 80% complete"],["Payments","Via banks only"]],c:["Developer licence and scorecard checked","Pre-sale money goes into a closed (escrow) account","Handover not before 80% completion","Karta / title and liens checked at the land office","Seller’s spousal consent","Price per m² compared with similar homes"],w:["Never pay a large deposit to an agent or relative.","Ask: who verified this, and when?"]},
+{t:"Property agreement",a:"ስምምነት",b:"Checklist",i:"Read the reservation or sale agreement clause by clause before you pay.",f:[["Price","Fixed, in writing"],["Payments","Tied to stages"],["Delay","Penalty stated"],["Review","Independent lawyer"]],c:["Total price fixed, with no input-cost repricing clause","Payment schedule tied to construction stages","Handover date and penalty for delay","Exact unit, floor and size in m²","Refund terms if the project stops","Reviewed by an independent lawyer"],w:["Courts have let developers reprice signed, fixed-price deals."]}],
+Money:[
+{t:"Send money home",a:"ገንዘብ መላክ",b:"Free",i:"Compare licensed channels by the birr that actually arrives after fees.",f:[["Channels","NBE-licensed only"],["Ranked by","Birr received"],["Updated","Daily"],["Benchmark","NBE indicative"]],c:["Enter your amount in the table below","Compare the fee and the rate together","Use a licensed app, never an informal agent","Keep the receipt"],w:["An informal “better rate” has no protection if the money disappears."]},
+{t:"Change cash on a visit",a:"የውጭ ምንዛሪ",b:"Free",i:"Licensed bureaus pay more for cash dollars than banks. Check today’s rates before you go.",f:[["Licensed bureaus","About 15"],["Staying 90+ days","Deposit within 90 days"],["Residents","Convert within 30 days"],["Fees","Some 0.5–2%"]],c:["Check today’s bureau rates","Bring clean, newer notes","Ask for a receipt","Deposit leftover foreign cash on time"],w:["Street dealers are illegal and offer no receipt or recourse."]},
+{t:"Large property payment",a:"ትልቅ ክፍያ",b:"Checklist",i:"On a big payment, one bad day’s rate can cost thousands of birr.",f:[["Route","Through a bank"],["Into","Closed / escrow account"],["Timing","Rate alerts"],["Hedging","Ask about forward rates"]],c:["Pay through a bank into the project’s closed account","Set a rate alert","Ask your bank about forward rates (FXD/04/2026)","Never pay cash to an agent"],w:["Cash payments leave you with no proof and no recourse."]}],
+Paperwork:[
+{t:"Yellow Card",a:"ቢጫ ካርድ",b:"Guide",i:"The Ethiopian Origin ID lets you live, work and invest without a visa or permits.",f:[["Issue / renew","$300"],["If lost","$340"],["Apply","Online"],["Law","Proclamation 270/2002"]],c:["Apply or renew online","Set a reminder before it expires","Keep a scan somewhere safe","Carry it when you visit"],w:["Late renewals have been penalised. Fees and steps change, so check before you apply."]},
+{t:"Power of attorney",a:"ውክልና",b:"Guide",i:"Give a trusted person power to act for you, narrowly and for a set time.",f:[["Online","teleSign, video ID"],["Pay","telebirr"],["Embassy route","~$62 per document (US)"],["Revoke","Online"]],c:["Try teleSign before courier and embassy","Limit it to one task","Set an end date","Revoke it when the task is done"],w:["A general, open-ended power of attorney is a common way families lose property."]},
+{t:"Fayda digital ID",a:"ፋይዳ",b:"Deadline",i:"Banks are expected to require Fayda for diaspora accounts. Register before the deadline.",f:[["Deadline","31 Dec 2026"],["Proof","Yellow Card accepted"],["Who","Diaspora can register"],["Status","Confirm the date"]],c:["Check whether your bank account needs Fayda","Register for Fayda","Link Fayda to your bank account"],w:["Deadlines have moved before. Confirm the current date with your bank."]}],
+"Moving home":[
+{t:"Household goods",a:"የቤት ዕቃ",b:"Guide",i:"Personal effects used for 12 months or more come in duty-free.",f:[["Used for","12+ months"],["Abroad","1+ year"],["Proof","Passport or embassy letter"],["Excluded","Vehicles"]],c:["Gather proof of a year or more abroad","List items with their age","Keep receipts for anything new"],w:["Older guides list allowances that have since changed."]},
+{t:"Bringing a car",a:"መኪና",b:"Warning",i:"Petrol and diesel car imports have been banned since January 2024.",f:[["Petrol, diesel","Banned"],["Returnee route","Closed"],["Electric, built","15% duty"],["Charging","Expanding"]],c:["Decide whether an EV suits your city","Price a locally assembled EV","Sell your current car before you move"],w:["Agents selling a “returnee car exemption” are offering something that no longer exists."]},
+{t:"Banking and cash",a:"ባንክ",b:"Guide",i:"Set up the right accounts before you move your money.",f:[["Account","Non-resident FCY"],["90-day rule","Deposit foreign cash"],["Residents","30 days to convert"],["Loans","Up to 80% for homes"]],c:["Open a non-resident foreign-currency account","Register for Fayda","Plan how and when to move large sums"],w:["Confirm tax on foreign pensions with an adviser first."]}]};
+let tab="Property",task=2;const done={};
+function drawTabs(){$("tabs").innerHTML=Object.keys(T).map(k=>`<button role="tab" aria-selected="${k===tab}">${k}</button>`).join("")}
+function drawTasks(){$("tasks").innerHTML=T[tab].map((x,i)=>`<button role="tab" aria-selected="${i===task}" data-i="${i}"><span><b>${x.t}</b><small class="am">${x.a}</small></span><span class="badge">${x.b}</span></button>`).join("")}
+function drawPanel(){const x=T[tab][task],key=tab+task,d=done[key]||(done[key]=x.c.map(()=>false));
+$("panel").innerHTML=`<h3>${x.t}<small>${x.a}</small></h3><p style="color:var(--mute);margin:10px 0 0">${x.i}</p><div class="facts">${x.f.map(([l,v])=>`<div><span>${l}</span><b>${v}</b></div>`).join("")}</div><div class="small" style="margin-bottom:8px">CHECKLIST <span class="ready" id="ready"></span></div><ul class="checks">${x.c.map((c,i)=>`<li><label><input type="checkbox" data-c="${i}" ${d[i]?"checked":""}><span>${c}</span></label></li>`).join("")}</ul><div class="watch"><b>WATCH OUT</b>${x.w.map(w=>`<p>${w}</p>`).join("")}</div>`;
+ready()}
+function ready(){const d=done[tab+task];$("ready").textContent=d.filter(Boolean).length+" of "+d.length+" ready"}
+$("tabs").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;tab=b.textContent;task=tab==="Property"?2:0;drawTabs();drawTasks();drawPanel()});
+$("tasks").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;task=+b.dataset.i;drawTasks();drawPanel()});
+$("panel").addEventListener("change",e=>{if(e.target.dataset.c!=null){done[tab+task][+e.target.dataset.c]=e.target.checked;ready()}});
+drawTabs();drawTasks();drawPanel();
+
+/* ---------- waiting list ---------- */
+$("wl").addEventListener("submit",e=>{e.preventDefault();$("wlmsg").textContent="Thank you. Sign-ups open with the first visits; for now please check back soon."});
 }
 </script>
 </body>
