@@ -332,6 +332,7 @@ footer a{color:var(--gold)}
 <ul class="ticklist"><li>GPS and time-stamped photos and video</li><li>Standard checklist, findings, limits</li><li>Inspector’s identity on a signed report</li><li>Delivered within 72 hours</li></ul>
 <form class="wl" id="wl"><input id="wlem" type="email" required placeholder="you@example.com" aria-label="Your email"><button class="btn rose" type="submit">Join the waiting list</button></form>
 <div id="wlmsg" role="status"></div>
+<div style="font-size:13px;color:#ffd9e3">Or email <b>hello@balagerhub.com</b></div>
 </div>
 <div class="vcard">
 <div class="k">SEVEN LEVELS · NEVER JUST “VERIFIED”</div>
@@ -381,12 +382,13 @@ footer a{color:var(--gold)}
 
 <section class="band dark" style="padding-top:20px"><div class="wrap final">
 <h2>Come home with <em class="s">confidence.</em></h2>
-<p class="lede" style="margin-inline:auto">Daily rates and scam alerts are free. The first site visits open soon.</p>
+<p class="lede" style="margin-inline:auto">Daily rates and checklists are free. The first site visits open soon. Questions? Write to hello@balagerhub.com.</p>
 <div class="cta"><a class="btn" href="#verify">Join the waiting list</a><a class="btn ghost" href="#roadmap">Start my checklist</a></div>
 </div></section>
 
 <footer class="band" style="padding-top:0"><div class="wrap">
 <div><b style="color:var(--gold);font-family:'Noto Sans Ethiopic'">ባላገር</b> Balager · balagerhub.com · Addis Ababa</div>
+<div><a href="mailto:hello@balagerhub.com">hello@balagerhub.com</a></div>
 <div>Not a government service · Information, not legal or financial advice · We never hold your money</div>
 </div></footer>
 
@@ -480,7 +482,10 @@ $("panel").addEventListener("change",e=>{if(e.target.dataset.c!=null){done[tab+t
 drawTabs();drawTasks();drawPanel();
 
 /* ---------- waiting list ---------- */
-$("wl").addEventListener("submit",e=>{e.preventDefault();$("wlmsg").textContent="Thank you. Sign-ups open with the first visits; for now please check back soon."});
+$("wl").addEventListener("submit",e=>{e.preventDefault();const em=$("wlem").value.trim();
+const body=`Please add me to the waiting list for a Balager site verification visit.\n\nMy email: ${em}\nProperty location (area, city): \nWhat I want checked (progress, title, floors, other): \n`;
+location.href="mailto:hello@balagerhub.com?subject="+encodeURIComponent("Site visit waiting list")+"&body="+encodeURIComponent(body);
+$("wlmsg").textContent="Your email app should open with the message ready. Press Send. If nothing opens, write to hello@balagerhub.com."});
 }
 </script>
 </body>
