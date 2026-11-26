@@ -190,6 +190,52 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px 30px;flex-wrap:
 footer a{color:var(--gold)}
 @media(max-width:960px){.hero .in{grid-template-columns:minmax(0,1fr)}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.road{grid-template-columns:minmax(0,1fr)}.tasks{grid-template-columns:repeat(2,minmax(0,1fr))}.three,.rules{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.plans{grid-template-columns:repeat(2,minmax(0,1fr))}.split,.name{grid-template-columns:minmax(0,1fr)}}
 @media(max-width:600px){.stats,.tasks,.three,.rules,.plans,.rounds{grid-template-columns:minmax(0,1fr)}.round{border-left:0;border-top:1px solid var(--nline)}.round:first-child{border-top:0}.facts{grid-template-columns:repeat(2,minmax(0,1fr))}.tabs{border-radius:16px;width:auto}th,td{padding:11px 10px}td small{display:block;margin:2px 0 0}.mhide{display:none}h1{font-size:44px}}
+/* ratings */
+.grades{display:flex;gap:8px 16px;flex-wrap:wrap;margin-top:22px;font-size:13px;color:var(--mute)}
+.grades span{display:inline-flex;align-items:center;gap:6px}
+.grades i{width:22px;height:22px;border-radius:6px;display:inline-grid;place-items:center;font-style:normal;font-weight:700;color:#141814;font-size:12px}
+.devs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:22px}
+.devs button{text-align:left;font:inherit;color:inherit;background:var(--card);border:1.5px solid var(--line);border-radius:16px;padding:16px;cursor:pointer;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;align-items:start;min-height:44px}
+.devs button[aria-pressed=true]{border-color:var(--gold);background:#fffbea}
+.devs b{font:600 16px Sora,sans-serif}
+.devs .meta{font-size:13px;color:var(--mute);grid-column:1}
+.devs .fact{font-size:13px;grid-column:1/-1;margin-top:6px}
+.gr{grid-row:1/3;grid-column:2;width:46px;height:46px;border-radius:12px;display:grid;place-items:center;font:700 20px Sora,sans-serif;color:#141814}
+.gr.na{background:#efeee7;color:var(--mute);font-size:12px;text-align:center;line-height:1.1}
+.detail{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:20px;margin-top:20px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:clamp(18px,3vw,30px)}
+.bars{display:grid;gap:12px;margin-top:14px}
+.bar .l{display:flex;justify-content:space-between;font-size:14px;gap:10px}
+.bar .t{height:8px;border-radius:4px;background:#efeee7;margin-top:5px;overflow:hidden}
+.bar .t i{display:block;height:100%;background:var(--green);border-radius:4px}
+.bar.no .l span:last-child{color:var(--mute)}
+.trail{list-style:none;padding:0;margin:12px 0 0;display:grid;gap:12px}
+.trail li{border-left:3px solid var(--gold);padding-left:12px}
+.trail .d{font-size:12px;color:var(--mute);font-weight:600}
+.trail a{color:var(--ink)}
+@media(max-width:960px){.devs{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.detail{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:600px){.devs{grid-template-columns:minmax(0,1fr)}}
+/* selam */
+#selamBtn{position:fixed;right:18px;bottom:18px;z-index:30;display:flex;align-items:center;gap:10px;background:var(--night);color:var(--nink);border:1px solid rgba(245,197,66,.5);border-radius:999px;padding:8px 18px 8px 8px;cursor:pointer;box-shadow:0 8px 30px rgba(0,0,0,.3);font:inherit;min-height:52px}
+#selamBtn .av,.sh .av{width:38px;height:38px;border-radius:50%;background:var(--gold);color:#141814;display:grid;place-items:center;font:700 18px "Noto Sans Ethiopic",sans-serif;flex:none}
+#selamBtn b{display:block;font:600 15px Sora,sans-serif;text-align:left}
+#selamBtn small{color:var(--nmute);font-size:12px}
+#selam{position:fixed;right:18px;bottom:18px;z-index:31;width:min(400px,calc(100vw - 24px));height:min(620px,calc(100dvh - 36px));background:var(--night);color:var(--nink);border:1px solid var(--nline);border-radius:22px;display:none;flex-direction:column;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.45)}
+#selam.open{display:flex}
+.sh{display:flex;align-items:center;gap:12px;padding:14px 14px 12px;border-bottom:1px solid var(--nline)}
+.sh b{font:600 16px Sora,sans-serif}.sh small{display:block;font-size:12px;color:var(--nmute)}
+.sh button{margin-left:auto;background:none;border:1px solid var(--nline);color:var(--nink);border-radius:10px;width:40px;height:40px;cursor:pointer;font-size:18px}
+#slog{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
+.msg{max-width:88%;padding:10px 13px;border-radius:14px;font-size:15px;line-height:1.5}
+.msg.bot{background:var(--night2);border:1px solid var(--nline);align-self:flex-start}
+.msg.me{background:var(--gold);color:#141814;align-self:flex-end}
+.msg a{color:var(--gold)}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chips button{background:transparent;border:1px solid rgba(245,197,66,.5);color:var(--gold);border-radius:999px;padding:7px 12px;font:500 13px Inter,sans-serif;cursor:pointer;min-height:36px}
+.sf{display:flex;gap:8px;padding:10px 12px 6px;border-top:1px solid var(--nline)}
+.sf input{flex:1;min-height:46px;border-radius:999px;border:1px solid var(--nline);background:var(--night2);color:var(--nink);padding:0 16px;font:16px Inter,sans-serif}
+.sf button{width:46px;height:46px;border-radius:50%;border:0;background:var(--gold);color:#141814;font-size:18px;cursor:pointer}
+.sfoot{font-size:11px;color:var(--nmute);text-align:center;padding:0 10px 10px}
+@media(max-width:600px){#selamBtn small{display:none}#selam{right:12px;bottom:12px}}
 @media(prefers-reduced-motion:no-preference){.steam,.steam2,.steam3{animation:rise 4s ease-in-out infinite}.steam2{animation-delay:1.2s}.steam3{animation-delay:2.4s}@keyframes rise{0%,100%{opacity:.2;transform:translateY(4px)}50%{opacity:.8;transform:translateY(-4px)}}}
 </style>
 </head>
@@ -200,7 +246,7 @@ footer a{color:var(--gold)}
 <header class="top">
 <div class="navin">
 <a class="brand" href="#top" aria-label="Balager home"><b>ባላገር</b><span>Balager</span></a>
-<nav class="menu" id="menu" aria-label="Main"><a href="#roadmap">Services</a><a href="#money">Rates</a><a href="#verify">Verify</a><a href="#moving">Moving home</a><a href="#pricing">Pricing</a></nav>
+<nav class="menu" id="menu" aria-label="Main"><a href="#roadmap">Services</a><a href="#money">Rates</a><a href="#ratings">Developer ratings</a><a href="#verify">Verify</a><a href="#moving">Moving home</a><a href="#pricing">Pricing</a></nav>
 <a class="btn navcta" href="#roadmap">Get started</a>
 <button id="mbtn" aria-label="Open menu" aria-expanded="false" aria-controls="menu"><span></span></button>
 </div>
@@ -314,16 +360,26 @@ footer a{color:var(--gold)}
 </div>
 </div></section>
 
+<section class="band" id="ratings"><div class="wrap">
+<div class="eyebrow">Developer ratings · free</div>
+<h2>Know the builder <em class="s">before</em> you pay.</h2>
+<p class="lede">Every developer is scored out of 100 from cited evidence. Tap one to see exactly what its score is built on, and what we haven’t checked yet.</p>
+<div class="grades"><span><i style="background:#4fc1c6">A</i>85+</span><span><i style="background:#9ad6a0">B</i>70–84</span><span><i style="background:#f7e463">C</i>55–69</span><span><i style="background:#f0954a">D</i>below 55</span><span><i style="background:#efeee7;color:var(--mute)">–</i>Not enough evidence</span></div>
+<div class="devs" id="devs"></div>
+<div class="detail" id="ddetail"></div>
+<p class="small" style="margin-top:14px">Provisional desk review, 23 Nov 2026. So far only handover and court records have been checked (50 of 100 points); grades are based on the points checked. Licence, permit, escrow and site-visit checks come next. “No dispute found” earns 20 of 25 until court registries are searched directly. Developers can submit evidence or a reply at hello@balagerhub.com.</p>
+</div></section>
+
 <section class="band" id="verify"><div class="wrap">
 <div class="eyebrow">Property · where trust is earned</div>
 <h2>We show what was checked, <em class="s">by whom,</em> and when.</h2>
 <div class="three">
 <div class="vcard">
-<div class="k">DEVELOPER SCORECARD · FREE</div>
+<div class="k">SCORING METHOD · WEIGHTS</div>
 <h3 style="margin:8px 0 4px">Built from evidence, not ads</h3>
-<p class="small" style="margin:0">Homes handed over, court record and finances, scored 1–5 from court records and published reports. Developers get a right of reply, never a better score.</p>
-<table class="sc"><tbody id="sc"></tbody></table>
-<p class="small" style="margin:10px 0 0">Desk review, 23 Nov 2026. Grey = not enough data. “No dispute found” is capped at 4 until court registries are checked.</p>
+<p class="small" style="margin:0 0 6px">Court records, press, licences, permits, handover history and our own dated site visits. Developers get a right of reply, never a better score.</p>
+<div class="bars" id="weights"></div>
+<p class="small" style="margin:14px 0 0"><a href="#ratings">See the developer ratings →</a></p>
 </div>
 <div class="vcard visit">
 <div class="k">SITE VERIFICATION VISIT</div>
@@ -392,6 +448,14 @@ footer a{color:var(--gold)}
 <div>Not a government service · Information, not legal or financial advice · We never hold your money</div>
 </div></footer>
 
+<button id="selamBtn" aria-controls="selam" aria-expanded="false"><span class="av">ባ</span><span><b>Ask Selam</b><small>Guide · a person on email</small></span></button>
+<div id="selam" role="dialog" aria-label="Ask Selam">
+<div class="sh"><span class="av">ባ</span><div><b>Selam <span class="am" style="font-weight:500">ሰላም</span></b><small>Answers from Balager’s own pages · a person by email</small></div><button id="sclose" aria-label="Close">×</button></div>
+<div id="slog" aria-live="polite"></div>
+<form class="sf" id="sform"><input id="sin" placeholder="Ask about rates, developers, Yellow Card…" aria-label="Your question" autocomplete="off"><button aria-label="Send">→</button></form>
+<div class="sfoot">Early version · information, not legal advice · anything I can’t answer goes to a person</div>
+</div>
+
 <script>
 {
 const $=id=>document.getElementById(id);
@@ -444,16 +508,34 @@ const d=j.days&&j.days[0];if(!d||!d.nbe||!d.nbe.USD||!d.quotes)return;
 const bs=Object.entries(d.quotes).map(([k,q])=>{const u=q.rates&&q.rates.USD;if(!u)return null;const up=(q.updatedAt||"").slice(0,10);return [NAMES[k]||k,u.buy,u.sell,up&&up<d.date?day(up):""]}).filter(Boolean).sort((a,b)=>(a[3]?1:0)-(b[3]?1:0)||b[1]-a[1]);
 if(!bs.length)return;R={date:d.date,nbe:d.nbe.USD,bureaus:bs};drawBureaus();drawMoney()}).catch(()=>{});
 
-/* ---------- scorecard ---------- */
-const C=["","#e8452c","#f0954a","#f7e463","#9ad6a0","#4fc1c6"];
-const D=[["Sunshine",4,4,5],["Noah",5,2,4],["Aman",2,4,3],["Tsehay",3,2,3],["Flintstone",3,1,3],["Ayat",5,1,1],["Gift",null,4,null],["Temer",null,4,null],["Jenboro",2,4,null]];
-const cell=v=>v==null?'<td class="c na">?</td>':`<td class="c" style="background:${C[v]}">${v}</td>`;
-$("sc").innerHTML='<tr><td class="small">Developer</td><td class="small c" style="background:none">Del.</td><td class="small c" style="background:none">Disp.</td><td class="small c" style="background:none">Fin.</td><td class="small v">Score</td></tr>'+D.map(([n,...v])=>{const k=v.filter(x=>x!=null);return {n,v,s:k.reduce((a,b)=>a+b,0)/k.length,c:k.length}}).sort((a,b)=>b.c-a.c||b.s-a.s).map(r=>`<tr><td>${r.n}</td>${r.v.map(cell).join("")}<td class="v">${r.s.toFixed(1)}</td></tr>`).join("");
+/* ---------- ratings ---------- */
+const GC={A:"#4fc1c6",B:"#9ad6a0",C:"#f7e463",D:"#f0954a"};
+const CAT=[["hand","Handover on time",25],["court","Court & dispute record",25],["lic","Licence & registration",15],["perm","Permits & compliance",15],["esc","Escrow / closed account",10],["visit","Our site-visit findings",10]];
+const DEV=[
+{n:"Sunshine Construction",m:"Since 1984 · own contractor",f:"Thousands of units handed over · no dispute found",s:{hand:20,court:20},sum:"Long record of delivered housing and a parent group with hotel and road income. No buyer dispute found in the press; court registries not yet searched.",e:[["14 Jun 2014 · Press","543 apartments and villas inaugurated at CMC and Bole Beshale","https://www.2merkato.com/news/alerts/3044-ethiopia-sunshines-newly-developed-real-estates-inaugurated"],["Press","Building 2,500 of 5,000 Ethiopian Airlines staff units with CCCC","https://www.thereporterethiopia.com/39133/"],["23 Nov 2026 · Press search","No buyer dispute found",""]]},
+{n:"Noah Real Estate",m:"10+ years · Addis Ababa",f:"About 10,000 homes built · court freeze in 2024",s:{hand:25,court:10},sum:"Largest delivery record in Addis, but buyers have taken it to court over cancelled contracts and unfinished units.",e:[["Oct 2024 · Press","About 10,000 homes built over the past decade","https://allafrica.com/stories/202410280651.html"],["Press","Court froze Noah Victory flats after buyers said contracts were cancelled for resale","https://addisfortune.news/court-freezes-noah-flats-as-buyers-open-second-front"],["Press","Buyers threatened legal action over unfinished units at Lemi Kura","https://www.thereporterethiopia.com/40320/"]]},
+{n:"Aman Properties",m:"5 years · Addis Ababa",f:"3 sites delivered · no dispute found",s:{hand:10,court:20},sum:"Young developer with a short delivery record. Most coverage so far is advertorial.",e:[["Sep 2026 · Press","Public debut: 3 sites delivered, Kazanchis twin tower under way","https://capitalethiopia.com/2026/09/03/aman-properties-makes-its-public-debut-and-announces-aman-addis-expo-2026/"],["23 Nov 2026 · Press search","No buyer dispute found",""]]},
+{n:"Jenboro Real Estate",m:"Addis Ababa",f:"3 of 6 projects delivered · no dispute found",s:{hand:10,court:20},sum:"Half of its projects delivered so far. No buyer dispute found in the press.",e:[["Press","Has delivered 3 of its 6 projects; diaspora discount with the Diaspora Association","https://capitalethiopia.com/?p=52886"],["23 Nov 2026 · Press search","No buyer dispute found",""]]},
+{n:"Ayat Real Estate",m:"Since 1997 · Ayat, CMC",f:"10,000+ houses · mall buyers waiting 16 years",s:{hand:25,court:5},sum:"One of the biggest house builders in Addis, but 550 Ayat Mall shop buyers are still waiting 16 years after paying, and it declared financial distress in 2015.",e:[["Encyclopedia","Offered more than 10,000 houses since 1997","https://en.wikipedia.org/wiki/Ayat_Real_Estate"],["Press","550 Ayat Mall shop buyers still waiting 16 years after paying","https://www.thereporterethiopia.com/43988/"],["Press","Told shop owners in 2015 it was in financial distress","https://addisfortune.news/ayat-mall-caught-in-limbo-as-owners-developer-clash-over-delayed-permits"]]},
+{n:"Tsehay Real Estate",m:"Since 2011 · CGCOC-backed",f:"Court loss to 300 homeowners · deed dispute",s:{hand:15,court:10},sum:"Delivered its Poly Lotus site, but lost in court to 300 homeowners and used title deeds as bank collateral.",e:[["Press","Court ordered Tsehay to respond to 300 homeowners’ demands","https://addisfortune.news/?p=19373"],["Press","Dispute over using title deeds as bank collateral without buyer consent","https://www.thereporterethiopia.com/42237/"]]},
+{n:"Flintstone Homes",m:"Since 2008 · 22 projects active",f:"Court repayment order · account frozen",s:{hand:15,court:5},sum:"Many active projects, but a court ordered repayment of over 50m birr, froze an account, and the Supreme Court let it reprice signed deals.",e:[["Press","Court ordered repayment of 50m+ birr and froze an account","https://www.thereporterethiopia.com/43134/"],["Press","Supreme Court let it reprice decade-old fixed-price sales","https://addisfortune.news/supreme-court-ruling-lets-developers-reprice-a-signed-deal"]]},
+{n:"Gift Real Estate",m:"Since 2005 · Addis Ababa",f:"Handover record not published",s:{court:20},sum:"Chosen for the city’s large housing scheme, but it doesn’t publish units handed over, so there isn’t enough evidence for a grade.",e:[["Press","Chosen for the city’s large private housing scheme","https://www.thereporterethiopia.com/35615/"],["23 Nov 2026 · Press search","No buyer dispute found",""]]},
+{n:"Temer Properties",m:"Since 2010 EC · several sites",f:"Handover record not published",s:{court:20},sum:"Active across Piassa, Sarbet, Ayat and other sites, mostly in sponsored coverage. Not enough independent evidence for a grade.",e:[["Developer site","Projects in Piassa, Sarbet, Ayat, Garment, Lycee","https://temerproperties.com/?p=20932"],["23 Nov 2026 · Press search","No buyer dispute found",""]]}];
+DEV.forEach(d=>{let got=0,max=0;CAT.forEach(([k,,w])=>{if(d.s[k]!=null){got+=d.s[k];max+=w}});d.got=got;d.max=max;d.pct=max?Math.round(got/max*100):0;d.g=max>=50?(d.pct>=85?"A":d.pct>=70?"B":d.pct>=55?"C":"D"):null});
+DEV.sort((a,b)=>(b.g?1:0)-(a.g?1:0)||b.pct-a.pct);
+let dsel=0;
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function drawDevs(){$("devs").innerHTML=DEV.map((d,i)=>`<button aria-pressed="${i===dsel}" data-i="${i}"><b>${d.n}</b>${d.g?`<span class="gr" style="background:${GC[d.g]}">${d.g}</span>`:`<span class="gr na">Not<br>enough</span>`}<span class="meta">${d.m}</span><span class="fact">${d.f}</span></button>`).join("");
+const d=DEV[dsel];
+$("ddetail").innerHTML=`<div><div class="small">HOW ${esc(d.n.toUpperCase())} SCORES</div><div style="font:700 28px Sora,sans-serif;margin-top:6px">${d.g?`Grade ${d.g} · ${d.pct}%`:"Not enough evidence"}</div><div class="small">${d.got} of ${d.max} points earned on the ${d.max} checked so far</div><div class="bars">${CAT.map(([k,l,w])=>d.s[k]==null?`<div class="bar no"><div class="l"><span>${l}</span><span>Not checked yet · ${w}</span></div><div class="t"></div></div>`:`<div class="bar"><div class="l"><span>${l}</span><span><b>${d.s[k]}</b> / ${w}</span></div><div class="t"><i style="width:${d.s[k]/w*100}%"></i></div></div>`).join("")}</div><p style="margin:16px 0 0;color:var(--mute)">${esc(d.sum)}</p></div><div><div class="small">EVIDENCE TRAIL · EVERY ITEM SOURCED</div><ul class="trail">${d.e.map(([dt,t,u])=>`<li><div class="d">${esc(dt)}</div>${u?`<a href="${u}" target="_blank" rel="noopener">${esc(t)}</a>`:esc(t)}</li>`).join("")}</ul><p class="small" style="margin-top:14px">Right of reply: none submitted.</p></div>`}
+$("devs").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;dsel=+b.dataset.i;drawDevs();if(innerWidth<960)$("ddetail").scrollIntoView({behavior:"smooth",block:"start"})});
+drawDevs();
+$("weights").innerHTML=CAT.map(([,l,w])=>`<div class="bar"><div class="l"><span>${l}</span><span><b>${w}</b> pts</span></div><div class="t"><i style="width:${w*4}%;background:var(--gold)"></i></div></div>`).join("");
 
 /* ---------- roadmap ---------- */
 const T={
 Property:[
-{t:"Developer scorecard",a:"የገንቢ ደረጃ",b:"Free",i:"Check a developer’s record before you sign: homes handed over, court cases and finances.",f:[["Developers scored","9 in Addis"],["Sources","Courts and press"],["Updated","23 Nov 2026"],["Right of reply","Yes"]],c:["Find the developer in the scorecard","Read the evidence behind each score","Ask for the developer’s licence number","Visit a building they have finished"],w:["A low dispute score means buyers have gone to court.","“No dispute found” is not a clean bill of health."]},
+{t:"Developer scorecard",a:"የገንቢ ደረጃ",b:"Free",i:"Check a developer’s record before you sign: homes handed over, court cases and finances.",f:[["Developers rated","9 in Addis"],["Score","Out of 100"],["Updated","23 Nov 2026"],["Right of reply","Yes"]],c:["Find the developer in the ratings","Read the evidence trail behind the score","Ask for the developer’s licence number","Visit a building they have finished"],w:["A low dispute score means buyers have gone to court.","“No dispute found” is not a clean bill of health."]},
 {t:"Site verification visit",a:"የሳይት ምርመራ",b:"~$100",i:"An independent engineer visits your plot or building and reports within 72 hours.",f:[["Price","$50–150"],["Delivery","72 hours"],["Evidence","GPS photos, video"],["Report","Signed, dated"]],c:["Send the address and your contract","Choose what to check: progress, title, floors","Receive the dated report","Share it with family or your lawyer"],w:["Never trust a “verified” badge without a date and a name."]},
 {t:"Buy a home",a:"ቤት መግዛት",b:"Checklist",i:"Land stays state-owned: you buy the lease right and the building. Check the developer, the title and the money route first.",f:[["Licence","Developer licence required"],["Pre-sale money","Closed / escrow account"],["Handover","From 80% complete"],["Payments","Via banks only"]],c:["Developer licence and scorecard checked","Pre-sale money goes into a closed (escrow) account","Handover not before 80% completion","Karta / title and liens checked at the land office","Seller’s spousal consent","Price per m² compared with similar homes"],w:["Never pay a large deposit to an agent or relative.","Ask: who verified this, and when?"]},
 {t:"Property agreement",a:"ስምምነት",b:"Checklist",i:"Read the reservation or sale agreement clause by clause before you pay.",f:[["Price","Fixed, in writing"],["Payments","Tied to stages"],["Delay","Penalty stated"],["Review","Independent lawyer"]],c:["Total price fixed, with no input-cost repricing clause","Payment schedule tied to construction stages","Handover date and penalty for delay","Exact unit, floor and size in m²","Refund terms if the project stops","Reviewed by an independent lawyer"],w:["Courts have let developers reprice signed, fixed-price deals."]}],
@@ -480,6 +562,41 @@ $("tabs").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)
 $("tasks").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;task=+b.dataset.i;drawTasks();drawPanel()});
 $("panel").addEventListener("change",e=>{if(e.target.dataset.c!=null){done[tab+task][+e.target.dataset.c]=e.target.checked;ready()}});
 drawTabs();drawTasks();drawPanel();
+
+/* ---------- Selam ---------- */
+const sb=$("selamBtn"),sp=$("selam"),slog=$("slog");
+const openS=o=>{sp.classList.toggle("open",o);sb.style.display=o?"none":"flex";sb.setAttribute("aria-expanded",String(o));if(o){if(!slog.children.length)greet();setTimeout(()=>$("sin").focus(),50)}};
+sb.addEventListener("click",()=>openS(true));$("sclose").addEventListener("click",()=>openS(false));
+let lastQ="";
+function say(html,chips,me){const d=document.createElement("div");d.className="msg "+(me?"me":"bot");d.innerHTML=html;slog.appendChild(d);
+if(chips&&chips.length){const c=document.createElement("div");c.className="chips";c.innerHTML=chips.map(x=>`<button type="button">${x}</button>`).join("");slog.appendChild(c)}slog.scrollTop=slog.scrollHeight}
+const go=id=>`<a href="#${id}" data-go="${id}">`;
+function greet(){say("Selam! I’m Selam, Balager’s guide. I answer from the site’s own pages: today’s rates, the developer ratings, checklists and the rules for moving home. Anything I can’t answer goes to a person.",["How does it work?","Cheapest way to send $500","Check a developer","Check an offer","Yellow Card","Talk to a person"])}
+function bestSend(a){const b=best();const l=apps.filter(x=>x.rate!=null).map(x=>({n:x.n,v:(a-x.fee)*x.rate,note:x.note})).concat([{n:"cash at "+b[0]+" bureau (only in Ethiopia)",v:a*b[1],note:b[1].toFixed(2)+", "+day(R.date)}]).sort((x,y)=>y.v-x.v);return l}
+function answer(q){const t=q.toLowerCase();if(!/person|human|talk|contact/.test(t))lastQ=q;
+const dev=DEV.find(d=>t.includes(d.n.split(" ")[0].toLowerCase()));
+if(dev){return say(`<b>${esc(dev.n)}</b>: ${dev.g?`provisional grade <b>${dev.g}</b> (${dev.pct}% of the ${dev.max} points checked)`:"not enough evidence for a grade yet"}. ${esc(dev.sum)} ${go("ratings")}See the evidence →</a>`,["Book a site visit","Check an offer"])}
+if(/offer|negotiat|price per|asking|counter/.test(t))return say(`I don’t negotiate for you: Balager never earns from the price you pay. To check an offer: 1) look up the developer’s grade, 2) work out the price per m² and compare it with other listings in the same area, 3) check the agreement for a repricing clause, a handover date with a delay penalty, and payments tied to construction stages. ${go("roadmap")}Open the agreement checklist →</a>`,["Check a developer","Book a site visit","Talk to a person"]);
+if(/send|remit|transfer|cheap|arrive|\$\s?\d|dollar/.test(t)&&!/cash|bureau|visit/.test(t)){const m=t.match(/\d[\d,]*/);const a=m?Math.min(1e6,parseFloat(m[0].replace(/,/g,""))):500;const l=bestSend(a);return say(`For $${a.toLocaleString("en-US")}: ${l.slice(0,3).map((x,i)=>`${i+1}. ${esc(x.n)} ≈ ETB ${Math.round(x.v).toLocaleString("en-US")} (${esc(x.note)})`).join("<br>")}<br>App rates are dated snapshots; CBE Connect and telebirr Remit don’t publish theirs yet. ${go("money")}Full table →</a>`,["Change cash on a visit","Talk to a person"])}
+if(/developer|builder|rating|score|real estate|grade/.test(t))return say(`Each developer is scored out of 100: handover on time 25, court record 25, licence 15, permits 15, escrow 10 and our own site visits 10. So far handover and court records are checked. Highest provisional grade: <b>${esc(DEV[0].n)}</b> (${DEV[0].g}). Name a developer and I’ll tell you what we found. ${go("ratings")}Open the ratings →</a>`,DEV.slice(0,4).map(d=>d.n.split(" ")[0]));
+if(/bureau|cash|forex|exchange|rate|90 day|nbe/.test(t)){const b=best();return say(`Today (${day(R.date)}) the best licensed bureau is <b>${b[0]}</b>, buying dollars at ${b[1].toFixed(2)} birr, against the NBE rate of ${R.nbe.toFixed(2)}. If you stay more than 90 days, foreign cash you still hold must go into a non-resident foreign-currency account within 90 days of your entry stamp. ${go("money")}All bureaus →</a>`,["Cheapest way to send $500"])}
+if(/visit|inspect|site|engineer|check my|book/.test(t))return say(`A site verification visit is about $100 ($50–150 by location and scope): an independent engineer, GPS and time-stamped photos and video, a signed report within 72 hours. The first visits open soon. ${go("verify")}Join the waiting list →</a>`,["Talk to a person"]);
+if(/yellow|origin id|ቢጫ/.test(t))return say(`Yellow Card (Ethiopian Origin ID): apply or renew online, about $300 ($340 if lost). It lets you live and work without a visa or permits and invest as a domestic investor. Renew before it expires; late renewals have been penalised. ${go("roadmap")}Open the checklist →</a>`);
+if(/power of attorney|poa|wekil|ውክልና|attorney/.test(t))return say(`Power of attorney: teleSign lets you grant or revoke one online with video ID and pay by telebirr, often cheaper than courier plus embassy (about $62 per document in the US). Keep it narrow: one task and an end date. ${go("roadmap")}Open the checklist →</a>`);
+if(/fayda|ፋይዳ|digital id/.test(t))return say(`Fayda: banks are expected to require it for diaspora accounts, with a deadline reported as 31 December 2026. Deadlines have moved before, so confirm with your bank. The Yellow Card is accepted as proof. ${go("roadmap")}Open the checklist →</a>`);
+if(/\bcars?\b|vehicle|\bev\b|electric/.test(t))return say(`Petrol and diesel car imports have been banned since January 2024, and the returnee car route is closed. Only electric cars can be imported; fully built EVs pay 15% duty. ${go("moving")}All moving-home rules →</a>`);
+if(/household|goods|furniture|luggage|duty/.test(t))return say(`Personal effects used for 12+ months come in duty-free if you can show you lived abroad for a year or more (passport stamps or an embassy letter). Vehicles are excluded. ${go("moving")}All moving-home rules →</a>`);
+if(/tax|pension|salary/.test(t))return say(`Tax on foreign pensions and salaries is still being checked with a tax adviser, so I won’t guess. A person can follow up with you.`,["Talk to a person"]);
+if(/buy|home|house|apartment|condo|flat|property|ቤት/.test(t))return say(`Buying a home: you buy the lease right and the building. Check the developer’s licence and grade, make sure pre-sale money goes into a closed (escrow) account, expect handover only from 80% completion, check the title and liens at the land office, and pay through banks only. ${go("roadmap")}Open the checklist →</a>`,["Check a developer","Check an offer","Book a site visit"]);
+if(/how does|how it works|what is|who are|balager|independent/.test(t))return say(`Balager is independent: free rates, checklists and developer ratings, and paid site visits when you need someone on the ground. Scores are never for sale, we never hold your money, and every check shows who did it and when.`,["Cheapest way to send $500","Check a developer","Book a site visit"]);
+if(/person|human|talk|contact|email|call/.test(t))return human();
+if(/^(hi|hello|hey|selam|ሰላም)/.test(t))return say("Selam! What can I help you with?",["Cheapest way to send $500","Check a developer","Yellow Card"]);
+say("I don’t have a checked answer for that yet, and I’d rather not guess. A person can answer it.",["Talk to a person","How does it work?"])}
+function human(){const body=`Question from the Balager site:\n\n${lastQ}\n\nMy name:\nWhere I live:\n`;say(`A person will answer by email. <a href="mailto:hello@balagerhub.com?subject=${encodeURIComponent("Question for Balager")}&body=${encodeURIComponent(body)}">Email hello@balagerhub.com with your question →</a> (your email app opens with it filled in).`)}
+const chipMap={"How does it work?":"how does it work","Cheapest way to send $500":"send $500","Check a developer":"developer rating","Check an offer":"check an offer","Yellow Card":"yellow card","Talk to a person":"talk to a person","Change cash on a visit":"bureau cash","Book a site visit":"site visit"};
+slog.addEventListener("click",e=>{const a=e.target.closest("[data-go]");if(a){if(innerWidth<700)openS(false);return}const b=e.target.closest(".chips button");if(!b)return;const txt=b.textContent;say(esc(txt),null,true);answer(chipMap[txt]||txt)});
+$("sform").addEventListener("submit",e=>{e.preventDefault();const v=$("sin").value.trim();if(!v)return;$("sin").value="";say(esc(v),null,true);setTimeout(()=>answer(v),250)});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&sp.classList.contains("open"))openS(false)});
 
 /* ---------- waiting list ---------- */
 $("wl").addEventListener("submit",e=>{e.preventDefault();const em=$("wlem").value.trim();
