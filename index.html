@@ -236,6 +236,42 @@ footer a{color:var(--gold)}
 .sf button{width:46px;height:46px;border-radius:50%;border:0;background:var(--gold);color:#141814;font-size:18px;cursor:pointer}
 .sfoot{font-size:11px;color:var(--nmute);text-align:center;padding:0 10px 10px}
 @media(max-width:600px){#selamBtn small{display:none}#selam{right:12px;bottom:12px}}
+/* how it works */
+.htabs{display:flex;gap:6px;flex-wrap:wrap;margin-top:24px}
+.htabs button{border:1px solid var(--line);background:var(--card);font:600 14px Sora,sans-serif;color:var(--ink);padding:10px 16px;border-radius:999px;cursor:pointer;min-height:44px}
+.htabs button[aria-selected=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.steps{list-style:none;padding:0;margin:22px 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;counter-reset:s}
+.steps li{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;counter-increment:s;position:relative}
+.steps li::before{content:counter(s);display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--gold);font:700 15px Sora,sans-serif;margin-bottom:14px}
+.steps .k{font-size:12px;font-weight:600;color:var(--mute)}
+.steps b{display:block;font:600 16px Sora,sans-serif;margin:4px 0 6px}
+.steps p{margin:0;color:var(--mute);font-size:14px}
+/* simple mode */
+.simplebtn{background:transparent;border:1px solid rgba(245,197,66,.6);color:var(--gold);border-radius:999px;padding:0 14px;min-height:42px;font:600 14px Sora,"Noto Sans Ethiopic",sans-serif;cursor:pointer}
+#simple{position:fixed;inset:0;z-index:40;background:var(--night);color:var(--nink);overflow-y:auto;display:none}
+#simple.open{display:block}
+.sm{max-width:880px;margin:0 auto;padding:20px max(4vw,16px) 120px}
+.smtop{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.smtop .brand{margin-right:auto}
+.langs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:26px}
+.langs button{border:1px solid var(--nline);background:transparent;color:var(--nink);border-radius:999px;padding:0 16px;min-height:44px;font:600 15px Inter,"Noto Sans Ethiopic",sans-serif;cursor:pointer}
+.langs button[aria-pressed=true]{background:var(--gold);color:#141814;border-color:var(--gold)}
+.langs button:disabled{opacity:.45;cursor:default}
+.sm h2{font-size:clamp(32px,6vw,46px)}
+.sm .sub{color:var(--nmute);font-size:18px;margin:8px 0 22px}
+.tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.tiles button{border:0;border-radius:22px;min-height:170px;padding:20px;text-align:left;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer;color:#141814;font:700 22px Sora,"Noto Sans Ethiopic",sans-serif;line-height:1.15}
+.tiles button svg{width:46px;height:46px;padding:10px;border-radius:14px;background:rgba(255,255,255,.4)}
+.tiles small{display:block;font:500 14px Inter,sans-serif;margin-top:4px;opacity:.75}
+.sback{background:transparent;border:1px solid var(--nline);color:var(--nink);border-radius:999px;min-height:44px;padding:0 16px;font:600 15px Inter,"Noto Sans Ethiopic",sans-serif;cursor:pointer;margin-bottom:18px}
+.ssteps{list-style:none;padding:0;margin:20px 0 0;display:grid;gap:12px;counter-reset:q}
+.ssteps li{display:flex;gap:16px;align-items:flex-start;background:var(--night2);border:1px solid var(--nline);border-radius:18px;padding:18px;counter-increment:q}
+.ssteps li::before{content:counter(q);flex:none;width:44px;height:44px;border-radius:50%;background:var(--gold);color:#141814;display:grid;place-items:center;font:700 20px Sora,sans-serif}
+.ssteps b{display:block;font:600 20px Sora,"Noto Sans Ethiopic",sans-serif}
+.ssteps p{margin:4px 0 0;color:var(--nmute);font-size:16px}
+.sfoot2{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+@media(max-width:700px){.tiles{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.tiles button{min-height:140px;font-size:19px}}
+@media(max-width:860px){.simplebtn.navs{display:none}}
 @media(prefers-reduced-motion:no-preference){.steam,.steam2,.steam3{animation:rise 4s ease-in-out infinite}.steam2{animation-delay:1.2s}.steam3{animation-delay:2.4s}@keyframes rise{0%,100%{opacity:.2;transform:translateY(4px)}50%{opacity:.8;transform:translateY(-4px)}}}
 </style>
 </head>
@@ -246,8 +282,8 @@ footer a{color:var(--gold)}
 <header class="top">
 <div class="navin">
 <a class="brand" href="#top" aria-label="Balager home"><b>ባላገር</b><span>Balager</span></a>
-<nav class="menu" id="menu" aria-label="Main"><a href="#roadmap">Services</a><a href="#money">Rates</a><a href="#ratings">Developer ratings</a><a href="#verify">Verify</a><a href="#moving">Moving home</a><a href="#pricing">Pricing</a></nav>
-<a class="btn navcta" href="#roadmap">Get started</a>
+<nav class="menu" id="menu" aria-label="Main"><a href="#how">How it works</a><a href="#roadmap">Services</a><a href="#money">Rates</a><a href="#ratings">Developer ratings</a><a href="#verify">Verify</a><a href="#moving">Moving home</a><a href="#pricing">Pricing</a><button class="simplebtn" type="button" data-simple style="margin:6px 0 0 8px">Simple mode · ቀላል</button></nav>
+<button class="simplebtn navs" type="button" data-simple>Simple · ቀላል</button><a class="btn navcta" href="#roadmap">Get started</a>
 <button id="mbtn" aria-label="Open menu" aria-expanded="false" aria-controls="menu"><span></span></button>
 </div>
 <svg class="tibeb" aria-hidden="true"><rect width="100%" height="14" fill="url(#tb)"/></svg>
@@ -332,6 +368,13 @@ footer a{color:var(--gold)}
 </div>
 </div></section>
 
+<section class="band" id="how"><div class="wrap">
+<div class="eyebrow">How it works</div>
+<h2>Step by step, <em class="s">no guessing.</em></h2>
+<div class="htabs" role="tablist" id="htabs"></div>
+<ol class="steps" id="hsteps"></ol>
+</div></section>
+
 <section class="band" id="roadmap" style="background:#efeee8"><div class="wrap">
 <div class="eyebrow">Your coming-home roadmap</div>
 <h2>What do you need <em class="s">to do?</em></h2>
@@ -403,11 +446,14 @@ footer a{color:var(--gold)}
 <h2>The rules, <em class="s">in plain words</em></h2>
 <p class="lede">As of November 2026. Confirm with a lawyer or tax adviser before acting.</p>
 <div class="rules">
-<div class="rule"><h3>Yellow Card</h3><p>Live and work with no visa, residence or work permit. Invest as a domestic investor and own property.</p><div class="small">Proclamation 270/2002</div></div>
-<div class="rule"><h3>Household goods, duty-free</h3><p>Personal effects used for 12+ months. Needs proof of a year or more abroad (passport stamps or an embassy letter). Vehicles are excluded.</p><div class="small">Directive 923/2014</div></div>
-<div class="rule warn"><h3>Bringing a car</h3><p>Petrol and diesel imports have been banned since January 2024, and the returnee route was closed. Electric vehicles only: 15% duty if fully built.</p><div class="small">Rules as of Nov 2026</div></div>
-<div class="rule"><h3>Starting a business</h3><p>Duty-free capital goods for approved projects. Diaspora traders can import under the Franco Valuta rules.</p><div class="small">FVD/01/2026</div></div>
-<div class="rule"><h3>Buying a home</h3><p>Yellow Card holders can own property. Foreign nationals can’t borrow locally. Diaspora home loans of up to 80% are on offer (Wegagen with Gift).</p><div class="small">Proclamation 1388/2025</div></div>
+<div class="rule"><h3>Yellow Card</h3><p>Live and work with no visa, residence or work permit; invest as a domestic investor and own property. You can’t vote or work in defence, security or foreign service.</p><div class="small">Proclamation 270/2002</div></div>
+<div class="rule"><h3>Household goods, duty-free</h3><p>Used for 12+ months, one of each electronic item, one shipment within 6 months of arrival. Needs proof of a year or more abroad and an embassy supporting letter.</p><div class="small">Directive 923/2014</div></div>
+<div class="rule"><h3>At the airport</h3><p>Duty-free for travellers: 2 litres of alcohol, 500 ml of perfume, 2 phones, 1 laptop, 1 camera, and your own medicines.</p><div class="small">Directive 923/2014</div></div>
+<div class="rule warn"><h3>Bringing a car</h3><p>Petrol and diesel imports banned since January 2024; the returnee car privilege ended in August 2023. Electric cars: 15% duty fully built, 5% semi-assembled.</p><div class="small">Customs Commission · Ministry of Transport</div></div>
+<div class="rule"><h3>Pets</h3><p>Microchip, rabies vaccine given 30 days to 12 months before travel, a health certificate, and a Ministry of Agriculture import permit before you fly.</p><div class="small">Ministry of Agriculture</div></div>
+<div class="rule"><h3>Fayda ID</h3><p>Free 12-digit digital ID, registered in person at a centre in Ethiopia. Needed for banks, SIM cards, title deeds, schools and health services.</p><div class="small">National ID Program</div></div>
+<div class="rule"><h3>Starting a business</h3><p>Duty-free capital goods and tax holidays for approved projects. With an investment licence, personal effects up to USD 10,000 FOB come in duty-free.</p><div class="small">Investment rules · FVD/01/2026</div></div>
+<div class="rule"><h3>Driving licence</h3><p>Authenticate your foreign licence, then convert it at the transport licensing office. An international permit isn’t enough once you live here.</p><div class="small">Transport licensing</div></div>
 <div class="rule"><h3>Banking and cash</h3><p>Open a non-resident foreign-currency account. Staying past 90 days? Deposit foreign cash there within 90 days of arrival.</p><div class="small"><a href="#money">See today’s rates</a></div></div>
 </div>
 <p class="small" style="margin-top:16px">Still being checked with a tax adviser: income tax on foreign pensions and salaries.</p>
@@ -455,6 +501,14 @@ footer a{color:var(--gold)}
 <div id="slog" aria-live="polite"></div>
 <form class="sf" id="sform"><input id="sin" placeholder="Ask about rates, developers, Yellow Card…" aria-label="Your question" autocomplete="off"><button aria-label="Send">→</button></form>
 <div class="sfoot">Early version · information, not legal advice · anything I can’t answer goes to a person</div>
+</div>
+
+<div id="simple" role="dialog" aria-label="Simple mode">
+<div class="sm">
+<div class="smtop"><span class="brand"><b>ባላገር</b><span>Balager</span></span><button class="sback" id="smclose" style="margin:0" data-l="full">Full site</button></div>
+<div class="langs" id="langs"><button aria-pressed="true" data-lang="en">English</button><button aria-pressed="false" data-lang="am">አማርኛ</button><button disabled>Afaan Oromoo · soon</button><button disabled>ትግርኛ · soon</button></div>
+<div id="smbody"></div>
+</div>
 </div>
 
 <script>
@@ -547,7 +601,7 @@ Money:[
 Paperwork:[
 {t:"Yellow Card",a:"ቢጫ ካርድ",b:"Guide",i:"The Ethiopian Origin ID lets you live, work and invest without a visa or permits.",f:[["Issue / renew","$300"],["If lost","$340"],["Apply","Online"],["Law","Proclamation 270/2002"]],c:["Apply or renew online","Set a reminder before it expires","Keep a scan somewhere safe","Carry it when you visit"],w:["Late renewals have been penalised. Fees and steps change, so check before you apply."]},
 {t:"Power of attorney",a:"ውክልና",b:"Guide",i:"Give a trusted person power to act for you, narrowly and for a set time.",f:[["Online","teleSign, video ID"],["Pay","telebirr"],["Embassy route","~$62 per document (US)"],["Revoke","Online"]],c:["Try teleSign before courier and embassy","Limit it to one task","Set an end date","Revoke it when the task is done"],w:["A general, open-ended power of attorney is a common way families lose property."]},
-{t:"Fayda digital ID",a:"ፋይዳ",b:"Deadline",i:"Banks are expected to require Fayda for diaspora accounts. Register before the deadline.",f:[["Deadline","31 Dec 2026"],["Proof","Yellow Card accepted"],["Who","Diaspora can register"],["Status","Confirm the date"]],c:["Check whether your bank account needs Fayda","Register for Fayda","Link Fayda to your bank account"],w:["Deadlines have moved before. Confirm the current date with your bank."]}],
+{t:"Fayda digital ID",a:"ፋይዳ",b:"Deadline",i:"Banks are expected to require Fayda for diaspora accounts. Registration is free and in person at a centre in Ethiopia.",f:[["Deadline","31 Dec 2026"],["Where","In person, in Ethiopia"],["Bring","Passport or Yellow Card"],["Cost","Free"]],c:["Check whether your bank account needs Fayda","Book a centre: Ethio telecom, CBE, Bank of Abyssinia, EthioPost or DARS","Bring your passport or Yellow Card and an Ethiopian phone number","Link Fayda to your bank with Fayda Connect"],w:["Deadlines have moved before. Confirm the current date with your bank."]}],
 "Moving home":[
 {t:"Household goods",a:"የቤት ዕቃ",b:"Guide",i:"Personal effects used for 12 months or more come in duty-free.",f:[["Used for","12+ months"],["Abroad","1+ year"],["Proof","Passport or embassy letter"],["Excluded","Vehicles"]],c:["Gather proof of a year or more abroad","List items with their age","Keep receipts for anything new"],w:["Older guides list allowances that have since changed."]},
 {t:"Bringing a car",a:"መኪና",b:"Warning",i:"Petrol and diesel car imports have been banned since January 2024.",f:[["Petrol, diesel","Banned"],["Returnee route","Closed"],["Electric, built","15% duty"],["Charging","Expanding"]],c:["Decide whether an EV suits your city","Price a locally assembled EV","Sell your current car before you move"],w:["Agents selling a “returnee car exemption” are offering something that no longer exists."]},
@@ -603,6 +657,33 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&sp.classList.contai
 const COUNTER_URL="https://balager-counter.felleke.workers.dev";
 if(COUNTER_URL){let first=true;try{first=!sessionStorage.getItem("bv");sessionStorage.setItem("bv","1")}catch(e){}
 fetch(COUNTER_URL+(first?"/hit":"/"),{cache:"no-store"}).then(r=>r.ok?r.json():Promise.reject()).then(j=>{if(j&&j.visits>0){const v=$("visits");v.textContent=j.visits.toLocaleString("en-US")+" visits since launch";v.hidden=false}}).catch(()=>{})}
+/* ---------- how it works + simple mode ---------- */
+const FLOW={
+house:{en:"Check a house",am:"ቤት ማረጋገጥ",c:"#f5c542",ic:'<circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/>',s:[["Tell us the address","አድራሻውን ይንገሩን","Send the location, the developer or seller, and what you want checked."],["We send an independent inspector","ገለልተኛ ተቆጣጣሪ እንልካለን","Never chosen by the seller. Trained, rotated and spot-checked."],["Photos and video from the site","ፎቶና ቪዲዮ ከቦታው","Every photo has GPS and time. Live video if you want."],["Signed report in 72 hours","በ72 ሰዓት የተፈረመ ሪፖርት","What was checked, what was found, and what we could not check."],["You decide","እርስዎ ይወስናሉ","Pay, negotiate or walk away, with evidence in your hand."]]},
+buy:{en:"Buy a home safely",am:"ቤት በጥንቃቄ መግዛት",c:"#f48fb1",ic:'<path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/>',s:[["Check the developer rating","የገንቢውን ደረጃ ይመልከቱ","Licence, court record and handover history, free on Balager."],["Check the title deed","ካርታውን ያረጋግጡ","Owner, liens and court orders checked at the land office."],["Visit the site","ቦታውን ይጎብኙ","An inspector goes for you and sends GPS photos."],["A lawyer checks the agreement","ጠበቃ ውሉን ይመረምራል","Price, dates, refunds and penalties, before you sign."],["Pay in stages through the bank","በባንክ በደረጃ ይክፈሉ","Money goes to a closed (escrow) account, never to an agent."],["Get the keys and register","ቁልፍ ይረከቡ፣ ያስመዝግቡ","Handover from 80% complete, then register in your name."]]},
+fayda:{en:"Get Fayda ID",am:"ፋይዳ መታወቂያ ማውጣት",c:"#5fd3a0",ic:'<rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="12" r="2.5"/><path d="M14 10h4M14 14h4"/>',s:[["Book a centre","ቀጠሮ ይያዙ","Registration is in person in Ethiopia and free: Ethio telecom, CBE, Bank of Abyssinia, EthioPost or DARS."],["Bring your passport or Yellow Card","ፓስፖርት ወይም ቢጫ ካርድ ይዘው ይምጡ","One document with your photo, and an Ethiopian phone number."],["Fingerprints, eyes and photo","የጣት አሻራ፣ አይን፣ ፎቶ","Taken at the centre. It takes a few minutes."],["Your number comes by SMS","ቁጥሩ በኤስኤምኤስ ይደርስዎታል","A 12-digit Fayda number. Keep it safe."],["Link your bank","ከባንክዎ ጋር ያገናኙ","Use Fayda Connect to link your bank and telebirr. Now you can bank, get a SIM and more."]]},
+money:{en:"Send money",am:"ገንዘብ መላክ",c:"#9ec5f0",ic:'<rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/>',s:[["Choose the amount","መጠኑን ይምረጡ","For example $200, $500 or $1,000."],["Compare the birr received","የሚደርሰውን ብር ያወዳድሩ","We show what your family really gets after fees."],["Pick a licensed app","ፈቃድ ያለው መተግበሪያ ይምረጡ","Only NBE-licensed channels. Never the black market."],["Send and keep the receipt","ይላኩ፣ ደረሰኙን ያስቀምጡ","Keep it until the money has arrived."]],go:"money"},
+move:{en:"Move home",am:"ወደ አገር ቤት መመለስ",c:"#f6b48a",ic:'<path d="M3 11l18-8-8 18-2-8z"/>',s:[["Get your papers ready","ወረቀቶችን ያዘጋጁ","6 months before: Yellow Card or passport; stamp your diplomas."],["Embassy letter and list of goods","የኤምባሲ ደብዳቤና የዕቃ ዝርዝር","3 months before: proof you lived abroad 1+ year; list items used 12+ months."],["Pets and shipping","የቤት እንስሳና ጭነት","1 month before: pet papers; book a licensed shipper."],["Arrive and clear customs","ሲደርሱ፦ ጉምሩክ ያስፈጽሙ","Bring all goods in one shipment within 6 months of arrival."],["First 90 days","የመጀመሪያ 90 ቀናት","Fayda, bank, driving licence, school. Rent before you buy."]],go:"moving"}};
+const HT=["house","buy","fayda","money","move"];let ht="house";
+function drawHow(){$("htabs").innerHTML=HT.map(k=>`<button role="tab" aria-selected="${k===ht}" data-k="${k}">${FLOW[k].en}</button>`).join("");
+$("hsteps").innerHTML=FLOW[ht].s.map((s,i)=>`<li><span class="k">STEP ${i+1}</span><b>${s[0]}</b><p>${s[2]}</p></li>`).join("")}
+$("htabs").addEventListener("click",e=>{const b=e.target.closest("button");if(b){ht=b.dataset.k;drawHow()}});drawHow();
+let lang="en",scr=null;
+const L={en:{q:"What do you want to do?",tap:"Tap one. We will show you step by step.",back:"← Back",full:"Full site",step:"Step",talk:"Talk to a person",ask:"Ask Selam",more:"See the details →",mail:"Email us"},am:{q:"ምን ማድረግ ይፈልጋሉ?",tap:"አንዱን ይንኩ። ደረጃ በደረጃ እናሳይዎታለን።",back:"← ተመለስ",full:"ሙሉ ገጽ",step:"ደረጃ",talk:"ሰው ያነጋግሩ",ask:"ሰላምን ይጠይቁ",more:"ዝርዝሩን ይመልከቱ →",mail:"ኢሜይል ይላኩ"}};
+const ico=p=>`<svg viewBox="0 0 24 24" fill="none" stroke="#141814" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
+const mailto="mailto:hello@balagerhub.com?subject="+encodeURIComponent("Question for Balager");
+function drawSimple(){const t=L[lang];$("smclose").textContent=t.full;
+document.querySelectorAll("#langs [data-lang]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.lang===lang)));
+if(!scr){$("smbody").innerHTML=`<h2>${t.q}</h2><p class="sub">${t.tap}</p><div class="tiles">${HT.map(k=>`<button data-k="${k}" style="background:${FLOW[k].c}">${ico(FLOW[k].ic)}<span>${FLOW[k][lang]}${lang==="am"?`<small>${FLOW[k].en}</small>`:""}</span></button>`).join("")}<button data-k="talk" style="background:#2f7d57;color:#fff">${ico('<path d="M4 5h16v11H8l-4 4z"/>').replace('stroke="#141814"','stroke="#fff"')}<span>${t.talk}</span></button></div><div class="sfoot2"><a class="btn" href="${mailto}">${t.mail}: hello@balagerhub.com</a><button class="btn ghost" type="button" data-ask>${t.ask}</button></div><p class="small" style="margin-top:18px">${lang==="am"?"የአማርኛ ጽሑፍ፦ ርዕሶች በአማርኛ፣ ማብራሪያዎች በእንግሊዝኛ። Afaan Oromoo and Tigrinya coming.":"Afaan Oromoo and Tigrinya coming."}</p>`;return}
+const f=FLOW[scr];$("smbody").innerHTML=`<button class="sback" data-back>${t.back}</button><h2>${f[lang]}</h2>${lang==="am"?`<p class="sub">${f.en}</p>`:""}<ol class="ssteps">${f.s.map(s=>`<li><div><b>${lang==="am"?s[1]:s[0]}</b><p>${s[2]}</p></div></li>`).join("")}</ol><div class="sfoot2">${f.go?`<a class="btn" href="#${f.go}" data-close>${t.more}</a>`:""}<a class="btn ghost" href="${mailto}">${t.talk}</a><button class="btn ghost" type="button" data-ask>${t.ask}</button></div>`;$("simple").scrollTop=0}
+const openSimple=o=>{$("simple").classList.toggle("open",o);document.body.style.overflow=o?"hidden":"";if(o){scr=null;drawSimple()}};
+document.querySelectorAll("[data-simple]").forEach(b=>b.addEventListener("click",()=>{menu.classList.remove("open");openSimple(true)}));
+$("smclose").addEventListener("click",()=>openSimple(false));
+$("langs").addEventListener("click",e=>{const b=e.target.closest("[data-lang]");if(b){lang=b.dataset.lang;drawSimple()}});
+$("smbody").addEventListener("click",e=>{const tile=e.target.closest(".tiles button");if(tile){if(tile.dataset.k==="talk"){location.href=mailto;return}scr=tile.dataset.k;drawSimple();return}
+if(e.target.closest("[data-back]")){scr=null;drawSimple();return}
+if(e.target.closest("[data-close]")){openSimple(false);return}
+if(e.target.closest("[data-ask]")){openSimple(false);openS(true)}});
 /* ---------- waiting list ---------- */
 $("wl").addEventListener("submit",e=>{e.preventDefault();const em=$("wlem").value.trim();
 const body=`Please add me to the waiting list for a Balager site verification visit.\n\nMy email: ${em}\nProperty location (area, city): \nWhat I want checked (progress, title, floors, other): \n`;
