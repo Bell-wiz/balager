@@ -224,6 +224,11 @@ footer a{color:var(--gold)}
 .av.flag{overflow:hidden;position:relative;background:#078930;width:44px;height:44px}
 .av.flag svg{flex:none}
 .av.flag i{position:absolute;right:3px;bottom:3px;width:10px;height:10px;border-radius:50%;background:#34d399;border:2px solid var(--night)}
+#snudge{position:fixed;right:18px;bottom:84px;z-index:29;width:min(300px,calc(100vw - 36px));background:var(--night2);color:var(--nink);border:1px solid rgba(245,197,66,.4);border-radius:16px;padding:14px;box-shadow:0 12px 34px rgba(0,0,0,.4);display:none;font-size:15px}
+#snudge.show{display:block}
+#snudge .row{display:flex;gap:8px;margin-top:10px}
+#snudge button{min-height:40px;border-radius:999px;padding:0 14px;font:600 14px Inter,sans-serif;cursor:pointer;border:1px solid var(--nline);background:transparent;color:var(--nink)}
+#snudge button.y{background:var(--gold);color:#141814;border-color:var(--gold)}
 #selam{position:fixed;right:18px;bottom:18px;z-index:31;width:min(400px,calc(100vw - 24px));height:min(620px,calc(100dvh - 36px));background:var(--night);color:var(--nink);border:1px solid var(--nline);border-radius:22px;display:none;flex-direction:column;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.45)}
 #selam.open{display:flex}
 .sh{display:flex;align-items:center;gap:12px;padding:14px 14px 12px;border-bottom:1px solid var(--nline)}
@@ -458,7 +463,7 @@ footer a{color:var(--gold)}
 <div class="rule"><h3>At the airport</h3><p>Duty-free for travellers: 2 litres of alcohol, 500 ml of perfume, 2 phones, 1 laptop, 1 camera, and your own medicines.</p><div class="small">Directive 923/2014</div></div>
 <div class="rule warn"><h3>Bringing a car</h3><p>Petrol and diesel imports banned since January 2024; the returnee car privilege ended in August 2023. Electric cars: 15% duty fully built, 5% semi-assembled.</p><div class="small">Customs Commission · Ministry of Transport</div></div>
 <div class="rule"><h3>Pets</h3><p>Microchip, rabies vaccine given 30 days to 12 months before travel, a health certificate, and a Ministry of Agriculture import permit before you fly.</p><div class="small">Ministry of Agriculture</div></div>
-<div class="rule"><h3>Fayda ID</h3><p>Free 12-digit digital ID, registered in person at a centre in Ethiopia. Needed for banks, SIM cards, title deeds, schools and health services.</p><div class="small">National ID Program</div></div>
+<div class="rule"><h3>Fayda ID</h3><p>Free lifetime 12-digit ID. Register in person at an Ethio telecom centre with a photo ID and proof of address. Used for banks, SIM cards, title deeds, schools and health services.</p><div class="small">National ID Program</div></div>
 <div class="rule"><h3>Starting a business</h3><p>Duty-free capital goods and tax holidays for approved projects. With an investment licence, personal effects up to USD 10,000 FOB come in duty-free.</p><div class="small">Investment rules · FVD/01/2026</div></div>
 <div class="rule"><h3>Driving licence</h3><p>Authenticate your foreign licence, then convert it at the transport licensing office. An international permit isn’t enough once you live here.</p><div class="small">Transport licensing</div></div>
 <div class="rule"><h3>Banking and cash</h3><p>Open a non-resident foreign-currency account. Staying past 90 days? Deposit foreign cash there within 90 days of arrival.</p><div class="small"><a href="#money">See today’s rates</a></div></div>
@@ -503,6 +508,7 @@ footer a{color:var(--gold)}
 </div></footer>
 
 <button id="selamBtn" aria-controls="selam" aria-expanded="false"><span class="av flag"><svg width="66" height="44" viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="6.67" fill="#078930"/><rect y="6.67" width="30" height="6.67" fill="#FCDD09"/><rect y="13.33" width="30" height="6.67" fill="#DA121A"/><circle cx="15" cy="10" r="5" fill="#0F47AF"/><path d="M15 6.4 L16.1 9.6 L19.4 9.6 L16.7 11.6 L17.7 14.8 L15 12.9 L12.3 14.8 L13.3 11.6 L10.6 9.6 L13.9 9.6 Z" fill="none" stroke="#FCDD09" stroke-width="0.7"/></svg><i></i></span><span><b>Ask Selam</b><small>Guide · a person on email</small></span></button>
+<div id="snudge" role="status"><b>Selam!</b> Want me to check an offer or find the cheapest way to send money?<div class="row"><button class="y" type="button" id="snyes">Yes, help me</button><button type="button" id="snno">Later</button></div></div>
 <div id="selam" role="dialog" aria-label="Ask Selam">
 <div class="sh"><span class="av flag"><svg width="66" height="44" viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="6.67" fill="#078930"/><rect y="6.67" width="30" height="6.67" fill="#FCDD09"/><rect y="13.33" width="30" height="6.67" fill="#DA121A"/><circle cx="15" cy="10" r="5" fill="#0F47AF"/><path d="M15 6.4 L16.1 9.6 L19.4 9.6 L16.7 11.6 L17.7 14.8 L15 12.9 L12.3 14.8 L13.3 11.6 L10.6 9.6 L13.9 9.6 Z" fill="none" stroke="#FCDD09" stroke-width="0.7"/></svg><i></i></span><div><b>Selam <span class="am" style="font-weight:500">ሰላም</span></b><small>Answers from Balager’s own pages · a person by email</small></div><button id="sclose" aria-label="Close">×</button></div>
 <div id="slog" aria-live="polite"></div>
@@ -692,6 +698,11 @@ $("smbody").addEventListener("click",e=>{const tile=e.target.closest(".tiles but
 if(e.target.closest("[data-back]")){scr=null;drawSimple();return}
 if(e.target.closest("[data-close]")){openSimple(false);return}
 if(e.target.closest("[data-ask]")){openSimple(false);openS(true)}});
+/* ---------- Selam nudge ---------- */
+{const nd=$("snudge");let seen=false;try{seen=!!sessionStorage.getItem("snudge")}catch(e){}
+const hide=()=>{nd.classList.remove("show");try{sessionStorage.setItem("snudge","1")}catch(e){}};
+if(!seen)setTimeout(()=>{if(!sp.classList.contains("open")&&!$("simple").classList.contains("open"))nd.classList.add("show")},8000);
+$("snyes").addEventListener("click",()=>{hide();openS(true)});$("snno").addEventListener("click",hide);sb.addEventListener("click",hide)}
 /* ---------- waiting list ---------- */
 $("wl").addEventListener("submit",e=>{e.preventDefault();const em=$("wlem").value.trim();
 const body=`Please add me to the waiting list for a Balager site verification visit.\n\nMy email: ${em}\nProperty location (area, city): \nWhat I want checked (progress, title, floors, other): \n`;
