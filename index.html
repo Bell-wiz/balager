@@ -221,6 +221,9 @@ footer a{color:var(--gold)}
 #selamBtn .av,.sh .av{width:38px;height:38px;border-radius:50%;background:var(--gold);color:#141814;display:grid;place-items:center;font:700 18px "Noto Sans Ethiopic",sans-serif;flex:none}
 #selamBtn b{display:block;font:600 15px Sora,sans-serif;text-align:left}
 #selamBtn small{color:var(--nmute);font-size:12px}
+.av.flag{overflow:hidden;position:relative;background:#078930;width:44px;height:44px}
+.av.flag svg{flex:none}
+.av.flag i{position:absolute;right:3px;bottom:3px;width:10px;height:10px;border-radius:50%;background:#34d399;border:2px solid var(--night)}
 #selam{position:fixed;right:18px;bottom:18px;z-index:31;width:min(400px,calc(100vw - 24px));height:min(620px,calc(100dvh - 36px));background:var(--night);color:var(--nink);border:1px solid var(--nline);border-radius:22px;display:none;flex-direction:column;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.45)}
 #selam.open{display:flex}
 .sh{display:flex;align-items:center;gap:12px;padding:14px 14px 12px;border-bottom:1px solid var(--nline)}
@@ -499,9 +502,9 @@ footer a{color:var(--gold)}
 <div>Not a government service · Information, not legal or financial advice · We never hold your money</div>
 </div></footer>
 
-<button id="selamBtn" aria-controls="selam" aria-expanded="false"><span class="av">ባ</span><span><b>Ask Selam</b><small>Guide · a person on email</small></span></button>
+<button id="selamBtn" aria-controls="selam" aria-expanded="false"><span class="av flag"><svg width="66" height="44" viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="6.67" fill="#078930"/><rect y="6.67" width="30" height="6.67" fill="#FCDD09"/><rect y="13.33" width="30" height="6.67" fill="#DA121A"/><circle cx="15" cy="10" r="5" fill="#0F47AF"/><path d="M15 6.4 L16.1 9.6 L19.4 9.6 L16.7 11.6 L17.7 14.8 L15 12.9 L12.3 14.8 L13.3 11.6 L10.6 9.6 L13.9 9.6 Z" fill="none" stroke="#FCDD09" stroke-width="0.7"/></svg><i></i></span><span><b>Ask Selam</b><small>Guide · a person on email</small></span></button>
 <div id="selam" role="dialog" aria-label="Ask Selam">
-<div class="sh"><span class="av">ባ</span><div><b>Selam <span class="am" style="font-weight:500">ሰላም</span></b><small>Answers from Balager’s own pages · a person by email</small></div><button id="sclose" aria-label="Close">×</button></div>
+<div class="sh"><span class="av flag"><svg width="66" height="44" viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="6.67" fill="#078930"/><rect y="6.67" width="30" height="6.67" fill="#FCDD09"/><rect y="13.33" width="30" height="6.67" fill="#DA121A"/><circle cx="15" cy="10" r="5" fill="#0F47AF"/><path d="M15 6.4 L16.1 9.6 L19.4 9.6 L16.7 11.6 L17.7 14.8 L15 12.9 L12.3 14.8 L13.3 11.6 L10.6 9.6 L13.9 9.6 Z" fill="none" stroke="#FCDD09" stroke-width="0.7"/></svg><i></i></span><div><b>Selam <span class="am" style="font-weight:500">ሰላም</span></b><small>Answers from Balager’s own pages · a person by email</small></div><button id="sclose" aria-label="Close">×</button></div>
 <div id="slog" aria-live="polite"></div>
 <form class="sf" id="sform"><input id="sin" placeholder="Ask about rates, developers, Yellow Card…" aria-label="Your question" autocomplete="off"><button aria-label="Send">→</button></form>
 <div class="sfoot">Early version · information, not legal advice · anything I can’t answer goes to a person</div>
