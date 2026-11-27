@@ -600,7 +600,7 @@ $("sform").addEventListener("submit",e=>{e.preventDefault();const v=$("sin").val
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&sp.classList.contains("open"))openS(false)});
 
 /* ---------- visit counter ---------- */
-const COUNTER_URL=""; // set to the Cloudflare Worker address, e.g. https://balager-counter.NAME.workers.dev
+const COUNTER_URL="https://balager-counter.felleke.workers.dev";
 if(COUNTER_URL){let first=true;try{first=!sessionStorage.getItem("bv");sessionStorage.setItem("bv","1")}catch(e){}
 fetch(COUNTER_URL+(first?"/hit":"/"),{cache:"no-store"}).then(r=>r.ok?r.json():Promise.reject()).then(j=>{if(j&&j.visits>0){const v=$("visits");v.textContent=j.visits.toLocaleString("en-US")+" visits since launch";v.hidden=false}}).catch(()=>{})}
 /* ---------- waiting list ---------- */
