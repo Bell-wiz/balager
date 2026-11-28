@@ -546,7 +546,7 @@ footer a{color:var(--gold)}
 <div id="simple" role="dialog" aria-label="Simple mode">
 <div class="sm">
 <div class="smtop"><span class="brand"><svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><rect width="26" height="26" rx="7" fill="#f5c542"/><path d="M6 13.5 13 7l7 6.5V20h-4.5v-4h-5v4H6z" fill="#141814"/></svg><b>ባላገር</b><span>Balager</span></span><button class="sback" id="smclose" style="margin:0" data-l="full">Full site</button></div>
-<div class="langs" id="langs"><button aria-pressed="true" data-lang="en">English</button><button aria-pressed="false" data-lang="am">አማርኛ</button><button disabled>Afaan Oromoo · soon</button><button disabled>ትግርኛ · soon</button></div>
+<div class="langs" id="langs"><button aria-pressed="true" data-lang="en">English</button><button aria-pressed="false" data-lang="am">አማርኛ</button><button aria-pressed="false" data-lang="ti">ትግርኛ</button><button aria-pressed="false" data-lang="om">Afaan Oromoo</button></div>
 <div id="smbody"></div>
 </div>
 </div>
@@ -711,12 +711,27 @@ $("hsteps").innerHTML=FLOW[ht].s.map((s,i)=>`<li><span class="k">STEP ${i+1}</sp
 $("htabs").addEventListener("click",e=>{const b=e.target.closest("button");if(b){ht=b.dataset.k;drawHow()}});drawHow();
 let lang="en",scr=null;
 const L={en:{q:"What do you want to do?",tap:"Tap one. We will show you step by step.",back:"← Back",full:"Full site",step:"Step",talk:"Talk to a person",ask:"Ask Selam",more:"See the details →",mail:"Email us"},am:{q:"ምን ማድረግ ይፈልጋሉ?",tap:"አንዱን ይንኩ። ደረጃ በደረጃ እናሳይዎታለን።",back:"← ተመለስ",full:"ሙሉ ገጽ",step:"ደረጃ",talk:"ሰው ያነጋግሩ",ask:"ሰላምን ይጠይቁ",more:"ዝርዝሩን ይመልከቱ →",mail:"ኢሜይል ይላኩ"}};
+const TR={ti:{house:["ገዛ ምርግጋጽ",["ኣድራሻ ንገሩና","ናጻ ተቆጻጻሪ ንሰድድ","ካብ ቦታ ስእልን ቪድዮን","ኣብ 72 ሰዓት ዝተፈረመ ጸብጻብ","ንስኹም ትውስኑ"]],
+buy:["ብጥንቃቐ ገዛ ምዕዳግ",["ደረጃ ናይቲ ሃናጺ ርኣዩ","ካርታ ኣረጋግጹ","ቦታ በጽሑ","ጠበቓ ውዕል ይምርምር","ብባንኪ ብደረጃ ክፈሉ","መፍትሕ ተረከቡ፣ ኣመዝግቡ"]],
+fayda:["መንነት ፋይዳ ምውጻእ",["ናብ መዝገቢ ማእከል ኪዱ","ብጫ ካርድኹም ሒዝኩም ምጹ","ኣሰር ኣጻብዕ፣ ዓይኒ፣ ስእሊ","ቁጽሪ ብኤስኤምኤስ ይመጸኩም","መንነት ካርድኹም ሕተሙ","ምስ ሕሳብ ባንክኹም ኣራኽቡ"]],
+money:["ገንዘብ ምልኣኽ",["መጠን ምረጹ","ዝበጽሕ ብር ኣወዳድሩ","ፍቓድ ዘለዎ ኣፕ ምረጹ","ስደዱ፣ ቅብሊት ሓዙ"]],
+move:["ናብ ዓዲ ምምላስ",["ሰነዳትኩም ኣዳልዉ","ደብዳቤ ኤምባሲን ዝርዝር ንብረትን","ዘቤታዊ እንስሳን ጽዕነትን","ምስ በጻሕኩም፦ ጉምሩክ ኣሕልፉ","ቀዳሞት 90 መዓልታት"]]},
+om:{house:["Mana mirkaneessuu",["Teessoo nutti himi","To'ataa walabaa ni ergina","Suuraa fi viidiyoo bakka sanaa","Gabaasa mallattaa'e sa'aatii 72 keessatti","Ati murteessita"]],
+buy:["Mana nageenyaan bituu",["Sadarkaa ijaaraa ilaali","Kaartaa mirkaneessi","Bakka sana daawwadhu","Abukaatoon waliigaltee ni qorata","Baankiidhaan sadarkaan kaffali","Furtuu fudhadhu, galmeessi"]],
+fayda:["Eenyummaa Faayidaa baasuu",["Wiirtuu galmeessaa deemi","Kaardii Keelloo kee qabadhu","Mallattoo quba, ija fi suuraa","Lakkoofsi kee SMS'n sitti dhufa","Kaardii eenyummaa kee maxxansi","Herrega baankii kee waliin walqabsiisi"]],
+money:["Maallaqa erguu",["Hanga filadhu","Qarshii ga'u wal bira qabi","Appii hayyama qabu filadhu","Ergi, nagahee qabadhu"]],
+move:["Biyyatti deebi'uu",["Waraqaalee kee qopheessi","Xalayaa embaasii fi tarree meeshaalee","Bineensota manaa fi geejjiba","Yeroo geessu: kostamii xumuri","Guyyoota 90 jalqabaa"]]}};
+L.ti={q:"እንታይ ክትገብሩ ትደልዩ?",tap:"ሓደ ጠውቑ። ደረጃ ብደረጃ ከነርእየኩም ኢና።",back:"← ንድሕሪት",full:"ምሉእ ገጽ",step:"ደረጃ",talk:"ምስ ሰብ ተዛረቡ",ask:"ንሰላም ሕተቱ",more:"ዝርዝር ርኣዩ →",mail:"ኢመይል ስደዱ",note:"ትግርኛ፦ ኣርእስታት ብትግርኛ፣ መብርሂታት ብእንግሊዝኛ። Draft translation, being checked by native speakers."};
+L.om={q:"Maal gochuu barbaadda?",tap:"Tokko tuqi. Tarkaanfii tarkaanfiin si agarsiifna.",back:"← Deebi'i",full:"Marsariitii guutuu",step:"Tarkaanfii",talk:"Nama waliin haasa'i",ask:"Selaam gaafadhu",more:"Bal'ina isaa ilaali →",mail:"Imeelii ergi",note:"Afaan Oromoo: mata dureewwan Afaan Oromootiin, ibsi Afaan Ingiliziitiin. Draft translation, being checked by native speakers."};
+L.am.note="የአማርኛ ጽሑፍ፦ ርዕሶች በአማርኛ፣ ማብራሪያዎች በእንግሊዝኛ።";L.en.note="Also in አማርኛ, ትግርኛ and Afaan Oromoo.";
+const tTitle=k=>lang==="en"?FLOW[k].en:lang==="am"?FLOW[k].am:TR[lang][k][0];
+const tStep=(k,i)=>lang==="en"?FLOW[k].s[i][0]:lang==="am"?FLOW[k].s[i][1]:TR[lang][k][1][i];
 const ico=p=>`<svg viewBox="0 0 24 24" fill="none" stroke="#141814" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
 const mailto="mailto:hello@balagerhub.com?subject="+encodeURIComponent("Question for Balager");
 function drawSimple(){const t=L[lang];$("smclose").textContent=t.full;
 document.querySelectorAll("#langs [data-lang]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.lang===lang)));
-if(!scr){$("smbody").innerHTML=`<h2>${t.q}</h2><p class="sub">${t.tap}</p><div class="tiles">${HT.map(k=>`<button data-k="${k}" style="background:${FLOW[k].c}">${ico(FLOW[k].ic)}<span>${FLOW[k][lang]}${lang==="am"?`<small>${FLOW[k].en}</small>`:""}</span></button>`).join("")}<button data-k="talk" style="background:#2f7d57;color:#fff">${ico('<path d="M4 5h16v11H8l-4 4z"/>').replace('stroke="#141814"','stroke="#fff"')}<span>${t.talk}</span></button></div><div class="sfoot2"><a class="btn" href="${mailto}">${t.mail}: hello@balagerhub.com</a><button class="btn ghost" type="button" data-ask>${t.ask}</button></div><p class="small" style="margin-top:18px">${lang==="am"?"የአማርኛ ጽሑፍ፦ ርዕሶች በአማርኛ፣ ማብራሪያዎች በእንግሊዝኛ። Afaan Oromoo and Tigrinya coming.":"Afaan Oromoo and Tigrinya coming."}</p>`;return}
-const f=FLOW[scr];$("smbody").innerHTML=`<button class="sback" data-back>${t.back}</button><h2>${f[lang]}</h2>${lang==="am"?`<p class="sub">${f.en}</p>`:""}<ol class="ssteps">${f.s.map(s=>`<li><div><b>${lang==="am"?s[1]:s[0]}</b><p>${s[2]}</p></div></li>`).join("")}</ol><div class="sfoot2">${f.go?`<a class="btn" href="#${f.go}" data-close>${t.more}</a>`:""}<a class="btn ghost" href="${mailto}">${t.talk}</a><button class="btn ghost" type="button" data-ask>${t.ask}</button></div>`;$("simple").scrollTop=0}
+if(!scr){$("smbody").innerHTML=`<h2>${t.q}</h2><p class="sub">${t.tap}</p><div class="tiles">${HT.map(k=>`<button data-k="${k}" style="background:${FLOW[k].c}">${ico(FLOW[k].ic)}<span>${tTitle(k)}${lang!=="en"?`<small>${FLOW[k].en}</small>`:""}</span></button>`).join("")}<button data-k="talk" style="background:#2f7d57;color:#fff">${ico('<path d="M4 5h16v11H8l-4 4z"/>').replace('stroke="#141814"','stroke="#fff"')}<span>${t.talk}</span></button></div><div class="sfoot2"><a class="btn" href="${mailto}">${t.mail}: hello@balagerhub.com</a><button class="btn ghost" type="button" data-ask>${t.ask}</button></div><p class="small" style="margin-top:18px">${t.note}</p>`;return}
+const f=FLOW[scr];$("smbody").innerHTML=`<button class="sback" data-back>${t.back}</button><h2>${tTitle(scr)}</h2>${lang!=="en"?`<p class="sub">${f.en}</p>`:""}<ol class="ssteps">${f.s.map((s,i)=>`<li><div><b>${tStep(scr,i)}</b><p>${s[2]}</p></div></li>`).join("")}</ol><div class="sfoot2">${f.go?`<a class="btn" href="#${f.go}" data-close>${t.more}</a>`:""}<a class="btn ghost" href="${mailto}">${t.talk}</a><button class="btn ghost" type="button" data-ask>${t.ask}</button></div>`;$("simple").scrollTop=0}
 const openSimple=o=>{$("simple").classList.toggle("open",o);document.body.style.overflow=o?"hidden":"";if(o){scr=null;drawSimple()}};
 document.querySelectorAll("[data-simple]").forEach(b=>b.addEventListener("click",()=>{menu.classList.remove("open");openSimple(true)}));
 $("smclose").addEventListener("click",()=>openSimple(false));
