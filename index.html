@@ -621,24 +621,26 @@ function drawMoney(){
 const {live,b}=rows();
 $("mtable").innerHTML=live.map((a,i)=>`<tr class="${i===0?"best":""}"><td><b>${a.n}</b><small>${a.k}</small></td><td class="mhide">${a.to}</td><td>${a.note}</td><td class="r got">${amt?br(a.v):"—"}</td></tr>`).join("")
 +apps.filter(a=>a.rate==null).map(a=>`<tr><td><b>${a.n}</b><small>${a.k}</small></td><td class="mhide">${a.to}</td><td>${a.note}</td><td class="r soon">Live soon</td></tr>`).join("")
-+`<tr><td><b>NBE benchmark</b><small>Indicative rate</small></td><td class="mhide">—</td><td>${R.nbe.toFixed(2)} (${day(R.date)})</td><td class="r got">${amt?br(amt*R.nbe):"—"}</td></tr>`;
++`<tr><td><b>NBE benchmark</b><small>Indicative rate</small></td><td class="mhide">—</td><td>${R.nbe.toFixed(2)} (${day(R.nbeDate||R.date)})</td><td class="r got">${amt?br(amt*R.nbe):"—"}</td></tr>`;
 $("herorows").innerHTML=apps.filter(a=>a.rate!=null).map(a=>({n:a.n,s:a.fee?"+$"+a.fee+" fee":"no fee",v:(500-a.fee)*a.rate})).concat([{n:b[0]+" bureau",s:"cash, in Ethiopia",v:500*b[1]}]).sort((x,y)=>y.v-x.v).slice(0,4).map((a,i)=>`<div class="hrow ${i===0?"best":""}"><span><b>${a.n}</b><small>${a.s}</small></span><strong>${Math.round(a.v).toLocaleString("en-US")}</strong></div>`).join("");
 }
 function drawBureaus(){
-$("btable").innerHTML=R.bureaus.map(([n,bu,se,st])=>`<tr><td><b>${n}</b>${st?`<small>last update ${st}</small>`:""}</td><td class="r">${bu.toFixed(2)}</td><td class="r">${se.toFixed(2)}</td></tr>`).join("")+`<tr><td><b>NBE indicative</b></td><td class="r">${R.nbe.toFixed(2)}</td><td class="r">—</td></tr>`;
+$("btable").innerHTML=R.bureaus.map(([n,bu,se,st])=>`<tr><td><b>${n}</b>${st?`<small>last update ${st}</small>`:""}</td><td class="r">${bu.toFixed(2)}</td><td class="r">${se.toFixed(2)}</td></tr>`).join("")+`<tr><td><b>NBE indicative</b><small>${day(R.nbeDate||R.date)}</small></td><td class="r">${R.nbe.toFixed(2)}</td><td class="r">—</td></tr>`;
 $("bdate").textContent="· "+day(R.date);
 const b=best();$("prem").textContent=Math.round((b[1]/R.nbe-1)*100)+"%";
-$("pilltxt").textContent=`Best bureau today: ${b[0]} ${b[1].toFixed(2)} birr per dollar · NBE ${R.nbe.toFixed(2)} · ${day(R.date)}`;
-const items=R.bureaus.slice(0,5).map(x=>`<span><b>${x[0]}</b>${x[1].toFixed(2)} buys</span>`).concat([`<span><b>NBE</b>${R.nbe.toFixed(2)} · ${day(R.date)}</span>`,`<span><b>Remitly</b>181.00 + $5</span>`,`<span><b>Taptap Send</b>174.00 · no fee</span>`,`<span><b>Remittances 2025/26</b>$8.2bn</span>`,`<span><b>Site visits</b>from ~$100</span>`]).join("");
+$("pilltxt").textContent=`Best bureau: ${b[0]} ${b[1].toFixed(2)} birr per dollar · ${day(R.date)} · NBE ${R.nbe.toFixed(2)}`;
+const items=R.bureaus.slice(0,5).map(x=>`<span><b>${x[0]}</b>${x[1].toFixed(2)} buys</span>`).concat([`<span><b>NBE</b>${R.nbe.toFixed(2)} · ${day(R.nbeDate||R.date)}</span>`,`<span><b>Remitly</b>181.00 + $5</span>`,`<span><b>Taptap Send</b>174.00 · no fee</span>`,`<span><b>Remittances 2025/26</b>$8.2bn</span>`,`<span><b>Site visits</b>from ~$100</span>`]).join("");
 $("tick").innerHTML=items+items;
 }
 document.querySelectorAll("#amts button").forEach(bt=>bt.addEventListener("click",()=>{document.querySelectorAll("#amts button").forEach(x=>x.setAttribute("aria-pressed","false"));bt.setAttribute("aria-pressed","true");amt=parseFloat(bt.textContent.replace(/[^0-9.]/g,""));$("amt").value="";drawMoney()}));
 $("amt").addEventListener("input",e=>{const v=parseFloat(e.target.value.replace(/[^0-9.]/g,""));document.querySelectorAll("#amts button").forEach(x=>x.setAttribute("aria-pressed","false"));amt=v>0?v:0;drawMoney()});
 drawBureaus();drawMoney();
 fetch("https://forex.mabellesystems.com/rates.json",{cache:"no-store"}).then(r=>r.ok?r.json():Promise.reject()).then(j=>{
-const d=j.days&&j.days[0];if(!d||!d.nbe||!d.nbe.USD||!d.quotes)return;
-const bs=Object.entries(d.quotes).map(([k,q])=>{const u=q.rates&&q.rates.USD;if(!u)return null;const up=(q.updatedAt||"").slice(0,10);return [NAMES[k]||k,u.buy,u.sell,up&&up<d.date?day(up):""]}).filter(Boolean).sort((a,b)=>(a[3]?1:0)-(b[3]?1:0)||b[1]-a[1]);
-if(!bs.length)return;R={date:d.date,nbe:d.nbe.USD,bureaus:bs};drawBureaus();drawMoney()}).catch(()=>{});
+const days=(j.days||[]).slice(0,5);if(!days.length)return;const latest=days[0].date;
+const nd=days.find(d=>d.nbe&&d.nbe.USD);if(!nd)return;
+const seen={},bs=[];days.forEach(d=>Object.entries(d.quotes||{}).forEach(([k,q])=>{if(seen[k])return;const u=q.rates&&q.rates.USD;if(!u||!u.buy)return;seen[k]=1;const up=(q.updatedAt||d.date).slice(0,10);bs.push([NAMES[k]||k,u.buy,u.sell,up<latest?day(up):""])}));
+bs.sort((a,b)=>(a[3]?1:0)-(b[3]?1:0)||b[1]-a[1]);if(!bs.length)return;
+R={date:latest,nbe:nd.nbe.USD,nbeDate:nd.date,bureaus:bs};drawBureaus();drawMoney()}).catch(()=>{});
 
 /* ---------- ratings ---------- */
 const GC={A:"#4fc1c6",B:"#9ad6a0",C:"#f7e463",D:"#f0954a"};
