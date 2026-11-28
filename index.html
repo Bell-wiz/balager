@@ -735,10 +735,16 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&sp.classList.contai
 
 /* ---------- visit counter ---------- */
 const COUNTER_URL="https://balager-counter.felleke.workers.dev";
+const SRC={tg:"Telegram",wa:"WhatsApp",fb:"Facebook",ig:"Instagram",tt:"TikTok",x:"X (Twitter)",li:"LinkedIn",em:"Email",yt:"YouTube",qr:"QR code"};
+function visitSource(){let s="";try{const q=new URLSearchParams(location.search);const t=(q.get("src")||"").toLowerCase();if(t){s=SRC[t]||t.slice(0,20);q.delete("src");const qs=q.toString();history.replaceState(null,"",location.pathname+(qs?"?"+qs:"")+location.hash)}}catch(e){}
+if(s)return s;let r="";try{r=new URL(document.referrer).hostname.replace(/^www\./,"")}catch(e){}
+if(!r||r==="balagerhub.com")return "";const M=[[/t\.me|telegram/,"Telegram"],[/whatsapp|wa\.me/,"WhatsApp"],[/facebook|fb\.com|fb\.me/,"Facebook"],[/instagram/,"Instagram"],[/google\./,"Google"],[/bing\./,"Bing"],[/t\.co$|twitter|x\.com/,"X (Twitter)"],[/linkedin|lnkd/,"LinkedIn"],[/tiktok/,"TikTok"],[/youtube|youtu\.be/,"YouTube"]];
+for(const [re,n] of M)if(re.test(r))return n;return r.slice(0,40)}
+const vsrc=visitSource();
 if(COUNTER_URL){let first=true,isNew=false,owner=false;
 try{const q=new URLSearchParams(location.search);if(q.has("me")){if(q.get("me")==="0")localStorage.removeItem("bowner");else localStorage.setItem("bowner","1");history.replaceState(null,"",location.pathname+location.hash)}
 owner=!!localStorage.getItem("bowner");first=!sessionStorage.getItem("bv");sessionStorage.setItem("bv","1");if(!owner){isNew=!localStorage.getItem("bu");localStorage.setItem("bu","1")}}catch(e){}
-fetch(COUNTER_URL+(first&&!owner?(isNew?"/hit?new=1":"/hit"):"/"),{cache:"no-store"}).then(r=>r.ok?r.json():Promise.reject()).then(j=>{if(j&&j.visits>0){const v=$("visits");v.textContent=j.visits.toLocaleString("en-US")+" visits since launch"+(owner?" · your visits aren’t counted":"");v.hidden=false}}).catch(()=>{})}
+fetch(COUNTER_URL+(first&&!owner?"/hit?"+(isNew?"new=1&":"")+(vsrc?"src="+encodeURIComponent(vsrc):""):"/"),{cache:"no-store"}).then(r=>r.ok?r.json():Promise.reject()).then(j=>{if(j&&j.visits>0){const v=$("visits");v.textContent=j.visits.toLocaleString("en-US")+" visits since launch"+(owner?" · your visits aren’t counted":"");v.hidden=false}}).catch(()=>{})}
 /* ---------- how it works + simple mode ---------- */
 const FLOW={
 house:{en:"Check a house",am:"ቤት ማረጋገጥ",c:"#f5c542",ic:'<circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/>',s:[["Tell us the address","አድራሻውን ይንገሩን","Send the location, the developer or seller, and what you want checked."],["We send an independent inspector","ገለልተኛ ተቆጣጣሪ እንልካለን","Never chosen by the seller. Trained, rotated and spot-checked."],["Photos and video from the site","ፎቶና ቪዲዮ ከቦታው","Every photo has GPS and time. Live video if you want."],["Signed report in 72 hours","በ72 ሰዓት የተፈረመ ሪፖርት","What was checked, what was found, and what we could not check."],["You decide","እርስዎ ይወስናሉ","Pay, negotiate or walk away, with evidence in your hand."]]},
