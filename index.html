@@ -48,13 +48,13 @@ header.top{position:sticky;top:0;z-index:20;background:rgba(9,12,10,.92);backdro
 .brand b{font:700 24px "Noto Sans Ethiopic",sans-serif;color:var(--gold)}
 .brand span{font:600 15px Sora,sans-serif}
 .menu{display:flex;gap:2px}
-.menu a{text-decoration:none;font-size:15px;padding:10px 12px;border-radius:999px;color:var(--nmute)}
+.menu a{white-space:nowrap;text-decoration:none;font-size:14px;padding:10px 9px;border-radius:999px;color:var(--nmute)}
 .menu a:hover{color:var(--nink);background:rgba(255,255,255,.06)}
-.navcta{min-height:42px;padding:0 18px;font-size:14px}
+.navcta{min-height:42px;padding:0 18px;font-size:14px;white-space:nowrap}
 #mbtn{display:none;background:none;border:1px solid var(--nline);color:var(--nink);border-radius:12px;width:46px;height:44px;cursor:pointer}
 #mbtn span,#mbtn span::before,#mbtn span::after{display:block;width:18px;height:2px;background:currentColor;margin:auto;position:relative;content:""}
 #mbtn span::before{position:absolute;top:-6px}#mbtn span::after{position:absolute;top:6px}
-@media(max-width:860px){#mbtn{display:block}.navcta{display:none}.menu{display:none;position:absolute;left:0;right:0;top:100%;flex-direction:column;background:var(--night);padding:8px max(5vw,18px) 18px;border-bottom:1px solid var(--nline)}.menu.open{display:flex}.menu a{padding:14px 10px;border-radius:10px;font-size:17px}}
+@media(max-width:1180px){#mbtn{display:block}.navcta{display:none}.menu{display:none;position:absolute;left:0;right:0;top:100%;flex-direction:column;background:var(--night);padding:8px max(5vw,18px) 18px;border-bottom:1px solid var(--nline)}.menu.open{display:flex}.menu a{padding:14px 10px;border-radius:10px;font-size:17px}}
 /* hero */
 .hero{position:relative;overflow:hidden;background:var(--night);color:var(--nink)}
 .hero .scene{position:absolute;inset:0;width:100%;height:100%}
@@ -224,6 +224,23 @@ footer a{color:var(--gold)}
 .av.flag{overflow:hidden;position:relative;background:#078930;width:44px;height:44px}
 .av.flag svg{flex:none}
 .av.flag i{position:absolute;right:3px;bottom:3px;width:10px;height:10px;border-radius:50%;background:#34d399;border:2px solid var(--night)}
+/* stories */
+.schips{display:flex;gap:6px;flex-wrap:wrap;margin-top:22px}
+.schips button{border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:999px;padding:0 16px;min-height:42px;font:600 14px Sora,sans-serif;cursor:pointer}
+.schips button[aria-pressed=true]{background:var(--rose);border-color:var(--rose);color:#fff}
+.stories{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:20px}
+.story{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;display:flex;flex-direction:column}
+.story .who{font-size:13px;color:var(--mute)}
+.story .co{font:600 15px Sora,sans-serif;margin-top:2px}
+.story q{display:block;font-family:"Instrument Serif",serif;font-style:italic;font-size:22px;line-height:1.25;margin:14px 0;quotes:"“" "”"}
+.story .fig{font:700 34px Sora,sans-serif;color:#ff9bb3;letter-spacing:-.02em}
+.story .fl{color:var(--mute);font-size:14px;margin:2px 0 14px}
+.story .help{font-size:13px;border-top:1px solid var(--line);padding-top:12px;margin-top:auto;color:#34d399}
+.story .src{font-size:12px;color:var(--mute);margin-top:8px}
+.story .src a{color:var(--mute)}
+.shareband{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-top:22px;border:1px solid rgba(224,85,122,.4);background:rgba(224,85,122,.07);border-radius:18px;padding:20px 22px}
+@media(max-width:960px){.stories{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+@media(max-width:600px){.stories{grid-template-columns:minmax(0,1fr)}}
 #snudge{position:fixed;right:18px;bottom:84px;z-index:29;width:min(300px,calc(100vw - 36px));background:var(--night2);color:var(--nink);border:1px solid rgba(245,197,66,.4);border-radius:16px;padding:14px;box-shadow:0 12px 34px rgba(0,0,0,.4);display:none;font-size:15px}
 #snudge.show{display:block}
 #snudge .row{display:flex;gap:8px;margin-top:10px}
@@ -258,7 +275,7 @@ footer a{color:var(--gold)}
 .steps b{display:block;font:600 16px Sora,sans-serif;margin:4px 0 6px}
 .steps p{margin:0;color:var(--mute);font-size:14px}
 /* simple mode */
-.simplebtn{background:transparent;border:1px solid rgba(245,197,66,.6);color:var(--gold);border-radius:999px;padding:0 14px;min-height:42px;font:600 14px Sora,"Noto Sans Ethiopic",sans-serif;cursor:pointer}
+.simplebtn{white-space:nowrap;background:transparent;border:1px solid rgba(245,197,66,.6);color:var(--gold);border-radius:999px;padding:0 14px;min-height:42px;font:600 14px Sora,"Noto Sans Ethiopic",sans-serif;cursor:pointer}
 #simple{position:fixed;inset:0;z-index:40;background:var(--night);color:var(--nink);overflow-y:auto;display:none}
 #simple.open{display:block}
 .sm{max-width:880px;margin:0 auto;padding:20px max(4vw,16px) 120px}
@@ -282,8 +299,8 @@ footer a{color:var(--gold)}
 .ssteps p{margin:4px 0 0;color:var(--nmute);font-size:16px}
 .sfoot2{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
 @media(max-width:700px){.tiles{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.tiles button{min-height:140px;font-size:19px}}
-@media(max-width:860px){.simplebtn.navs{display:none}}
-@media(min-width:861px){.menu .simplebtn{display:none}}
+@media(max-width:1180px){.simplebtn.navs{display:none}}
+@media(min-width:1181px){.menu .simplebtn{display:none}}
 @media(prefers-reduced-motion:no-preference){.steam,.steam2,.steam3{animation:rise 4s ease-in-out infinite}.steam2{animation-delay:1.2s}.steam3{animation-delay:2.4s}@keyframes rise{0%,100%{opacity:.2;transform:translateY(4px)}50%{opacity:.8;transform:translateY(-4px)}}}
 </style>
 </head>
@@ -294,7 +311,7 @@ footer a{color:var(--gold)}
 <header class="top">
 <div class="navin">
 <a class="brand" href="#top" aria-label="Balager home"><svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><rect width="26" height="26" rx="7" fill="#f5c542"/><path d="M6 13.5 13 7l7 6.5V20h-4.5v-4h-5v4H6z" fill="#141814"/></svg><b>ባላገር</b><span>Balager</span></a>
-<nav class="menu" id="menu" aria-label="Main"><a href="#how">How it works</a><a href="#roadmap">Services</a><a href="#money">Rates</a><a href="#ratings">Developer ratings</a><a href="#verify">Verify</a><a href="#moving">Moving home</a><a href="#pricing">Pricing</a><button class="simplebtn" type="button" data-simple style="margin:6px 0 0 8px">Simple mode · ቀላል</button></nav>
+<nav class="menu" id="menu" aria-label="Main"><a href="#how">How it works</a><a href="#roadmap">Services</a><a href="#money">Rates</a><a href="#ratings">Ratings</a><a href="#stories" style="color:#ff9bb3">Stories</a><a href="#verify">Verify</a><a href="#moving">Moving home</a><a href="#pricing">Pricing</a><button class="simplebtn" type="button" data-simple style="margin:6px 0 0 8px">Simple mode · ቀላል</button></nav>
 <button class="simplebtn navs" type="button" data-simple>Simple · ቀላል</button><a class="btn navcta" href="#roadmap">Get started</a>
 <button id="mbtn" aria-label="Open menu" aria-expanded="false" aria-controls="menu"><span></span></button>
 </div>
@@ -378,6 +395,16 @@ footer a{color:var(--gold)}
 <div class="stat"><div class="n">6–8%</div><p>average cost of sending money from the US and UK</p><div class="src">World Bank Remittance Prices</div></div>
 <div class="stat"><div class="n">16.2%</div><p>parallel-market premium at the end of September 2026, pulling money into risky channels</p><div class="src">Capital Ethiopia, Nov 2026</div></div>
 </div>
+</div></section>
+
+<section class="band" id="stories" style="background:#0e130f"><div class="wrap">
+<div class="eyebrow" style="color:#ff9bb3">Real stories · why Balager exists</div>
+<h2>Real stories. Real money. <em class="s">Never again.</em></h2>
+<p class="lede">What diaspora families and homebuyers have lived through, as reported in the Ethiopian press, and the check that could have protected them.</p>
+<div class="schips" id="schips"><button aria-pressed="true" data-c="all">All stories</button><button aria-pressed="false" data-c="dev">Developers</button><button aria-pressed="false" data-c="cost">Hidden costs</button><button aria-pressed="false" data-c="scam">Scams</button></div>
+<div class="stories" id="storygrid"></div>
+<div class="shareband"><div><h3>Has this happened to you or your family?</h3><p class="small" style="margin:6px 0 0">Share your story, anonymously if you prefer. We publish only with your written permission, and never show faces or full names.</p></div><a class="btn rose" href="mailto:hello@balagerhub.com?subject=My%20story%20for%20Balager">Share your story</a></div>
+<p class="small" style="margin-top:14px">Quotes and figures come from the published articles linked on each story. People are named only where the press already named them. Developers named here can send a reply to hello@balagerhub.com.</p>
 </div></section>
 
 <section class="band" id="how"><div class="wrap">
@@ -698,6 +725,19 @@ $("smbody").addEventListener("click",e=>{const tile=e.target.closest(".tiles but
 if(e.target.closest("[data-back]")){scr=null;drawSimple();return}
 if(e.target.closest("[data-close]")){openSimple(false);return}
 if(e.target.closest("[data-ask]")){openSimple(false);openS(true)}});
+/* ---------- real stories ---------- */
+const ST=[
+{c:"dev",w:"Diaspora homebuyers",co:"O-LOGO PLC · Kazanchis, Addis Ababa",q:"…the company has stolen our money…",f:"17 yrs",fl:"some buyers waited, after paying in full; the building’s title deed was given as loan collateral",h:"Developer rating plus a title and lien check before paying",s:"Capital Ethiopia · Jun 2019",u:"https://capitalethiopia.com/2019/06/03/homebuyers-swindled-by-diaspora-firm/"},
+{c:"dev",w:"Sewnet, diaspora investor",co:"Noah Real Estate · Addis Ababa",q:"We paid in dollars when the rate was ETB 52 per dollar.",f:"1+ year",fl:"past the delivery deadline, as of June 2026",h:"Monthly site visits and payments tied to construction stages",s:"The Reporter · Sep 2026",u:"https://www.thereporterethiopia.com/52665/"},
+{c:"dev",w:"Azeb Worku, artist",co:"Access Real Estate · African Avenue (Bole Road)",q:"The company has tricked many.",f:"1.5M Br",fl:"paid for an apartment that was never delivered, on a plot the developer did not own",h:"Title check: who really owns the land?",s:"Addis Fortune · Nov 2022",u:"https://addisfortune.news/?p=26291"},
+{c:"dev",w:"Homebuyers, mostly from the US diaspora",co:"May Real Estate · Addis Ababa",q:"After eight years of fierce court battle…",f:"8 yrs",fl:"in court before title deeds for 20 units were transferred",h:"Agreement review: title transfer dates and penalties in writing",s:"Addis Fortune · Feb 2019",u:"https://addisfortune.news/?p=3034"},
+{c:"dev",w:"Homebuyers’ groups",co:"Key Housing · Addis Ababa",q:"…incomplete and built only to block level.",f:"236 + 32",fl:"homebuyers in two court cases; the 32 say their homes were handed over unfinished",h:"Independent site visit before you accept handover",s:"Addis Fortune · Apr 2026",u:"https://addisfortune.news/homebuyers-sue-key-housing-bunna-insurance-over-alleged-breach-losses"},
+{c:"cost",w:"About 60 households",co:"Country Club Developers (CCD) · outskirts of Addis",q:"…water supply would be cut unless each paid 35,000 Br.",f:"35,000 Br",fl:"per household, or the water is cut",h:"Agreement review: service charges and who controls utilities",s:"Addis Fortune · Jul 2026",u:"https://addisfortune.news/decades-in-ccd-keeps-the-keys-sends-the-invoices"},
+{c:"scam",w:"Ethiopian immigrants in Seattle",co:"Fraud victims study",q:"…had not reported or filed complaints with legal bodies.",f:"Silent",fl:"most fraud victims in the study never filed a complaint",h:"Check before you pay, and report it if it happens",s:"Loline Magazine · May 2026 (2018 study)",u:"https://www.lolinemag.com/articles/why-ethiopians-keep-getting-scammed"}];
+let sc="all";
+function drawStories(){$("storygrid").innerHTML=ST.filter(x=>sc==="all"||x.c===sc).map(x=>`<article class="story"><div class="who">${x.w}</div><div class="co">${x.co}</div><q>${x.q}</q><div class="fig">${x.f}</div><div class="fl">${x.fl}</div><div class="help">✓ Balager: ${x.h}</div><div class="src"><a href="${x.u}" target="_blank" rel="noopener">${x.s} ↗</a></div></article>`).join("");
+document.querySelectorAll("#schips button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.c===sc)))}
+$("schips").addEventListener("click",e=>{const b=e.target.closest("button");if(b){sc=b.dataset.c;drawStories()}});drawStories();
 /* ---------- Selam nudge ---------- */
 {const nd=$("snudge");let seen=false;try{seen=!!sessionStorage.getItem("snudge")}catch(e){}
 const hide=()=>{nd.classList.remove("show");try{sessionStorage.setItem("snudge","1")}catch(e){}};
