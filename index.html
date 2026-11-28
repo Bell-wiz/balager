@@ -649,7 +649,8 @@ const apps=[
 {n:"CBE EthioDirect",k:"CBE",to:"Bank, CBE Birr",rate:null,note:"In-app quote"},
 {n:"telebirr Remit",k:"Ethio Telecom",to:"telebirr wallet",rate:null,note:"In-app quote"},
 {n:"Awash / Abyssinia Remit",k:"Ethiopian banks",to:"Bank account",rate:null,note:"Collecting"},
-{n:"WorldRemit, Western Union",k:"International",to:"Bank, wallet, cash",rate:null,note:"Collecting"}];
+{n:"WorldRemit",k:"International app",to:"Bank, mobile wallet",rate:175.01,fee:1.99,note:"175.01, $1.99 fee (28 Nov)"},
+{n:"Western Union",k:"International",to:"Bank, cash pickup",rate:161.45,fee:0,note:"161.45, no fee from a bank account (28 Nov)"}];
 let amt=500;
 const day=d=>new Date(d+"T12:00:00").toLocaleDateString("en-GB",{day:"numeric",month:"short"});
 const br=v=>"ETB "+Math.round(v).toLocaleString("en-US");
@@ -683,10 +684,13 @@ const nd=days.find(d=>d.nbe&&d.nbe.USD);if(!nd)return;
 const seen={},bs=[];days.forEach(d=>Object.entries(d.quotes||{}).forEach(([k,q])=>{if(seen[k])return;const u=q.rates&&q.rates.USD;if(!u||!u.buy)return;seen[k]=1;const up=(q.updatedAt||d.date).slice(0,10);bs.push([NAMES[k]||k,u.buy,u.sell,up<latest?day(up):""])}));
 bs.sort((a,b)=>(a[3]?1:0)-(b[3]?1:0)||b[1]-a[1]);if(!bs.length)return;
 R={date:latest,nbe:nd.nbe.USD,nbeDate:nd.date,bureaus:bs};drawBureaus();drawMoney()}).catch(()=>{});
-/* Live app rates, fetched daily by our Cloudflare worker (Taptap Send for now) */
+/* Live app rates, fetched hourly by our Cloudflare worker (Taptap Send, WorldRemit, Western Union) */
 fetch("https://balager-counter.felleke.workers.dev/apps").then(r=>r.ok?r.json():Promise.reject()).then(j=>{
-const t=j.taptap&&j.taptap.US,a=apps.find(x=>x.n==="Taptap Send");if(!t||!a||!j.at)return;
-a.rate=t.rate;a.fee=t.fee;a.note=`${t.rate.toFixed(2)}${t.fee?`, $${t.fee} fee`:", no fee"} (live, ${day(j.at.slice(0,10))})`;drawBureaus();drawMoney()}).catch(()=>{});
+let ch=0;[["taptap","Taptap Send",""],["worldremit","WorldRemit",""],["westernunion","Western Union"," from a bank account"]].forEach(([k,n,via])=>{
+const e=j[k],t=e&&e.rates&&e.rates.US,a=apps.find(x=>x.n===n);if(!t||!a||!e.at)return;
+const d=e.at.slice(0,10),fresh=(Date.now()-new Date(e.at))<36e5*30;
+a.rate=t.rate;a.fee=t.fee;a.note=`${t.rate.toFixed(2)}, ${t.fee?"$"+t.fee+" fee":"no fee"+via} (${fresh?"live, ":""}${day(d)})`;ch=1});
+if(ch){drawBureaus();drawMoney()}}).catch(()=>{});
 
 /* ---------- ratings ---------- */
 const GC={A:"#4fc1c6",B:"#9ad6a0",C:"#f7e463",D:"#f0954a"};

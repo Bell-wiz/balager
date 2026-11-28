@@ -3,32 +3,72 @@
 // GET /hit         -> counts a visit (one per browser session) and its country
 // GET /hit?new=1   -> the same, and also counts a new unique visitor (first visit ever on that browser)
 // GET /hit?src=X   -> also tallies where the visit came from (Telegram, WhatsApp, Facebook, Google...)
-// GET /apps        -> today's money-app rates to Ethiopia (Taptap Send for now), cached for an hour
+// GET /apps        -> today's money-app rates to Ethiopia (Taptap Send, WorldRemit, Western Union), cached for an hour
 // GET /stats       -> page: visits and unique visitors by source and country. No IP addresses are stored.
 const ORIGINS = ["https://balagerhub.com", "https://www.balagerhub.com", "http://balagerhub.com"];
 
-// Taptap Send publishes its rates for its own website calculator; browsers on other sites can't read it, so we fetch it here.
+// Money-app rates to Ethiopia. Each app publishes these for its own website calculator; browsers on
+// other sites can't read them, so the worker fetches them and caches the result for an hour.
+const UA = { "User-Agent": "Mozilla/5.0 (Balager rate check; hello@balagerhub.com)" };
+
+async function taptap() {
+  const r = await fetch("https://api.taptapsend.com/api/fxRates", {
+    headers: { ...UA, "Appian-Version": "web/2022-05-03.0", "X-Device-Id": "web", "X-Device-Model": "web" },
+  });
+  const j = await r.json(), out = {};
+  for (const o of j.availableCountries || [])
+    for (const k of o.corridors || [])
+      if (k.currency === "ETB" && +k.fxRate > 0)
+        out[o.isoCountryCode] = { cur: o.currency, rate: +k.fxRate, fee: +(k.senderCurrencyFlatFee || 0) };
+  return out.US ? out : null;
+}
+
+async function worldremit() {
+  const q = "mutation c($amount: BigDecimal!, $sc: CountryCode!, $scur: CurrencyCode!) { createCalculation(calculationInput: {amount: $amount, send: {country: $sc, currency: $scur}, type: SEND, receive: {country: ET, currency: ETB}, payOutMethodCode: \"BNK\"}) { calculation { informativeSummary { fee { value { amount } } } exchangeRate { value } } } }";
+  const out = {};
+  for (const [sc, scur] of [["US", "USD"], ["GB", "GBP"], ["CA", "CAD"], ["DE", "EUR"]]) {
+    const r = await fetch("https://api.worldremit.com/graphql", {
+      method: "POST",
+      headers: { ...UA, "Content-Type": "application/json", "X-WR-Platform": "Web", "X-WR-RequestID": crypto.randomUUID(), "Accept-Language": "en" },
+      body: JSON.stringify({ query: q, variables: { amount: 1000, sc, scur } }),
+    });
+    const c = (await r.json()).data?.createCalculation?.calculation;
+    if (c && c.exchangeRate?.value > 0) out[sc] = { cur: scur, rate: +c.exchangeRate.value, fee: +(c.informativeSummary?.fee?.value?.amount || 0) };
+  }
+  return out.US ? out : null;
+}
+
+async function westernunion() {
+  const body = { header_request: { version: "0.5", request_type: "PRICECATALOG" },
+    sender: { client: "WUCOM", channel: "WWEB", funds_in: "*", curr_iso3: "USD", cty_iso2_ext: "US", send_amount: "1000" },
+    receiver: { funds_out: "*", curr_iso3: "ETB", cty_iso2_ext: "ET", cty_iso2: "ET" } };
+  const r = await fetch("https://www.westernunion.com/wuconnect/prices/catalog", {
+    method: "POST", headers: { ...UA, "Content-Type": "application/json" }, body: JSON.stringify(body),
+  });
+  const j = await r.json();
+  // best total for the receiver: highest rate, then lowest fee (paying from a bank account is usually free)
+  let best = null;
+  for (const g of j.services_groups || [])
+    for (const p of g.pay_groups || [])
+      if (p.fx_rate > 0 && (!best || p.receive_amount - p.gross_fee * p.fx_rate > best.receive_amount - best.gross_fee * best.fx_rate)) best = p;
+  return best ? { US: { cur: "USD", rate: +best.fx_rate, fee: +best.gross_fee } } : null;
+}
+
 async function appRates(env) {
-  const cache = caches.default, key = new Request("https://balager-cache/apps-v1");
+  const cache = caches.default, key = new Request("https://balager-cache/apps-v2");
   const hit = await cache.match(key);
   if (hit) return hit.json();
-  let out = null;
-  try {
-    const r = await fetch("https://api.taptapsend.com/api/fxRates", {
-      headers: { "Appian-Version": "web/2022-05-03.0", "X-Device-Id": "web", "X-Device-Model": "web" },
-    });
-    if (r.ok) {
-      const j = await r.json(), taptap = {};
-      for (const o of j.availableCountries || [])
-        for (const k of o.corridors || [])
-          if (k.currency === "ETB" && +k.fxRate > 0)
-            taptap[o.isoCountryCode] = { cur: o.currency, rate: +k.fxRate, fee: +(k.senderCurrencyFlatFee || 0) };
-      if (taptap.US) out = { at: new Date().toISOString(), taptap };
-    }
-  } catch (e) {}
-  if (out) { try { await env.COUNTER.put("apps", JSON.stringify(out)); } catch (e) {} }
-  else { try { out = JSON.parse((await env.COUNTER.get("apps")) || "null"); } catch (e) {} }
-  out = out || { at: null, taptap: {} };
+  let last = {};
+  try { last = JSON.parse((await env.COUNTER.get("apps")) || "{}") || {}; } catch (e) {}
+  const now = new Date().toISOString(), out = {};
+  const jobs = { taptap, worldremit, westernunion };
+  await Promise.all(Object.entries(jobs).map(async ([name, fn]) => {
+    let v = null;
+    try { v = await fn(); } catch (e) {}
+    if (v) out[name] = { at: now, rates: v };
+    else if (last[name] && last[name].rates) out[name] = last[name]; // keep the last good figure, with its own date
+  }));
+  try { await env.COUNTER.put("apps", JSON.stringify(out)); } catch (e) {}
   await cache.put(key, new Response(JSON.stringify(out), { headers: { "Cache-Control": "max-age=3600" } }));
   return out;
 }
