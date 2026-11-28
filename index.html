@@ -643,7 +643,7 @@ const NAMES={ammann:"Ammann",ayotan:"Ayotan",dbh:"DBH",ethio:"Ethio",fourx:"Four
 let R={date:"2026-11-26",nbe:160.79,bureaus:[["Rooha",183.08,186.74,""],["Ammann",183,186.66,""],["Ethio",183,186.29,""],["Global",183,186.66,""],["Walia",183,186.66,""],["Taypay",183,186.66,""],["DBH",182.34,185.99,""],["Haron",182,185.64,"23 Nov"]]};
 const apps=[
 {n:"Remitly",k:"First transfer only",to:"Bank, telebirr",rate:167.38,fee:0,note:"167.38, no fee, first transfer (28 Nov)"},
-{n:"Taptap Send",k:"International app",to:"Bank, mobile wallet",rate:174,fee:0,note:"174.00, no fee (Jul 2026)"},
+{n:"Taptap Send",k:"International app",to:"Bank, mobile wallet",rate:180.75,fee:0,note:"180.75, no fee (28 Nov)"},
 {n:"Xe",k:"International app",to:"Bank",rate:153.2,fee:0,note:"153.20, no fee (Jul 2026)"},
 {n:"CBE Connect",k:"CBE with StarPay",to:"Banks, USD wallet",rate:null,note:"In-app quote"},
 {n:"CBE EthioDirect",k:"CBE",to:"Bank, CBE Birr",rate:null,note:"In-app quote"},
@@ -671,7 +671,7 @@ $("btable").innerHTML=R.bureaus.map(([n,bu,se,st])=>`<tr><td><b>${n}</b>${st?`<s
 $("bdate").textContent="· "+day(R.date);
 const b=best();$("prem").textContent=Math.round((b[1]/R.nbe-1)*100)+"%";
 $("pilltxt").textContent=`Best bureau: ${b[0]} ${b[1].toFixed(2)} birr per dollar · ${day(R.date)} · NBE ${R.nbe.toFixed(2)}`;
-const items=R.bureaus.slice(0,5).map(x=>`<span><b>${x[0]}</b>${x[1].toFixed(2)} buys</span>`).concat([`<span><b>NBE</b>${R.nbe.toFixed(2)} · ${day(R.nbeDate||R.date)}</span>`,`<span><b>Remitly</b>167.38 · first transfer</span>`,`<span><b>Taptap Send</b>174.00 · no fee</span>`,`<span><b>Remittances 2025/26</b>$8.2bn</span>`,`<span><b>Site visits</b>from ~$100</span>`]).join("");
+const items=R.bureaus.slice(0,5).map(x=>`<span><b>${x[0]}</b>${x[1].toFixed(2)} buys</span>`).concat([`<span><b>NBE</b>${R.nbe.toFixed(2)} · ${day(R.nbeDate||R.date)}</span>`,`<span><b>Remitly</b>167.38 · first transfer</span>`,`<span><b>Taptap Send</b>180.75 · no fee</span>`,`<span><b>Remittances 2025/26</b>$8.2bn</span>`,`<span><b>Site visits</b>from ~$100</span>`]).join("");
 $("tick").innerHTML=items+items;
 }
 document.querySelectorAll("#amts button").forEach(bt=>bt.addEventListener("click",()=>{document.querySelectorAll("#amts button").forEach(x=>x.setAttribute("aria-pressed","false"));bt.setAttribute("aria-pressed","true");amt=parseFloat(bt.textContent.replace(/[^0-9.]/g,""));$("amt").value="";drawMoney()}));
