@@ -260,6 +260,23 @@ footer a{color:var(--gold)}
 .shareband{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-top:22px;border:1px solid rgba(224,85,122,.4);background:rgba(224,85,122,.07);border-radius:18px;padding:20px 22px}
 @media(max-width:960px){.stories{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
 @media(max-width:600px){.stories{grid-template-columns:minmax(0,1fr)}}
+/* community q&a */
+.qa{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:20px;margin-top:26px;align-items:start}
+.qform{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:clamp(18px,3vw,28px);display:grid;gap:12px}
+.qform label{font-size:13px;color:var(--mute);font-weight:600}
+.qform textarea,.qform input[type=text],.qform input[type=email]{width:100%;font:16px Inter,sans-serif;color:var(--ink);background:#0b0f0c;border:1px solid var(--line);border-radius:12px;padding:12px 14px;min-height:48px}
+.qform textarea{min-height:110px;resize:vertical}
+.qtopics{display:flex;gap:6px;flex-wrap:wrap}
+.qtopics button{border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:999px;padding:0 14px;min-height:40px;font:600 13px Inter,sans-serif;cursor:pointer}
+.qtopics button[aria-pressed=true]{background:var(--gold);color:#141814;border-color:var(--gold)}
+.qrow{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}
+.qconsent{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--mute)}
+.qconsent input{width:20px;height:20px;accent-color:#34d399;flex:none;margin-top:2px}
+.qempty{border:1px dashed var(--line);border-radius:20px;padding:24px}
+.qempty ol{margin:12px 0 0;padding-left:20px;color:var(--mute)}
+.qempty li{margin:6px 0}
+@media(max-width:860px){.qa{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:520px){.qrow{grid-template-columns:minmax(0,1fr)}}
 #snudge{position:fixed;right:18px;bottom:84px;z-index:29;width:min(300px,calc(100vw - 36px));background:var(--night2);color:var(--nink);border:1px solid rgba(245,197,66,.4);border-radius:16px;padding:14px;box-shadow:0 12px 34px rgba(0,0,0,.4);display:none;font-size:15px}
 #snudge.show{display:block}
 #snudge .row{display:flex;gap:8px;margin-top:10px}
@@ -340,7 +357,8 @@ footer a{color:var(--gold)}
 <div class="mg"><button class="mt" type="button" aria-expanded="false">Guides<span aria-hidden="true">▾</span></button><div class="dd" data-g="Guides">
 <a href="#how">How it works<small>Step by step, five tasks</small></a>
 <a href="#roadmap">Your checklist<small>Money, property, paperwork, moving</small></a>
-<a href="#moving">Moving home<small>Rules in plain words</small></a></div></div>
+<a href="#moving">Moving home<small>Rules in plain words</small></a>
+<a href="#ask">Community Q&amp;A<small>Ask people who have done it</small></a></div></div>
 <button class="simplebtn" type="button" data-simple style="margin:6px 0 0 8px">Simple mode · ቀላል</button></nav>
 <button class="simplebtn navs" type="button" data-simple>Simple · ቀላል</button><a class="btn navcta" href="#roadmap">Get started</a>
 <button id="mbtn" aria-label="Open menu" aria-expanded="false" aria-controls="menu"><span></span></button>
@@ -526,6 +544,30 @@ footer a{color:var(--gold)}
 <div class="rule"><h3>Banking and cash</h3><p>Open a non-resident foreign-currency account. Staying past 90 days? Deposit foreign cash there within 90 days of arrival.</p><div class="small"><a href="#money">See today’s rates</a></div></div>
 </div>
 <p class="small" style="margin-top:16px">Still being checked with a tax adviser: income tax on foreign pensions and salaries.</p>
+</div></section>
+
+<section class="band" id="ask"><div class="wrap">
+<div class="eyebrow">Community Q&amp;A · free</div>
+<h2>“How did you <em class="s">do it?</em>”</h2>
+<p class="lede">Ask people who have already done it: Fayda, customs, buying, building, sending money. An advisor checks every answer before it is published.</p>
+<div class="qa">
+<form class="qform" id="qform">
+<label>Topic</label>
+<div class="qtopics" id="qtopics"><button type="button" aria-pressed="true">Property &amp; building</button><button type="button" aria-pressed="false">Paperwork &amp; Fayda</button><button type="button" aria-pressed="false">Sending money</button><button type="button" aria-pressed="false">Moving home</button></div>
+<label for="qtext">Your question</label>
+<textarea id="qtext" required placeholder="For example: how did you clear household goods at customs?"></textarea>
+<div class="qrow"><div><label for="qname">First name (optional)</label><input id="qname" type="text" autocomplete="given-name"></div><div><label for="qcity">City where you live (optional)</label><input id="qcity" type="text" placeholder="Toronto"></div></div>
+<label class="qconsent"><input id="qok" type="checkbox"><span>You may publish my question with my first name and city. Without this tick it is published anonymously.</span></label>
+<button class="btn" type="submit">Send my question</button>
+<div class="small" id="qmsg" role="status">Your email app opens with the question ready. We reply to you, and publish it once an advisor has checked the answer.</div>
+</form>
+<div class="qempty">
+<h3>Answered questions</h3>
+<p class="small" style="margin:6px 0 0">The first advisor-checked answers will appear here. Until then:</p>
+<ol><li>Your question reaches a real person at hello@balagerhub.com.</li><li>People who have done it, and an advisor, answer it.</li><li>The checked answer is published here for everyone, and you get it by email.</li></ol>
+<p class="small" style="margin-top:14px">Need an answer now? Try <a href="#how">How it works</a>, the <a href="#roadmap">checklists</a>, or ask Selam.</p>
+</div>
+</div>
 </div></section>
 
 <section class="band dark" id="pricing"><div class="wrap">
@@ -800,6 +842,13 @@ let sc="all";
 function drawStories(){$("storygrid").innerHTML=ST.filter(x=>sc==="all"||x.c===sc).map(x=>`<article class="story"><div class="who">${x.w}</div><div class="co">${x.co}</div><q>${x.q}</q><div class="fig">${x.f}</div><div class="fl">${x.fl}</div><div class="help">✓ Balager: ${x.h}</div><div class="src"><a href="${x.u}" target="_blank" rel="noopener">${x.s} ↗</a></div></article>`).join("");
 document.querySelectorAll("#schips button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.c===sc)))}
 $("schips").addEventListener("click",e=>{const b=e.target.closest("button");if(b){sc=b.dataset.c;drawStories()}});drawStories();
+/* ---------- community q&a ---------- */
+let qtopic="Property & building";
+$("qtopics").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;qtopic=b.textContent;document.querySelectorAll("#qtopics button").forEach(x=>x.setAttribute("aria-pressed",String(x===b)))});
+$("qform").addEventListener("submit",e=>{e.preventDefault();const q=$("qtext").value.trim();if(!q)return;
+const body=`Topic: ${qtopic}\n\nQuestion:\n${q}\n\nFirst name: ${$("qname").value.trim()||"(not given)"}\nCity: ${$("qcity").value.trim()||"(not given)"}\nPublish with name and city: ${$("qok").checked?"Yes":"No, publish anonymously"}\n`;
+location.href="mailto:hello@balagerhub.com?subject="+encodeURIComponent("Community question: "+qtopic)+"&body="+encodeURIComponent(body);
+$("qmsg").textContent="Your email app should open with the question ready. Press Send. If nothing opens, email it to hello@balagerhub.com."});
 /* ---------- Selam nudge ---------- */
 {const nd=$("snudge");let seen=false;try{seen=!!sessionStorage.getItem("snudge")}catch(e){}
 const hide=()=>{nd.classList.remove("show");try{sessionStorage.setItem("snudge","1")}catch(e){}};
