@@ -3,8 +3,35 @@
 // GET /hit         -> counts a visit (one per browser session) and its country
 // GET /hit?new=1   -> the same, and also counts a new unique visitor (first visit ever on that browser)
 // GET /hit?src=X   -> also tallies where the visit came from (Telegram, WhatsApp, Facebook, Google...)
+// GET /apps        -> today's money-app rates to Ethiopia (Taptap Send for now), cached for an hour
 // GET /stats       -> page: visits and unique visitors by source and country. No IP addresses are stored.
 const ORIGINS = ["https://balagerhub.com", "https://www.balagerhub.com", "http://balagerhub.com"];
+
+// Taptap Send publishes its rates for its own website calculator; browsers on other sites can't read it, so we fetch it here.
+async function appRates(env) {
+  const cache = caches.default, key = new Request("https://balager-cache/apps-v1");
+  const hit = await cache.match(key);
+  if (hit) return hit.json();
+  let out = null;
+  try {
+    const r = await fetch("https://api.taptapsend.com/api/fxRates", {
+      headers: { "Appian-Version": "web/2022-05-03.0", "X-Device-Id": "web", "X-Device-Model": "web" },
+    });
+    if (r.ok) {
+      const j = await r.json(), taptap = {};
+      for (const o of j.availableCountries || [])
+        for (const k of o.corridors || [])
+          if (k.currency === "ETB" && +k.fxRate > 0)
+            taptap[o.isoCountryCode] = { cur: o.currency, rate: +k.fxRate, fee: +(k.senderCurrencyFlatFee || 0) };
+      if (taptap.US) out = { at: new Date().toISOString(), taptap };
+    }
+  } catch (e) {}
+  if (out) { try { await env.COUNTER.put("apps", JSON.stringify(out)); } catch (e) {} }
+  else { try { out = JSON.parse((await env.COUNTER.get("apps")) || "null"); } catch (e) {} }
+  out = out || { at: null, taptap: {} };
+  await cache.put(key, new Response(JSON.stringify(out), { headers: { "Cache-Control": "max-age=3600" } }));
+  return out;
+}
 
 async function load(env) {
   let d = null;
@@ -55,6 +82,12 @@ export default {
   async fetch(request, env) {
     const origin = request.headers.get("Origin") || "";
     const url = new URL(request.url);
+    const cors = ORIGINS.includes(origin) ? origin : ORIGINS[0];
+    if (url.pathname === "/apps") {
+      return new Response(JSON.stringify(await appRates(env)), {
+        headers: { "Content-Type": "application/json", "Cache-Control": "max-age=600", "Access-Control-Allow-Origin": cors },
+      });
+    }
     const d = await load(env);
     if (url.pathname === "/hit") {
       const c = (request.cf && request.cf.country) || "XX";

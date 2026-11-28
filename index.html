@@ -671,7 +671,7 @@ $("btable").innerHTML=R.bureaus.map(([n,bu,se,st])=>`<tr><td><b>${n}</b>${st?`<s
 $("bdate").textContent="· "+day(R.date);
 const b=best();$("prem").textContent=Math.round((b[1]/R.nbe-1)*100)+"%";
 $("pilltxt").textContent=`Best bureau: ${b[0]} ${b[1].toFixed(2)} birr per dollar · ${day(R.date)} · NBE ${R.nbe.toFixed(2)}`;
-const items=R.bureaus.slice(0,5).map(x=>`<span><b>${x[0]}</b>${x[1].toFixed(2)} buys</span>`).concat([`<span><b>NBE</b>${R.nbe.toFixed(2)} · ${day(R.nbeDate||R.date)}</span>`,`<span><b>Remitly</b>167.38 · first transfer</span>`,`<span><b>Taptap Send</b>180.75 · no fee</span>`,`<span><b>Remittances 2025/26</b>$8.2bn</span>`,`<span><b>Site visits</b>from ~$100</span>`]).join("");
+const items=R.bureaus.slice(0,5).map(x=>`<span><b>${x[0]}</b>${x[1].toFixed(2)} buys</span>`).concat([`<span><b>NBE</b>${R.nbe.toFixed(2)} · ${day(R.nbeDate||R.date)}</span>`,`<span><b>Remitly</b>167.38 · first transfer</span>`,`<span><b>Taptap Send</b>${(apps.find(a=>a.n==="Taptap Send")||{rate:180.75}).rate.toFixed(2)} · no fee</span>`,`<span><b>Remittances 2025/26</b>$8.2bn</span>`,`<span><b>Site visits</b>from ~$100</span>`]).join("");
 $("tick").innerHTML=items+items;
 }
 document.querySelectorAll("#amts button").forEach(bt=>bt.addEventListener("click",()=>{document.querySelectorAll("#amts button").forEach(x=>x.setAttribute("aria-pressed","false"));bt.setAttribute("aria-pressed","true");amt=parseFloat(bt.textContent.replace(/[^0-9.]/g,""));$("amt").value="";drawMoney()}));
@@ -683,6 +683,10 @@ const nd=days.find(d=>d.nbe&&d.nbe.USD);if(!nd)return;
 const seen={},bs=[];days.forEach(d=>Object.entries(d.quotes||{}).forEach(([k,q])=>{if(seen[k])return;const u=q.rates&&q.rates.USD;if(!u||!u.buy)return;seen[k]=1;const up=(q.updatedAt||d.date).slice(0,10);bs.push([NAMES[k]||k,u.buy,u.sell,up<latest?day(up):""])}));
 bs.sort((a,b)=>(a[3]?1:0)-(b[3]?1:0)||b[1]-a[1]);if(!bs.length)return;
 R={date:latest,nbe:nd.nbe.USD,nbeDate:nd.date,bureaus:bs};drawBureaus();drawMoney()}).catch(()=>{});
+/* Live app rates, fetched daily by our Cloudflare worker (Taptap Send for now) */
+fetch("https://balager-counter.felleke.workers.dev/apps").then(r=>r.ok?r.json():Promise.reject()).then(j=>{
+const t=j.taptap&&j.taptap.US,a=apps.find(x=>x.n==="Taptap Send");if(!t||!a||!j.at)return;
+a.rate=t.rate;a.fee=t.fee;a.note=`${t.rate.toFixed(2)}${t.fee?`, $${t.fee} fee`:", no fee"} (live, ${day(j.at.slice(0,10))})`;drawBureaus();drawMoney()}).catch(()=>{});
 
 /* ---------- ratings ---------- */
 const GC={A:"#4fc1c6",B:"#9ad6a0",C:"#f7e463",D:"#f0954a"};
