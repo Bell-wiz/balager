@@ -48,13 +48,25 @@ header.top{position:sticky;top:0;z-index:20;background:rgba(9,12,10,.92);backdro
 .brand b{font:700 24px "Noto Sans Ethiopic",sans-serif;color:var(--gold)}
 .brand span{font:600 15px Sora,sans-serif}
 .menu{display:flex;gap:2px}
+.mg{position:relative}
+.mt{background:none;border:0;color:var(--nmute);font:15px Inter,sans-serif;padding:10px 12px;border-radius:999px;cursor:pointer;display:inline-flex;gap:6px;align-items:center;white-space:nowrap;min-height:44px}
+.mt:hover,.mg:hover .mt,.mt[aria-expanded=true]{color:var(--nink);background:rgba(255,255,255,.06)}
+.mt span{font-size:11px;transition:transform .15s}
+.mt[aria-expanded=true] span{transform:rotate(180deg)}
+.dd{display:none;position:absolute;top:calc(100% + 6px);left:-8px;min-width:280px;background:var(--night2);border:1px solid var(--nline);border-radius:16px;padding:8px;box-shadow:0 18px 40px rgba(0,0,0,.45)}
+.mg.open .dd{display:grid}
+@media(hover:hover) and (min-width:1001px){.mg:hover .dd{display:grid}.mg::after{content:"";position:absolute;left:0;right:0;top:100%;height:10px}}
+.dd a{display:block;padding:10px 12px;border-radius:10px;color:var(--nink);font-size:15px}
+.dd a small{display:block;font-size:12px;color:var(--nmute);margin-top:2px}
+.dd a:hover{background:rgba(255,255,255,.06)}
+@media(max-width:1000px){.mg{width:100%}.mt{display:none}.dd{display:grid;position:static;box-shadow:none;border:0;background:transparent;padding:0 0 6px;min-width:0}.dd a{padding:12px 10px}.dd::before{content:attr(data-g);font-size:12px;font-weight:600;color:var(--gold);padding:10px 10px 2px}}
 .menu a{white-space:nowrap;text-decoration:none;font-size:14px;padding:10px 9px;border-radius:999px;color:var(--nmute)}
 .menu a:hover{color:var(--nink);background:rgba(255,255,255,.06)}
 .navcta{min-height:42px;padding:0 18px;font-size:14px;white-space:nowrap}
 #mbtn{display:none;background:none;border:1px solid var(--nline);color:var(--nink);border-radius:12px;width:46px;height:44px;cursor:pointer}
 #mbtn span,#mbtn span::before,#mbtn span::after{display:block;width:18px;height:2px;background:currentColor;margin:auto;position:relative;content:""}
 #mbtn span::before{position:absolute;top:-6px}#mbtn span::after{position:absolute;top:6px}
-@media(max-width:1180px){#mbtn{display:block}.navcta{display:none}.menu{display:none;position:absolute;left:0;right:0;top:100%;flex-direction:column;background:var(--night);padding:8px max(5vw,18px) 18px;border-bottom:1px solid var(--nline)}.menu.open{display:flex}.menu a{padding:14px 10px;border-radius:10px;font-size:17px}}
+@media(max-width:1000px){#mbtn{display:block}.navcta{display:none}.menu{display:none;position:absolute;left:0;right:0;top:100%;flex-direction:column;background:var(--night);padding:8px max(5vw,18px) 18px;border-bottom:1px solid var(--nline)}.menu.open{display:flex}.menu a{padding:14px 10px;border-radius:10px;font-size:17px}}
 /* hero */
 .hero{position:relative;overflow:hidden;background:var(--night);color:var(--nink)}
 .hero .scene{position:absolute;inset:0;width:100%;height:100%}
@@ -299,8 +311,8 @@ footer a{color:var(--gold)}
 .ssteps p{margin:4px 0 0;color:var(--nmute);font-size:16px}
 .sfoot2{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
 @media(max-width:700px){.tiles{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.tiles button{min-height:140px;font-size:19px}}
-@media(max-width:1180px){.simplebtn.navs{display:none}}
-@media(min-width:1181px){.menu .simplebtn{display:none}}
+@media(max-width:1000px){.simplebtn.navs{display:none}}
+@media(min-width:1001px){.menu .simplebtn{display:none}}
 @media(prefers-reduced-motion:no-preference){.steam,.steam2,.steam3{animation:rise 4s ease-in-out infinite}.steam2{animation-delay:1.2s}.steam3{animation-delay:2.4s}@keyframes rise{0%,100%{opacity:.2;transform:translateY(4px)}50%{opacity:.8;transform:translateY(-4px)}}}
 </style>
 </head>
@@ -311,7 +323,18 @@ footer a{color:var(--gold)}
 <header class="top">
 <div class="navin">
 <a class="brand" href="#top" aria-label="Balager home"><svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><rect width="26" height="26" rx="7" fill="#f5c542"/><path d="M6 13.5 13 7l7 6.5V20h-4.5v-4h-5v4H6z" fill="#141814"/></svg><b>ባላገር</b><span>Balager</span></a>
-<nav class="menu" id="menu" aria-label="Main"><a href="#how">How it works</a><a href="#roadmap">Services</a><a href="#money">Rates</a><a href="#ratings">Ratings</a><a href="#stories" style="color:#ff9bb3">Stories</a><a href="#verify">Verify</a><a href="#moving">Moving home</a><a href="#pricing">Pricing</a><button class="simplebtn" type="button" data-simple style="margin:6px 0 0 8px">Simple mode · ቀላል</button></nav>
+<nav class="menu" id="menu" aria-label="Main">
+<a href="#money">Rates</a>
+<div class="mg"><button class="mt" type="button" aria-expanded="false">Property<span aria-hidden="true">▾</span></button><div class="dd" data-g="Property">
+<a href="#ratings">Developer ratings<small>Scores out of 100, with evidence</small></a>
+<a href="#stories">Real stories<small>What buyers lived through</small></a>
+<a href="#verify">Site visits<small>An inspector goes for you · ~$100</small></a></div></div>
+<div class="mg"><button class="mt" type="button" aria-expanded="false">Guides<span aria-hidden="true">▾</span></button><div class="dd" data-g="Guides">
+<a href="#how">How it works<small>Step by step, five tasks</small></a>
+<a href="#roadmap">Your checklist<small>Money, property, paperwork, moving</small></a>
+<a href="#moving">Moving home<small>Rules in plain words</small></a></div></div>
+<a href="#pricing">Pricing</a>
+<button class="simplebtn" type="button" data-simple style="margin:6px 0 0 8px">Simple mode · ቀላል</button></nav>
 <button class="simplebtn navs" type="button" data-simple>Simple · ቀላል</button><a class="btn navcta" href="#roadmap">Get started</a>
 <button id="mbtn" aria-label="Open menu" aria-expanded="false" aria-controls="menu"><span></span></button>
 </div>
@@ -559,6 +582,13 @@ const mb=$("mbtn"),menu=$("menu");
 mb.addEventListener("click",()=>{const o=menu.classList.toggle("open");mb.setAttribute("aria-expanded",String(o))});
 menu.addEventListener("click",e=>{if(e.target.tagName==="A"){menu.classList.remove("open");mb.setAttribute("aria-expanded","false")}});
 
+/* ---------- submenus ---------- */
+const mgs=[...document.querySelectorAll(".mg")];
+const closeMg=x=>mgs.forEach(g=>{if(g!==x){g.classList.remove("open");g.querySelector(".mt").setAttribute("aria-expanded","false")}});
+mgs.forEach(g=>{const b=g.querySelector(".mt");b.addEventListener("click",e=>{e.stopPropagation();const o=!g.classList.contains("open");closeMg(g);g.classList.toggle("open",o);b.setAttribute("aria-expanded",String(o))});
+g.querySelectorAll(".dd a").forEach(a=>a.addEventListener("click",()=>closeMg(null)))});
+document.addEventListener("click",e=>{if(!e.target.closest(".mg"))closeMg(null)});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeMg(null)});
 /* ---------- rates ---------- */
 const NAMES={ammann:"Ammann",ayotan:"Ayotan",dbh:"DBH",ethio:"Ethio",fourx:"Four X",global:"Global",grace:"Grace General",haron:"Haron",robust:"Robust",rooha:"Rooha",sheba:"Sheba",sibrat:"Sibrat",taypay:"Taypay",walia:"Walia",yoga:"Yoga"};
 let R={date:"2026-11-26",nbe:160.79,bureaus:[["Rooha",183.08,186.74,""],["Ammann",183,186.66,""],["Ethio",183,186.29,""],["Global",183,186.66,""],["Walia",183,186.66,""],["Taypay",183,186.66,""],["DBH",182.34,185.99,""],["Haron",182,185.64,"23 Nov"]]};
